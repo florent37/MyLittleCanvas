@@ -51,6 +51,44 @@ dependencies {
 }
 ```
 
+# Implementation
+
+# Shapes
+
+- RectShape
+- RoundRectShape
+- TextShape
+- LineShape
+- DrawableShape
+- PathShape
+- CircleShape
+
+# Methods
+
+```java
+.setColor(int)
+.setWillNotDraw(boolean)
+.getCenterX() / .getCenterY()
+.getHeight() / .getWidth()
+
+//rect / roundRect
+.setRect(left, top, left, bottom)
+.setLeft/Right/Top/Bottom(value)
+.alignLeft/Right/Top/Bottom(value / shape)
+.below(shape)
+.above(shape)
+.setCorderRadius(corner)
+.marginLeft/Right/Top/Bottom(value / shape)
+
+//text
+.setText(text)
+.setTextSizePx(size)
+.setTypeface(typeface)
+.centerIn(rectShape)
+.configureH(minX, maxX)
+.centerVertical(minY, maxY)
+```
+
 # Graph Sample
 
 [![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/graph.gif)](https://github.com/florent37/MyLittleCanvas)
