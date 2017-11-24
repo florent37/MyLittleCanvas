@@ -1,4 +1,4 @@
-package com.github.florent37.canvastoolbox;
+package com.github.florent37.mylittlecanvas;
 
 import android.content.Context;
 

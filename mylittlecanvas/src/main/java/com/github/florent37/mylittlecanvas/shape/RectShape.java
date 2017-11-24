@@ -1,4 +1,4 @@
-package com.github.florent37.canvastoolbox.shape;
+package com.github.florent37.mylittlecanvas.shape;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Canvas;

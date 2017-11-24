@@ -53,8 +53,11 @@ dependencies {
 
 # Graph Sample
 
+[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/graph.png)](https://github.com/florent37/MyLittleCanvas)
+
 Complete file, with all shaped and motion event manager
-https://github.com/florent37/MyLittleCanvas
+
+https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/MyTreeView.java
 
 ```java
 public class MyTreeView extends View {

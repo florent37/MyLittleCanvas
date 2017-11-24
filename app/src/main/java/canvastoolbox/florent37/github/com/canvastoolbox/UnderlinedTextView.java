@@ -4,9 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-import com.github.florent37.canvastoolbox.shape.RoundRectShape;
+import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
 
 
 public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextView {

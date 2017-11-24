@@ -9,11 +9,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.github.florent37.canvastoolbox.TouchEventDetector;
-import com.github.florent37.canvastoolbox.shape.LineShape;
-import com.github.florent37.canvastoolbox.shape.RectShape;
-import com.github.florent37.canvastoolbox.shape.RoundRectShape;
-import com.github.florent37.canvastoolbox.shape.TextShape;
+import com.github.florent37.mylittlecanvas.TouchEventDetector;
+import com.github.florent37.mylittlecanvas.shape.LineShape;
+import com.github.florent37.mylittlecanvas.shape.RectShape;
+import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
+import com.github.florent37.mylittlecanvas.shape.TextShape;
 
 import java.util.concurrent.atomic.AtomicReference;
 

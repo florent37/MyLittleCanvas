@@ -1,9 +1,8 @@
-package com.github.florent37.canvastoolbox.shape;
+package com.github.florent37.mylittlecanvas.shape;
 
 import android.graphics.Canvas;
-import android.graphics.RectF;
 
-import com.github.florent37.canvastoolbox.RoundRect;
+import com.github.florent37.mylittlecanvas.RoundRect;
 
 public class RoundRectShape extends RectShape {
 

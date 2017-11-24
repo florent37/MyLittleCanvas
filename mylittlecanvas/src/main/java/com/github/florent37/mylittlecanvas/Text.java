@@ -1,8 +1,7 @@
-package com.github.florent37.canvastoolbox;
+package com.github.florent37.mylittlecanvas;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.text.TextPaint;
 
 public class Text {
     public static void drawTextCentered(String text, float centerX, float centerY, Paint paint, Canvas canvas) {

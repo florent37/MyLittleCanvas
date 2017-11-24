@@ -19,6 +19,6 @@ android {
 }
 
 dependencies {
-    implementation project(":canvastoolbox")
+    implementation project(':mylittlecanvas')
     implementation 'com.android.support:appcompat-v7:26.1.0'
 }
