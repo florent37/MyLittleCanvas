@@ -1,0 +1,181 @@
+package canvastoolbox.florent37.github.com.canvastoolbox;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.support.annotation.Nullable;
+import android.text.Layout;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.github.florent37.canvastoolbox.TouchEventDetector;
+import com.github.florent37.canvastoolbox.shape.LineShape;
+import com.github.florent37.canvastoolbox.shape.RectShape;
+import com.github.florent37.canvastoolbox.shape.RoundRectShape;
+import com.github.florent37.canvastoolbox.shape.TextShape;
+
+import java.util.concurrent.atomic.AtomicReference;
+
+public class MyTreeView extends View {
+
+    final RoundRectShape parent = new RoundRectShape();
+    final TextShape textParent = new TextShape();
+
+    final RoundRectShape childLeft = new RoundRectShape();
+    final TextShape textChildLeft = new TextShape();
+    final LineShape lineParentChildLeft = new LineShape();
+
+    final RoundRectShape childRight = new RoundRectShape();
+    final TextShape textChildRight = new TextShape();
+    final LineShape lineParentChildRight = new LineShape();
+
+    public MyTreeView(Context context) {
+        this(context, null);
+    }
+
+    public MyTreeView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public MyTreeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        parent.setCorderRadius(10)
+                .setColor(Color.parseColor("#3F51B5"));
+        textParent.setColor(Color.WHITE)
+                .setTextSizePx(40);
+
+        childLeft.setCorderRadius(10)
+                .setColor(Color.parseColor("#2196F3"));
+        textChildLeft.setColor(Color.WHITE)
+                .setTextSizePx(40);
+        lineParentChildLeft.setStrokeWith(3)
+                .setColor(Color.parseColor("#3E3E3E"));
+
+        childRight.setCorderRadius(10)
+                .setColor(Color.parseColor("#9575CD"));
+        textChildRight.setColor(Color.WHITE)
+                .setTextSizePx(40);
+        lineParentChildRight.setStrokeWith(3)
+                .setColor(Color.parseColor("#3E3E3E"));
+
+        handleMoving();
+    }
+
+    private void handleMoving(){
+        final AtomicReference<RectShape> movingShape = new AtomicReference<>();
+        touchEventDetector.setListener(new TouchEventDetector.Listener() {
+            @Override
+            public void onTouched(float x, float y) {
+                if(childLeft.containsTouch(x, y)){
+                    movingShape.set(childLeft);
+                } else if(childRight.containsTouch(x, y)){
+                    movingShape.set(childRight);
+                }
+            }
+
+            @Override
+            public void onMoved(float differenceX, float differenceY, float newX, float newY) {
+                final RectShape moving = movingShape.get();
+                if (moving != null) {
+                    moving.moveBy(differenceX, differenceY);
+                    update();
+                    invalidate();
+                }
+            }
+
+            @Override
+            public void onRelease(float x, float y) {
+                movingShape.set(null);
+            }
+        });
+    }
+
+    private void init(){
+        final int parentWidth = 200;
+        parent.setTop(50)
+                .setHeight(100)
+                .setWidth(parentWidth)
+                .centerHorizontal(getWidth());
+
+        textParent.setText("parent");
+        textParent
+                .setAlignment(Layout.Alignment.ALIGN_CENTER)
+                .centerIn(parent);
+
+
+        final int childWidth = 200;
+
+        childLeft.setLeft(40)
+                .setWidth(childWidth)
+                .below(parent)
+                .marginTop(250)
+                .setHeight(100);
+
+        textChildLeft.setText("childLeft");
+        textChildLeft
+                .setAlignment(Layout.Alignment.ALIGN_CENTER)
+                .centerIn(childLeft);
+
+        lineParentChildLeft
+                .start(parent.getCenterX(), parent.getBottom())
+                .end(childLeft.getCenterX(), childLeft.getTop());
+
+        childRight.setLeft(getWidth() - childWidth - 40)
+                .setWidth(childWidth)
+                .alignTop(childLeft)
+                .setHeight(100);
+
+        textChildRight.setText("childRight");
+        textChildRight
+                .setAlignment(Layout.Alignment.ALIGN_CENTER)
+                .centerIn(childRight);
+
+        lineParentChildRight
+                .start(parent.getCenterX(), parent.getBottom())
+                .end(childRight.getCenterX(), childRight.getTop());
+    }
+
+    private void update(){
+        textChildLeft
+                .centerIn(childLeft);
+        lineParentChildLeft
+                .end(childLeft.getCenterX(), childLeft.getTop());
+
+        textChildRight
+                .centerIn(childRight);
+        lineParentChildRight
+                .end(childRight.getCenterX(), childRight.getTop());
+    }
+
+    private TouchEventDetector touchEventDetector = new TouchEventDetector();
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        touchEventDetector.onTouchEvent(event);
+        return true;
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        init();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        parent.onDraw(canvas);
+        textParent.onDraw(canvas);
+
+        childLeft.onDraw(canvas);
+        textChildLeft.onDraw(canvas);
+        lineParentChildLeft.onDraw(canvas);
+
+        childRight.onDraw(canvas);
+        textChildRight.onDraw(canvas);
+        lineParentChildRight.onDraw(canvas);
+    }
+}
