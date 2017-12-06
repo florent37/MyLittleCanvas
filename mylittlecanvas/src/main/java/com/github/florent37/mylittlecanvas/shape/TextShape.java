@@ -10,7 +10,6 @@ import android.text.TextPaint;
 
 public class TextShape extends Shape {
 
-    private final TextPaint paint = new TextPaint();
     private CharSequence text = "";
 
     private float x;
@@ -20,10 +19,6 @@ public class TextShape extends Shape {
     private Layout.Alignment alignment = Layout.Alignment.ALIGN_CENTER;
 
     public TextShape() {
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setStrokeWidth(1);
-        paint.setTypeface(Typeface.DEFAULT);
     }
 
     @Override

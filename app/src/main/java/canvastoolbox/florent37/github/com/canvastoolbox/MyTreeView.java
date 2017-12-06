@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.florent37.mylittlecanvas.TouchEventDetector;
+import com.github.florent37.mylittlecanvas.shape.DrawableShape;
 import com.github.florent37.mylittlecanvas.shape.LineShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
@@ -29,6 +30,8 @@ public class MyTreeView extends View {
     final RoundRectShape childRight = new RoundRectShape();
     final TextShape textChildRight = new TextShape();
     final LineShape lineParentChildRight = new LineShape();
+
+    final DrawableShape drawableShape = new DrawableShape();
 
     public MyTreeView(Context context) {
         this(context, null);
@@ -59,6 +62,8 @@ public class MyTreeView extends View {
                 .setTextSizePx(40);
         lineParentChildRight.setStrokeWith(3)
                 .setColor(Color.parseColor("#3E3E3E"));
+
+        drawableShape.setDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
 
         handleMoving();
     }
@@ -135,6 +140,11 @@ public class MyTreeView extends View {
         lineParentChildRight
                 .start(parent.getCenterX(), parent.getBottom())
                 .end(childRight.getCenterX(), childRight.getTop());
+
+        drawableShape.setLeft(0)
+                .setTop(0)
+                .setRight(100)
+                .setBottom(100);
     }
 
     private void update(){
@@ -177,5 +187,7 @@ public class MyTreeView extends View {
         childRight.onDraw(canvas);
         textChildRight.onDraw(canvas);
         lineParentChildRight.onDraw(canvas);
+
+        drawableShape.onDraw(canvas);
     }
 }

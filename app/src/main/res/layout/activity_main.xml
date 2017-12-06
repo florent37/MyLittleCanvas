@@ -16,7 +16,6 @@
         android:text="My Little Canvas"/>
 
     <canvastoolbox.florent37.github.com.canvastoolbox.MyTreeView
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

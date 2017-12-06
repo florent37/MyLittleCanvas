@@ -4,24 +4,33 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
+import android.text.TextPaint;
 
 public abstract class Shape {
 
-    protected final Paint paint = new Paint();
+    protected final TextPaint paint = new TextPaint();
 
     private boolean willNotDraw = false;
+
+    private float rotation = 0;
 
     public Shape() {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(1);
+        paint.setTypeface(Typeface.DEFAULT);
     }
 
     public Shape setStyle(Paint.Style style) {
         paint.setStyle(style);
         return this;
+    }
+
+    public TextPaint getPaint() {
+        return paint;
     }
 
     public Shape setColor(@ColorInt int color) {
@@ -30,8 +39,18 @@ public abstract class Shape {
         return this;
     }
 
+    public Shape setRotation(float rotation) {
+        this.rotation = rotation;
+        update();
+        return this;
+    }
+
     public float getStrokeWidth() {
         return paint.getStrokeWidth();
+    }
+
+    public float getRotation() {
+        return rotation;
     }
 
     public Shape setStrokeWidth(float width) {
@@ -44,7 +63,10 @@ public abstract class Shape {
 
     public void onDraw(Canvas canvas) {
         if (!willNotDraw) {
+            canvas.save();
+            canvas.rotate(rotation);
             draw(canvas);
+            canvas.restore();
         }
     }
 
