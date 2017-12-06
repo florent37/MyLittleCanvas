@@ -48,6 +48,10 @@ public abstract class Shape {
     public boolean isWillNotDraw() {
         return willNotDraw;
     }
+    
+    public void setStrokeWidth(final int strokeWidth) {
+        paint.setStrokeWidth(strokeWidth);
+    }
 
     public void setWillNotDraw(boolean willNotDraw) {
         this.willNotDraw = willNotDraw;
