@@ -16,6 +16,16 @@ public abstract class Shape {
         paint.setStrokeWidth(1);
     }
 
+    public Shape setStyle(Paint.Style style){
+        paint.setStyle(style);
+        return this;
+    }
+
+    public Shape setStrokeWidth(int width){
+        paint.setStrokeWidth(width);
+        return this;
+    }
+
     public Shape setColor(@ColorInt int color){
         paint.setColor(color);
         update();

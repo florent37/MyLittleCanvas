@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MyLittleCanvas.iml" filepath="$PROJECT_DIR$/MyLittleCanvas.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mylittlecanvas/canvastoolbox.iml" filepath="$PROJECT_DIR$/mylittlecanvas/canvastoolbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mylittlecanvas/mylittlecanvas.iml" filepath="$PROJECT_DIR$/mylittlecanvas/mylittlecanvas.iml" />
     </modules>
   </component>
 </project>

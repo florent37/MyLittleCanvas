@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion project.sdk
+    buildToolsVersion project.buildTools
+
     defaultConfig {
-        applicationId "canvastoolbox.florent37.github.com.canvastoolbox"
-        minSdkVersion 14
-        targetSdkVersion 26
+        minSdkVersion project.minSdk
+        targetSdkVersion project.sdk
         versionCode 1
         versionName "1.0"
+        applicationId "canvastoolbox.florent37.github.com.canvastoolbox"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,6 +21,6 @@ android {
 }
 
 dependencies {
-    implementation project(':mylittlecanvas')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile project(':mylittlecanvas')
+    compile 'com.android.support:appcompat-v7:26.1.0'
 }
