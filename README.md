@@ -3,8 +3,6 @@
 You find canvas hard to use ? try MyLittleCanvas :)
 Don't work with canvas methods, use objects instead !
 
-[![Code Sponsor](https://app.codesponsor.io/embed/iqkQGAc2EFNdScAzpwZr1Sdy/florent37/MyLittleCanvas.svg)](https://app.codesponsor.io/link/iqkQGAc2EFNdScAzpwZr1Sdy/florent37/MyLittleCanvas)
-
 For example, to add a custom underline on a textview
 
 [![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/text_anim.gif)](https://github.com/florent37/MyLittleCanvas)
