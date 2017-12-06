@@ -1,6 +1,7 @@
 package com.github.florent37.mylittlecanvas.shape;
 
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -109,12 +110,20 @@ public abstract class RectShape extends Shape  {
         return this;
     }
 
-    public ObjectAnimator animateLeft(float newLeft){
+    public ValueAnimator animateLeft(float...newLeft){
         return ObjectAnimator.ofFloat(this, "left", newLeft);
     }
 
-    public ObjectAnimator animateRight(float newRight){
+    public ValueAnimator animateRight(float...newRight){
         return ObjectAnimator.ofFloat(this, "right", newRight);
+    }
+
+    public ValueAnimator animateTop(float...newTop) {
+        return ObjectAnimator.ofFloat(this, "top", newTop);
+    }
+
+    public ValueAnimator animateBottom(float...newBottom) {
+        return ObjectAnimator.ofFloat(this, "bottom", newBottom);
     }
 
     @Override

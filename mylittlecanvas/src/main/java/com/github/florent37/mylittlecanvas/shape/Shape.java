@@ -1,8 +1,11 @@
 package com.github.florent37.mylittlecanvas.shape;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
 
 public abstract class Shape {
 
@@ -16,18 +19,23 @@ public abstract class Shape {
         paint.setStrokeWidth(1);
     }
 
-    public Shape setStyle(Paint.Style style){
+    public Shape setStyle(Paint.Style style) {
         paint.setStyle(style);
         return this;
     }
 
-    public Shape setStrokeWidth(int width){
-        paint.setStrokeWidth(width);
+    public Shape setColor(@ColorInt int color) {
+        paint.setColor(color);
+        update();
         return this;
     }
 
-    public Shape setColor(@ColorInt int color){
-        paint.setColor(color);
+    public float getStrokeWidth() {
+        return paint.getStrokeWidth();
+    }
+
+    public Shape setStrokeWidth(float width) {
+        paint.setStrokeWidth(width);
         update();
         return this;
     }
@@ -35,27 +43,71 @@ public abstract class Shape {
     protected abstract void draw(Canvas canvas);
 
     public void onDraw(Canvas canvas) {
-        if(!willNotDraw){
+        if (!willNotDraw) {
             draw(canvas);
         }
     }
 
-    protected void update(){}
+    protected void update() {
+    }
 
     public abstract int getCenterX();
+
     public abstract int getCenterY();
 
     public boolean isWillNotDraw() {
         return willNotDraw;
     }
-    
-    public void setStrokeWidth(final int strokeWidth) {
-        paint.setStrokeWidth(strokeWidth);
-    }
 
-    public void setWillNotDraw(boolean willNotDraw) {
+    public Shape setWillNotDraw(boolean willNotDraw) {
         this.willNotDraw = willNotDraw;
+        return this;
     }
 
     public abstract boolean containsTouch(float x, float y);
+
+    public float getAlpha() {
+        return paint.getAlpha() / 255f;
+    }
+
+    public Shape setAlpha(@FloatRange(from = 0.0f, to = 1.0f) final float alpha) {
+        paint.setAlpha((int) (255 * alpha));
+        update();
+        return this;
+    }
+
+    public ValueAnimator animateAlpha(@FloatRange(from = 0.0f, to = 1.0f) final float... alpha) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(alpha);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setAlpha((float) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
+
+    public ValueAnimator animateColor(final int... color) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofInt(color);
+        valueAnimator.setEvaluator(new ArgbEvaluator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setColor((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
+
+    public ValueAnimator animateStrokeWidth(final float... strokeWidth) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(strokeWidth);
+        valueAnimator.setEvaluator(new ArgbEvaluator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setStrokeWidth((float) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
 }

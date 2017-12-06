@@ -1,16 +1,19 @@
 package canvastoolbox.florent37.github.com.canvastoolbox;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
+import com.github.florent37.mylittlecanvas.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
 
 
 public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextView {
 
     final RoundRectShape roundRectShape = new RoundRectShape();
+    final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
 
     public UnderlinedTextView(Context context) {
         this(context, null);
@@ -36,6 +39,19 @@ public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextV
                 .setWidth(w)
                 .setHeight(10)
                 .alignBottom(h);
+
+        //clear olds anims
+        shapeAnimator.clear();
+
+        //start animation
+        shapeAnimator
+                .setRepeatCount(ValueAnimator.INFINITE)
+                .setDuration(1000)
+                .playTogether(
+                        roundRectShape.animateLeft(roundRectShape.getLeft(), roundRectShape.getLeft() + 10, roundRectShape.getLeft()),
+                        roundRectShape.animateRight(roundRectShape.getRight(), roundRectShape.getRight() - 10, roundRectShape.getRight())
+                )
+                .start();
     }
 
     @Override

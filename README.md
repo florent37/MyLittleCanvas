@@ -7,13 +7,15 @@ Don't work with canvas methods, use objects instead !
 
 For example, to add a custom underline on a textview
 
-[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/textview.png)](https://github.com/florent37/MyLittleCanvas)
+[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/text_anim.gif)](https://github.com/florent37/MyLittleCanvas)
 
 ```java
 public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextView {
 
     //define your canvas shapes
     final RoundRectShape roundRectShape = new RoundRectShape();
+
+    final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
 
     public UnderlinedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -32,6 +34,21 @@ public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextV
                 .setWidth(w)
                 .setHeight(10)
                 .alignBottom(h);
+
+        //for the animation
+
+        //clear & cancel olds anims
+        shapeAnimator.clear();
+
+        //start animation
+        shapeAnimator
+                .setRepeatCount(ValueAnimator.INFINITE)
+                .setDuration(1000)
+                .playTogether(
+                        roundRectShape.animateLeft(roundRectShape.getLeft(), roundRectShape.getLeft() + 10, roundRectShape.getLeft()),
+                        roundRectShape.animateRight(roundRectShape.getRight(), roundRectShape.getRight() - 10, roundRectShape.getRight())
+                )
+                .start();
     }
 
     @Override
@@ -42,6 +59,8 @@ public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextV
     }
 }
 ```
+
+[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/textview.png)](https://github.com/florent37/MyLittleCanvas)
 
 <a href='https://ko-fi.com/A160LCC' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
