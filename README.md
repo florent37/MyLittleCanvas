@@ -3,6 +3,12 @@
 You find canvas hard to use ? try MyLittleCanvas :)
 Don't work with canvas methods, use objects instead !
 
+
+<a href="https://goo.gl/WXW8Dc">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
+
+
 For example, to add a custom underline on a textview
 
 [![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/text_anim.gif)](https://github.com/florent37/MyLittleCanvas)
@@ -182,9 +188,11 @@ Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentc
 
 Blog : [http://www.tutos-android-france.com/](http://www.tutos-android-france.com/)
 
-<a href="https://play.google.com/store/apps/details?id=com.github.florent37.florent.champigny">
+
+<a href="https://goo.gl/WXW8Dc">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
+
 <a href="https://plus.google.com/+florentchampigny">
   <img alt="Follow me on Google+"
        src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/gplus.png" />
