@@ -1,5 +1,7 @@
 package com.github.florent37.mylittlecanvas.shape;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 
 public class CircleShape extends Shape {
@@ -16,6 +18,11 @@ public class CircleShape extends Shape {
         return this;
     }
 
+    public CircleShape setRadius(final float radius) {
+        this.radius = (int) radius;
+        return this;
+    }
+
     public CircleShape setCenterX(final int centerX) {
         this.centerX = centerX;
         return this;
@@ -24,6 +31,28 @@ public class CircleShape extends Shape {
     public CircleShape setCenterY(final int centerY) {
         this.centerY = centerY;
         return this;
+    }
+
+    public CircleShape setCenterX(final float centerX) {
+        this.centerX = (int) centerX;
+        return this;
+    }
+
+    public CircleShape setCenterY(final float centerY) {
+        this.centerY = (int) centerY;
+        return this;
+    }
+
+    public ValueAnimator animateCenterX(float...values){
+        return ObjectAnimator.ofFloat(this, "centerX", values);
+    }
+
+    public ValueAnimator animateCenterY(float...values){
+        return ObjectAnimator.ofFloat(this, "centerY", values);
+    }
+
+    public ValueAnimator animateRadius(float...values){
+        return ObjectAnimator.ofFloat(this, "radius", values);
     }
 
     public CircleShape setBorderColor(final int borderColor) {
