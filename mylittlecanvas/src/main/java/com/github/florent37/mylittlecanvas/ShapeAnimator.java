@@ -6,6 +6,8 @@ import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +20,23 @@ public class ShapeAnimator {
     private long duration = 300;
     private long startDelay = 0;
 
+    private Interpolator interpolator = new LinearInterpolator();
+
     private List<OnAnimationStart> onAnimationStarts = new ArrayList<>();
     private List<OnAnimationEnd> onAnimationEnds = new ArrayList<>();
 
     public ShapeAnimator(@NonNull View view) {
         this.view = view;
+    }
+
+    public ShapeAnimator(@NonNull View view, List<ValueAnimator> animators) {
+        this(view);
+        playTogether(animators);
+    }
+
+    public ShapeAnimator(@NonNull View view, ValueAnimator...animators) {
+        this(view);
+        playTogether(animators);
     }
 
     public void clear(){
@@ -44,9 +58,16 @@ public class ShapeAnimator {
         return this;
     }
 
-    public ShapeAnimator start(){
+    public ShapeAnimator setInterpolator(Interpolator interpolator) {
+        this.interpolator = interpolator;
+        return this;
+    }
+
+    public ShapeAnimator start(@Nullable final OnAnimationEnd onAnimationEnd){
         //do not use AnimatorSet because you cannot use setRepeatCount
         if(!animators.isEmpty()){
+            this.onAnimationEnd(onAnimationEnd);
+
             animators.get(0).addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -66,6 +87,7 @@ public class ShapeAnimator {
         for (ValueAnimator animator : animators) {
             animator.setRepeatCount(repeatCount);
             animator.setDuration(duration);
+            animator.setInterpolator(interpolator);
             animator.setStartDelay(startDelay);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
