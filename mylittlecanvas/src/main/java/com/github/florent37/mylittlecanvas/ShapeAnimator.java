@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ShapeAnimator {
     private View view;
@@ -24,6 +25,7 @@ public class ShapeAnimator {
 
     private List<OnAnimationStart> onAnimationStarts = new ArrayList<>();
     private List<OnAnimationEnd> onAnimationEnds = new ArrayList<>();
+    private AtomicInteger endedAnimationsCount = new AtomicInteger(0);
 
     public ShapeAnimator(@NonNull View view) {
         this.view = view;
@@ -34,24 +36,24 @@ public class ShapeAnimator {
         playTogether(animators);
     }
 
-    public ShapeAnimator(@NonNull View view, ValueAnimator...animators) {
+    public ShapeAnimator(@NonNull View view, ValueAnimator... animators) {
         this(view);
         playTogether(animators);
     }
 
-    public void clear(){
+    public void clear() {
         for (ValueAnimator animator : animators) {
             animator.cancel();
         }
         animators.clear();
     }
 
-    public ShapeAnimator playTogether(List<ValueAnimator> animators){
+    public ShapeAnimator playTogether(List<ValueAnimator> animators) {
         this.animators.addAll(animators);
         return this;
     }
 
-    public ShapeAnimator playTogether(ValueAnimator...animators){
+    public ShapeAnimator playTogether(ValueAnimator... animators) {
         if (animators != null) {
             this.animators.addAll(Arrays.asList(animators));
         }
@@ -68,25 +70,16 @@ public class ShapeAnimator {
         return start();
     }
 
-    public ShapeAnimator start(){
-        //do not use AnimatorSet because you cannot use setRepeatCount
-        if(!animators.isEmpty()){
-            animators.get(0).addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    for (OnAnimationStart onAnimationStart : onAnimationStarts) {
-                        onAnimationStart.onAnimationStart();
-                    }
-                }
+    public ShapeAnimator start() {
+        endedAnimationsCount.set(0);
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    for (OnAnimationEnd onAnimationEnd : onAnimationEnds) {
-                        onAnimationEnd.onAnimationEnd();
-                    }
-                }
-            });
+        for (OnAnimationStart onAnimationStart : onAnimationStarts) {
+            onAnimationStart.onAnimationStart();
         }
+        //do not use AnimatorSet because you cannot use setRepeatCount
+
+        final int animationCount = animators.size();
+
         for (ValueAnimator animator : animators) {
             animator.setRepeatCount(repeatCount);
             animator.setDuration(duration);
@@ -100,7 +93,19 @@ public class ShapeAnimator {
                     }
                 }
             });
-            animator.start();
+            animator.addListener(
+                    new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            final int finishedAnims = endedAnimationsCount.incrementAndGet();
+                            if(animationCount == finishedAnims) {
+                                for (OnAnimationEnd onAnimationEnd : onAnimationEnds) {
+                                    onAnimationEnd.onAnimationEnd();
+                                }
+                            }
+                        }
+                    }
+            );
         }
         return this;
     }
@@ -120,15 +125,15 @@ public class ShapeAnimator {
         return this;
     }
 
-    public ShapeAnimator onAnimationEnd(@Nullable final OnAnimationEnd onAnimationEnd){
-        if(onAnimationEnd != null){
+    public ShapeAnimator onAnimationEnd(@Nullable final OnAnimationEnd onAnimationEnd) {
+        if (onAnimationEnd != null) {
             this.onAnimationEnds.add(onAnimationEnd);
         }
         return this;
     }
 
-    public ShapeAnimator onAnimationStart(@Nullable final OnAnimationStart onAnimationStart){
-        if(onAnimationStart != null){
+    public ShapeAnimator onAnimationStart(@Nullable final OnAnimationStart onAnimationStart) {
+        if (onAnimationStart != null) {
             this.onAnimationStarts.add(onAnimationStart);
         }
         return this;
