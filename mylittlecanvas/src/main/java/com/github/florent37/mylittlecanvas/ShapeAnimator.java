@@ -106,6 +106,7 @@ public class ShapeAnimator {
                         }
                     }
             );
+            animator.start();
         }
         return this;
     }
