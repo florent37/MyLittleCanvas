@@ -1,8 +1,10 @@
 package com.github.florent37.mylittlecanvas;
 
-import android.animation.ObjectAnimator;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ public class ShapeAnimator {
     private int repeatCount = 1;
     private long duration = 300;
     private long startDelay = 0;
+
+    private List<OnAnimationStart> onAnimationStarts = new ArrayList<>();
+    private List<OnAnimationEnd> onAnimationEnds = new ArrayList<>();
 
     public ShapeAnimator(@NonNull View view) {
         this.view = view;
@@ -41,6 +46,23 @@ public class ShapeAnimator {
 
     public ShapeAnimator start(){
         //do not use AnimatorSet because you cannot use setRepeatCount
+        if(!animators.isEmpty()){
+            animators.get(0).addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    for (OnAnimationStart onAnimationStart : onAnimationStarts) {
+                        onAnimationStart.onAnimationStart();
+                    }
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    for (OnAnimationEnd onAnimationEnd : onAnimationEnds) {
+                        onAnimationEnd.onAnimationEnd();
+                    }
+                }
+            });
+        }
         for (ValueAnimator animator : animators) {
             animator.setRepeatCount(repeatCount);
             animator.setDuration(duration);
@@ -71,5 +93,27 @@ public class ShapeAnimator {
     public ShapeAnimator setStartDelay(long startDelay) {
         this.startDelay = startDelay;
         return this;
+    }
+
+    public ShapeAnimator onAnimationEnd(@Nullable final OnAnimationEnd onAnimationEnd){
+        if(onAnimationEnd != null){
+            this.onAnimationEnds.add(onAnimationEnd);
+        }
+        return this;
+    }
+
+    public ShapeAnimator onAnimationStart(@Nullable final OnAnimationStart onAnimationStart){
+        if(onAnimationStart != null){
+            this.onAnimationStarts.add(onAnimationStart);
+        }
+        return this;
+    }
+
+    public interface OnAnimationStart {
+        void onAnimationStart();
+    }
+
+    public interface OnAnimationEnd {
+        void onAnimationEnd();
     }
 }
