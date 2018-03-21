@@ -16,7 +16,7 @@ import java.util.List;
 public class ShapeAnimator {
     private View view;
     private List<ValueAnimator> animators = new ArrayList<>();
-    private int repeatCount = 1;
+    private int repeatCount = 0;
     private long duration = 300;
     private long startDelay = 0;
 
