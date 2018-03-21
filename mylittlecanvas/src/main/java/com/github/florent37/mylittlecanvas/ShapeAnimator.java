@@ -63,11 +63,14 @@ public class ShapeAnimator {
         return this;
     }
 
-    public ShapeAnimator start(@Nullable final OnAnimationEnd onAnimationEnd){
+    public ShapeAnimator start(@Nullable final OnAnimationEnd onAnimationEnd) {
+        this.onAnimationEnd(onAnimationEnd);
+        return start();
+    }
+
+    public ShapeAnimator start(){
         //do not use AnimatorSet because you cannot use setRepeatCount
         if(!animators.isEmpty()){
-            this.onAnimationEnd(onAnimationEnd);
-
             animators.get(0).addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
