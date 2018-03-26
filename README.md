@@ -78,17 +78,88 @@ dependencies {
 
 # Implementation
 
-# Shapes
+## Shapes
 
-- RectShape
-- RoundRectShape
-- TextShape
-- LineShape
-- DrawableShape
-- PathShape
-- CircleShape
+### Circle
 
-# Methods
+```java
+CircleShape circle = new CircleShape();
+circle.setColor(Color.BLUE);
+
+circle.setRadius(14)
+      .setCenterX(50)
+      .setCenterY(50);
+```
+
+### Rect
+
+```java
+RectShape rect = new RectShape();
+rect.setColor(Color.BLUE);
+
+rect.setLeft(10)
+    .setTop(10)
+    .setWidth(50)
+    .setHeigh(50);
+```
+
+### RoundRect
+
+```java
+RoundRectShape rect = new RoundRectShape();
+rect.setColor(Color.BLUE);
+rect.setCorderRadius(15);
+
+rect.setLeft(10)
+    .setTop(10)
+    .setWidth(50)
+    .setHeigh(50);
+```
+
+### LineShape
+
+```java
+LineShape rect = new LineShape();
+line.setStrokeWith(10);
+line.setColor(Color.BLUE);
+
+rect.start(10, 5) //startX, startY
+    .end(50, 32); //endX, endY
+```
+
+### DrawableShape
+
+```java
+RoundRectShape shape = new RoundRectShape();
+shape.setBitmap(...);
+
+rect.setLeft(10)
+    .setTop(10)
+    .setWidth(50)
+    .setHeigh(50);
+```
+
+### TextShape
+
+```java
+TextShape text = new TextShape();
+text.setText(...);
+
+rect.configure(0, /* startX */
+               0, /* startY */
+               50, /* maxX */
+               50, /* maxY */
+               CENTER);
+```
+
+### PathShape
+
+```java
+PathShape shape = new PathShape();
+shape.setPath(...);
+```
+
+# Common methods
 
 ```java
 .setColor(int)
