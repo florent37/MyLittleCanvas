@@ -82,6 +82,8 @@ dependencies {
 
 ### Circle
 
+[![sample](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/circle.png)](https://github.com/florent37/MyLittleCanvas)
+
 ```java
 CircleShape circle = new CircleShape();
 circle.setColor(Color.BLUE);
@@ -91,19 +93,9 @@ circle.setRadius(14)
       .setCenterY(50);
 ```
 
-### Rect
-
-```java
-RectShape rect = new RectShape();
-rect.setColor(Color.BLUE);
-
-rect.setLeft(10)
-    .setTop(10)
-    .setWidth(50)
-    .setHeigh(50);
-```
-
 ### RoundRect
+
+[![sample](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/roundrect.png)](https://github.com/florent37/MyLittleCanvas)
 
 ```java
 RoundRectShape rect = new RoundRectShape();
@@ -113,10 +105,12 @@ rect.setCorderRadius(15);
 rect.setLeft(10)
     .setTop(10)
     .setWidth(50)
-    .setHeigh(50);
+    .setHeight(50);
 ```
 
 ### LineShape
+
+[![sample](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/line.png)](https://github.com/florent37/MyLittleCanvas)
 
 ```java
 LineShape rect = new LineShape();
@@ -124,7 +118,7 @@ line.setStrokeWith(10);
 line.setColor(Color.BLUE);
 
 rect.start(10, 5) //startX, startY
-    .end(50, 32); //endX, endY
+    .end(50, 5); //endX, endY
 ```
 
 ### DrawableShape
