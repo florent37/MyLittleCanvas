@@ -29,7 +29,7 @@ public class DotsView extends FrameLayout {
             Color.parseColor("#6D4C41")
     };
 
-    private int numberOfCircles = 4;
+    private int numberOfCircles = 3;
     private List<CircleShape> circles = new ArrayList<>();
 
     private AnimationHandler animationHandler = new AnimationHandler();
