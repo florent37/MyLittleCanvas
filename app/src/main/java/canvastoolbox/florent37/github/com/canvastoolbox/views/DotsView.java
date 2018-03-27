@@ -1,4 +1,4 @@
-package canvastoolbox.florent37.github.com.canvastoolbox;
+package canvastoolbox.florent37.github.com.canvastoolbox.views;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -100,4 +100,9 @@ public class CircleShape extends Shape {
     public int getBorderWidth() {
         return borderWidth;
     }
+
+    @Override
+    public CircleShape setColor(int color) {
+        return (CircleShape) super.setColor(color);
+    }
 }

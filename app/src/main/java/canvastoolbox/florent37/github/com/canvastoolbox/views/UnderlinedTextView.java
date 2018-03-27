@@ -1,4 +1,4 @@
-package canvastoolbox.florent37.github.com.canvastoolbox;
+package canvastoolbox.florent37.github.com.canvastoolbox.views;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

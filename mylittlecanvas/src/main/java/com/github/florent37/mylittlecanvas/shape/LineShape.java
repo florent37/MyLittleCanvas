@@ -1,6 +1,7 @@
 package com.github.florent37.mylittlecanvas.shape;
 
 import android.graphics.Canvas;
+import android.support.annotation.ColorInt;
 
 public class LineShape extends Shape {
 
@@ -9,7 +10,7 @@ public class LineShape extends Shape {
     private float endX;
     private float endY;
 
-    public LineShape setStrokeWith(int strokeWith){
+    public LineShape setStrokeWidth(int strokeWith){
         paint.setStrokeWidth(strokeWith);
         return this;
     }
@@ -80,5 +81,9 @@ public class LineShape extends Shape {
         setEndX(x);
         setEndY(y);
         return this;
+    }
+
+    public LineShape setColor(@ColorInt int color) {
+        return (LineShape) super.setColor(color);
     }
 }

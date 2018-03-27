@@ -26,6 +26,12 @@ public abstract class RectShape extends Shape  {
         return this;
     }
 
+    public RectShape setRectF(float left, float top, float right, float bottom) {
+        this.rectF.set(left, top, right, bottom);
+        update();
+        return this;
+    }
+
     public RectShape setWidth(float width){
         setRight(getLeft() + width);
         return this;

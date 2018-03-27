@@ -1,4 +1,4 @@
-package canvastoolbox.florent37.github.com.canvastoolbox;
+package canvastoolbox.florent37.github.com.canvastoolbox.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -53,14 +53,14 @@ public class MyTreeView extends View {
                 .setColor(Color.parseColor("#2196F3"));
         textChildLeft.setColor(Color.WHITE)
                 .setTextSizePx(40);
-        lineParentChildLeft.setStrokeWith(3)
+        lineParentChildLeft.setStrokeWidth(3)
                 .setColor(Color.parseColor("#3E3E3E"));
 
         childRight.setCorderRadius(10)
                 .setColor(Color.parseColor("#9575CD"));
         textChildRight.setColor(Color.WHITE)
                 .setTextSizePx(40);
-        lineParentChildRight.setStrokeWith(3)
+        lineParentChildRight.setStrokeWidth(3)
                 .setColor(Color.parseColor("#3E3E3E"));
 
         drawableShape.setDrawable(getResources().getDrawable(android.R.drawable.ic_delete));

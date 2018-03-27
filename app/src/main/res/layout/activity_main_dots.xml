@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <canvastoolbox.florent37.github.com.canvastoolbox.DotsView
+    <canvastoolbox.florent37.github.com.canvastoolbox.views.DotsView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true" />

@@ -8,14 +8,22 @@
     android:orientation="vertical"
     tools:context="canvastoolbox.florent37.github.com.canvastoolbox.MainActivity">
 
-    <canvastoolbox.florent37.github.com.canvastoolbox.UnderlinedTextView
+    <canvastoolbox.florent37.github.com.canvastoolbox.views.UnderlinedTextView
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="My Little Canvas"/>
 
-    <canvastoolbox.florent37.github.com.canvastoolbox.MyTreeView
+    <canvastoolbox.florent37.github.com.canvastoolbox.views.SliderView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="My Little Canvas"/>
+
+    <canvastoolbox.florent37.github.com.canvastoolbox.views.MyTreeView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

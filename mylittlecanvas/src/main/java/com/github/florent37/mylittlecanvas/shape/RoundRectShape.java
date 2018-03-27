@@ -76,4 +76,9 @@ public class RoundRectShape extends RectShape {
         update();
         return this;
     }
+
+    @Override
+    public RoundRectShape setColor(int color) {
+        return (RoundRectShape)super.setColor(color);
+    }
 }

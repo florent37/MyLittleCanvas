@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.LineShape;
-import com.github.florent37.mylittlecanvas.shape.RectShape;
 import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
 
 public class SampleView extends View {
@@ -49,7 +48,7 @@ public class SampleView extends View {
                 .setCenterY(400);
 
         lineShape.setColor(Color.BLUE);
-        lineShape.setStrokeWith(10);
+        lineShape.setStrokeWidth(10);
 
         lineShape.start(100,800)
                 .end(400,800);
