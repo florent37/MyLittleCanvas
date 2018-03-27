@@ -20,10 +20,18 @@ public abstract class RectShape extends Shape  {
 
     }
 
+    public RectF getRectF() {
+        return new RectF(rectF);
+    }
+
     public RectShape setRectF(RectF rectF) {
         this.rectF.set(rectF);
         update();
         return this;
+    }
+
+    public RectShape copyPosition(RectShape other) {
+        return this.setRectF(other.getRectF());
     }
 
     public RectShape setRectF(float left, float top, float right, float bottom) {
@@ -143,18 +151,19 @@ public abstract class RectShape extends Shape  {
     }
 
     public float getWidth(){
-        return getRight() - getLeft();
+        return Math.max(0, getRight() - getLeft());
     }
 
     public float getHeight(){
-        return getBottom() - getTop();
+        return Math.max(0, getBottom() - getTop());
     }
 
-    public void centerHorizontal(int parentWidth) {
+    public RectShape centerHorizontal(int parentWidth) {
         final float width = getWidth();
         final float left = parentWidth/2f - width/2f;
         setLeft(left);
         setRight(left + width);
+        return this;
     }
 
     public void centerVertical(int parentHeight) {

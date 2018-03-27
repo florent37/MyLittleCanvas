@@ -81,4 +81,14 @@ public class RoundRectShape extends RectShape {
     public RoundRectShape setColor(int color) {
         return (RoundRectShape)super.setColor(color);
     }
+
+    @Override
+    public RoundRectShape setWidth(float width){
+        return (RoundRectShape) super.setWidth(width);
+    }
+
+    @Override
+    public RoundRectShape setHeight(float height){
+        return (RoundRectShape) super.setHeight(height);
+    }
 }

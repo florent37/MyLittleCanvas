@@ -10,15 +10,16 @@ import android.view.View;
 
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
+import com.github.florent37.mylittlecanvas.shape.TextShape;
 
 public class SliderView extends View {
 
-    private int sliderMargin;
-    private int sliderHeight;
-
     final RoundRectShape background = new RoundRectShape();
-
     final CircleShape indicator = new CircleShape();
+    final TextShape minText = new TextShape();
+    final TextShape maxText = new TextShape();
+
+    private int sliderMargin;
 
     public SliderView(Context context) {
         super(context);
@@ -36,55 +37,44 @@ public class SliderView extends View {
     }
 
     private void init() {
-        sliderHeight = ViewUtils.doToPx(getContext(), 20);
         sliderMargin = ViewUtils.doToPx(getContext(), 20);
 
-        background
-                .setCorderRadius(sliderHeight / 2f)
+        background.setHeight(ViewUtils.doToPx(getContext(), 20))
+                .setCorderRadius(background.getHeight() / 2f)
                 .setColor(Color.parseColor("#3F51B5"))
-                .setLeft(sliderMargin)
-                .setHeight(sliderHeight);
+                .setLeft(sliderMargin);
 
-        indicator
-                .setBorderColor(Color.parseColor("#3F51B5"))
+        indicator.setBorderColor(Color.parseColor("#3F51B5"))
                 .setBorderWidth(ViewUtils.doToPx(getContext(), 2))
                 .setColor(Color.WHITE)
-                .setRadius(sliderHeight / 2f);
-
-        indicator.setCenterX(background.getLeft() + indicator.getRadius());
+                .setRadius(background.getHeight() * 0.4f)
+                .setMinX(background.getLeft())
+                .setCenterX(background.getLeft() + indicator.getRadius());
     }
 
     @Override
-    protected void onSizeChanged(int width, int h, int oldw, int oldh) {
-        super.onSizeChanged(width, h, oldw, oldh);
+    protected void onSizeChanged(int width, int height, int oldw, int oldh) {
+        super.onSizeChanged(width, height, oldw, oldh);
 
-        background.setRight(width - sliderMargin);
+        background
+                .setRight(width - sliderMargin)
+                .centerVertical(height);
 
-        background.centerVertical(h);
-
-        indicator.setCenterY(h / 2f);
+        indicator
+                .setMaxX(background.getRight())
+                .centerVertical(height);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                indicator.setCenterX(limit(background.getLeft() + indicator.getRadius() / 2f, event.getX(), background.getRight() - indicator.getRadius() / 2f));
+                indicator.setCenterX(event.getX());
                 postInvalidate();
                 return true;
         }
         return super.onTouchEvent(event);
-    }
-
-    private float limit(float min, float value, float max) {
-        if(value < min){
-            value = min;
-        }
-        if(value > max){
-            value = max;
-        }
-        return value;
     }
 
     @Override

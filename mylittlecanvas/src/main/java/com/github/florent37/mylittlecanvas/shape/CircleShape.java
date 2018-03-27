@@ -13,6 +13,11 @@ public class CircleShape extends Shape {
     private int borderColor;
     private int borderWidth;
 
+    private int minX = Integer.MIN_VALUE;
+    private int maxX = Integer.MAX_VALUE;
+    private int minY = Integer.MIN_VALUE;
+    private int maxY = Integer.MAX_VALUE;
+
     public CircleShape setRadius(final int radius) {
         this.radius = radius;
         return this;
@@ -24,23 +29,53 @@ public class CircleShape extends Shape {
     }
 
     public CircleShape setCenterX(final int centerX) {
-        this.centerX = centerX;
+        this.centerX = (int) limitX(centerX);
         return this;
     }
 
     public CircleShape setCenterY(final int centerY) {
-        this.centerY = centerY;
+        this.centerY = (int) limitY(centerY);
         return this;
     }
 
     public CircleShape setCenterX(final float centerX) {
-        this.centerX = (int) centerX;
+        this.centerX = (int) limitX(centerX);
         return this;
     }
 
     public CircleShape setCenterY(final float centerY) {
-        this.centerY = (int) centerY;
+        this.centerY = (int) limitY(centerY);
         return this;
+    }
+
+    public CircleShape centerVertical(final float parentHeight){
+        this.centerY = (int) (parentHeight / 2f);
+        return this;
+    }
+
+    private float limitX(float value){
+        float left = value - getRadius();
+        float right = value + getRadius();
+
+        if(left < minX){
+            value = minX + getRadius();
+        }
+        if(right > maxX){
+            value = maxX - getRadius();
+        }
+        return value;
+    }
+
+    private float limitY(float value){
+        float top = value - getRadius();
+        float bottom = value + getRadius();
+        if(top < minY){
+            value = minY + getRadius();
+        }
+        if(bottom > maxY){
+            value = maxY - getRadius();
+        }
+        return value;
     }
 
     public ValueAnimator animateCenterX(float...values){
@@ -65,6 +100,46 @@ public class CircleShape extends Shape {
         return this;
     }
 
+    public CircleShape setMinX(int minX) {
+        this.minX = minX;
+        return this;
+    }
+
+    public CircleShape setMaxX(int maxX) {
+        this.maxX = maxX;
+        return this;
+    }
+
+    public CircleShape setMinY(int minY) {
+        this.minY = minY;
+        return this;
+    }
+
+    public CircleShape setMaxY(int maxY) {
+        this.maxY = maxY;
+        return this;
+    }
+
+    public CircleShape setMinX(float minX) {
+        this.minX = (int) minX;
+        return this;
+    }
+
+    public CircleShape setMaxX(float maxX) {
+        this.maxX = (int) maxX;
+        return this;
+    }
+
+    public CircleShape setMinY(float minY) {
+        this.minY = (int) minY;
+        return this;
+    }
+
+    public CircleShape setMaxY(float maxY) {
+        this.maxY = (int) maxY;
+        return this;
+    }
+
     @Override
     protected void draw(final Canvas canvas) {
         if(borderWidth > 0) {
@@ -86,6 +161,22 @@ public class CircleShape extends Shape {
 
     public int getCenterY() {
         return centerY;
+    }
+
+    public int getMinX() {
+        return minX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public int getMaxY() {
+        return maxY;
     }
 
     @Override

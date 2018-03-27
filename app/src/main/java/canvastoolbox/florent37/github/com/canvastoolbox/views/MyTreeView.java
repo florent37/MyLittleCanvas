@@ -32,6 +32,7 @@ public class MyTreeView extends View {
     final LineShape lineParentChildRight = new LineShape();
 
     final DrawableShape drawableShape = new DrawableShape();
+    private TouchEventDetector touchEventDetector = new TouchEventDetector();
 
     public MyTreeView(Context context) {
         this(context, null);
@@ -68,14 +69,14 @@ public class MyTreeView extends View {
         handleMoving();
     }
 
-    private void handleMoving(){
+    private void handleMoving() {
         final AtomicReference<RectShape> movingShape = new AtomicReference<>();
         touchEventDetector.setListener(new TouchEventDetector.Listener() {
             @Override
             public void onTouched(float x, float y) {
-                if(childLeft.containsTouch(x, y)){
+                if (childLeft.containsTouch(x, y)) {
                     movingShape.set(childLeft);
-                } else if(childRight.containsTouch(x, y)){
+                } else if (childRight.containsTouch(x, y)) {
                     movingShape.set(childRight);
                 }
             }
@@ -97,18 +98,17 @@ public class MyTreeView extends View {
         });
     }
 
-    private void init(){
+    private void init() {
         final int parentWidth = 200;
         parent.setTop(50)
                 .setHeight(100)
                 .setWidth(parentWidth)
                 .centerHorizontal(getWidth());
 
-        textParent.setText("parent");
-        textParent
+        textParent.setText("parent")
+                .setCenterVertical(true)
                 .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                .centerIn(parent);
-
+                .copyPosition(parent);
 
         final int childWidth = 200;
 
@@ -118,24 +118,27 @@ public class MyTreeView extends View {
                 .marginTop(250)
                 .setHeight(100);
 
-        textChildLeft.setText("childLeft");
         textChildLeft
+                .setText("childLeft")
                 .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                .centerIn(childLeft);
+                .setCenterVertical(true)
+                .copyPosition(childLeft);
 
         lineParentChildLeft
                 .start(parent.getCenterX(), parent.getBottom())
                 .end(childLeft.getCenterX(), childLeft.getTop());
 
-        childRight.setLeft(getWidth() - childWidth - 40)
+        childRight
+                .setLeft(getWidth() - childWidth - 40)
                 .setWidth(childWidth)
                 .alignTop(childLeft)
                 .setHeight(100);
 
-        textChildRight.setText("childRight");
         textChildRight
+                .setText("childRight")
                 .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                .centerIn(childRight);
+                .setCenterVertical(true)
+                .copyPosition(childRight);
 
         lineParentChildRight
                 .start(parent.getCenterX(), parent.getBottom())
@@ -147,19 +150,15 @@ public class MyTreeView extends View {
                 .setBottom(100);
     }
 
-    private void update(){
-        textChildLeft
-                .centerIn(childLeft);
+    private void update() {
+        textChildLeft.copyPosition(childLeft);
         lineParentChildLeft
                 .end(childLeft.getCenterX(), childLeft.getTop());
 
-        textChildRight
-                .centerIn(childRight);
+        textChildRight.copyPosition(childRight);
         lineParentChildRight
                 .end(childRight.getCenterX(), childRight.getTop());
     }
-
-    private TouchEventDetector touchEventDetector = new TouchEventDetector();
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
