@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.RectF;
 
 public abstract class RectShape extends Shape  {
@@ -13,7 +14,15 @@ public abstract class RectShape extends Shape  {
 
     @Override
     protected void draw(Canvas canvas) {
+        final int save = canvas.save();
+
+        final PointF rotationPivot = getRotationPivot();
+        if(getRotation() != 0) {
+            canvas.rotate(getRotation(), rotationPivot.x, rotationPivot.y);
+        }
         canvas.drawRect(rectF, paint);
+
+        canvas.restoreToCount(save);
     }
 
     protected void update(){

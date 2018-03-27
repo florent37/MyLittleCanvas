@@ -3,6 +3,7 @@ package com.github.florent37.mylittlecanvas.shape;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
+import android.graphics.PointF;
 
 public class CircleShape extends Shape {
 

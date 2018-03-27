@@ -4,9 +4,12 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextPaint;
 
 public abstract class Shape {
@@ -16,6 +19,7 @@ public abstract class Shape {
     private boolean willNotDraw = false;
 
     private float rotation = 0;
+    protected PointF rotationPivot = null;
 
     public Shape() {
         paint.setAntiAlias(true);
@@ -64,7 +68,6 @@ public abstract class Shape {
     public void onDraw(Canvas canvas) {
         if (!willNotDraw) {
             canvas.save();
-            canvas.rotate(rotation);
             draw(canvas);
             canvas.restore();
         }
@@ -76,6 +79,14 @@ public abstract class Shape {
     public abstract int getCenterX();
 
     public abstract int getCenterY();
+
+    @NonNull
+    public PointF getRotationPivot() {
+        if(rotationPivot == null){
+            return new PointF(getCenterX(), getCenterY());
+        }
+        return rotationPivot;
+    }
 
     public boolean isWillNotDraw() {
         return willNotDraw;
