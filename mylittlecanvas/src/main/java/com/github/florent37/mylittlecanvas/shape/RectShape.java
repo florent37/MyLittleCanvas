@@ -20,7 +20,9 @@ public abstract class RectShape extends Shape  {
         if(getRotation() != 0) {
             canvas.rotate(getRotation(), rotationPivot.x, rotationPivot.y);
         }
-        canvas.drawRect(rectF, paint);
+        canvas.translate(rectF.left, rectF.top);
+
+        canvas.drawRect(0, 0, rectF.right, rectF.bottom, paint);
 
         canvas.restoreToCount(save);
     }
