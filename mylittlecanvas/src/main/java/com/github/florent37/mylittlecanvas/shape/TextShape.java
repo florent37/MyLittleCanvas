@@ -1,13 +1,13 @@
 package com.github.florent37.mylittlecanvas.shape;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.StaticLayout;
-import android.text.TextPaint;
+
+import com.github.florent37.mylittlecanvas.values.Alignment;
 
 public class TextShape extends RectShape {
 
@@ -15,9 +15,8 @@ public class TextShape extends RectShape {
     @Nullable
     private StaticLayout staticLayout;
 
-    private boolean centerVertical = false;
-
-    private Layout.Alignment alignment = Layout.Alignment.ALIGN_CENTER;
+    private Alignment.VERTICAL verticalAlignment = Alignment.VERTICAL.CENTER;
+    private Alignment.HORIZONTAL horizontalAlignment = Alignment.HORIZONTAL.CENTER;
 
     public TextShape() {
     }
@@ -30,33 +29,49 @@ public class TextShape extends RectShape {
         return this;
     }
 
+    private Layout.Alignment toAlignment(Alignment.HORIZONTAL align) {
+        switch (align) {
+            case LEFT:
+                return Layout.Alignment.ALIGN_NORMAL;
+            case RIGHT:
+                return Layout.Alignment.ALIGN_OPPOSITE;
+            case CENTER:
+            default:
+                return Layout.Alignment.ALIGN_CENTER;
+        }
+    }
+
     @Override
     protected void update() {
         super.update();
-        staticLayout = new StaticLayout(text, paint, (int) getWidth(), alignment, 1.0f, 0, false);
+        staticLayout = new StaticLayout(text, paint, (int) getWidth(), toAlignment(horizontalAlignment), 1.0f, 0, false);
     }
 
-    public void setTextSizePx(float textSize) {
+    public TextShape setTextSizePx(float textSize) {
         paint.setTextSize(textSize);
         update();
+        return this;
     }
 
-    public void setTypeface(Typeface typeface) {
+    public TextShape setTypeface(Typeface typeface) {
         paint.setTypeface(typeface);
         update();
+        return this;
     }
 
     @Override
     protected void draw(Canvas canvas) {
-        if(staticLayout == null){
+        if (staticLayout == null) {
             return;
         }
         final int saveState = canvas.save();
-        if(centerVertical){
-            final float height = calculateHeight();
-            canvas.translate(getLeft(), getCenterY() - height / 2f);
-        } else {
+        final float textHeight = calculateHeight();
+        if (verticalAlignment == Alignment.VERTICAL.CENTER) {
+            canvas.translate(getLeft(), getCenterY() - textHeight / 2f);
+        } else if (verticalAlignment == Alignment.VERTICAL.TOP) {
             canvas.translate(getLeft(), getTop());
+        } else if (verticalAlignment == Alignment.VERTICAL.BOTTOM) {
+            canvas.translate(getLeft(), getBottom() - textHeight);
         }
 
         staticLayout.draw(canvas);
@@ -69,8 +84,8 @@ public class TextShape extends RectShape {
         return false;
     }
 
-    public TextShape setAlignment(Layout.Alignment alignment) {
-        this.alignment = alignment;
+    public TextShape setHorizontalAlignment(final Alignment.HORIZONTAL alignment) {
+        this.horizontalAlignment = alignment;
         update();
         return this;
     }
@@ -86,16 +101,15 @@ public class TextShape extends RectShape {
     }
 
     public float calculateHeight() {
-        if (text == null || ("" + text).trim().isEmpty()) {
+        if (staticLayout == null || text == null || ("" + text).trim().isEmpty()) {
             return 0;
         } else {
-            final StaticLayout sl = new StaticLayout(text, paint, (int) getWidth(), alignment, 1, 1, false);
-            return sl.getHeight();
+            return staticLayout.getHeight();
         }
     }
 
-    public TextShape setCenterVertical(boolean centerVertical) {
-        this.centerVertical = centerVertical;
+    public TextShape setVerticalAlignment(final Alignment.VERTICAL verticalAlignment) {
+        this.verticalAlignment = verticalAlignment;
         update();
         return this;
     }

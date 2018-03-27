@@ -15,6 +15,7 @@ import com.github.florent37.mylittlecanvas.shape.LineShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
 import com.github.florent37.mylittlecanvas.shape.TextShape;
+import com.github.florent37.mylittlecanvas.values.Alignment;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -106,8 +107,8 @@ public class MyTreeView extends View {
                 .centerHorizontal(getWidth());
 
         textParent.setText("parent")
-                .setCenterVertical(true)
-                .setAlignment(Layout.Alignment.ALIGN_CENTER)
+                .setVerticalAlignment(Alignment.VERTICAL.CENTER)
+                .setHorizontalAlignment(Alignment.HORIZONTAL.CENTER)
                 .copyPosition(parent);
 
         final int childWidth = 200;
@@ -120,8 +121,8 @@ public class MyTreeView extends View {
 
         textChildLeft
                 .setText("childLeft")
-                .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                .setCenterVertical(true)
+                .setVerticalAlignment(Alignment.VERTICAL.CENTER)
+                .setHorizontalAlignment(Alignment.HORIZONTAL.CENTER)
                 .copyPosition(childLeft);
 
         lineParentChildLeft
@@ -136,8 +137,8 @@ public class MyTreeView extends View {
 
         textChildRight
                 .setText("childRight")
-                .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                .setCenterVertical(true)
+                .setVerticalAlignment(Alignment.VERTICAL.CENTER)
+                .setHorizontalAlignment(Alignment.HORIZONTAL.CENTER)
                 .copyPosition(childRight);
 
         lineParentChildRight
