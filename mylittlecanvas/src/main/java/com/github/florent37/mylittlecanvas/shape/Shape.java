@@ -21,6 +21,11 @@ public abstract class Shape {
     private float rotation = 0;
     protected PointF rotationPivot = null;
 
+    protected int minX = Integer.MIN_VALUE;
+    protected int maxX = Integer.MAX_VALUE;
+    protected int minY = Integer.MIN_VALUE;
+    protected int maxY = Integer.MAX_VALUE;
+
     public Shape() {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
@@ -143,4 +148,61 @@ public abstract class Shape {
         });
         return valueAnimator;
     }
+
+    public int getMinX() {
+        return minX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
+
+    public Shape setMinX(int minX) {
+        this.minX = minX;
+        return this;
+    }
+
+    public Shape setMaxX(int maxX) {
+        this.maxX = maxX;
+        return this;
+    }
+
+    public Shape setMinY(int minY) {
+        this.minY = minY;
+        return this;
+    }
+
+    public Shape setMaxY(int maxY) {
+        this.maxY = maxY;
+        return this;
+    }
+
+    public Shape setMinX(float minX) {
+        this.minX = (int) minX;
+        return this;
+    }
+
+    public Shape setMaxX(float maxX) {
+        this.maxX = (int) maxX;
+        return this;
+    }
+
+    public Shape setMinY(float minY) {
+        this.minY = (int) minY;
+        return this;
+    }
+
+    public Shape setMaxY(float maxY) {
+        this.maxY = (int) maxY;
+        return this;
+    }
+
 }

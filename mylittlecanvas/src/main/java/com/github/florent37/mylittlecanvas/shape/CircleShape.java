@@ -14,11 +14,6 @@ public class CircleShape extends Shape {
     private int borderColor;
     private int borderWidth;
 
-    private int minX = Integer.MIN_VALUE;
-    private int maxX = Integer.MAX_VALUE;
-    private int minY = Integer.MIN_VALUE;
-    private int maxY = Integer.MAX_VALUE;
-
     public CircleShape setRadius(final int radius) {
         this.radius = radius;
         return this;
@@ -101,46 +96,6 @@ public class CircleShape extends Shape {
         return this;
     }
 
-    public CircleShape setMinX(int minX) {
-        this.minX = minX;
-        return this;
-    }
-
-    public CircleShape setMaxX(int maxX) {
-        this.maxX = maxX;
-        return this;
-    }
-
-    public CircleShape setMinY(int minY) {
-        this.minY = minY;
-        return this;
-    }
-
-    public CircleShape setMaxY(int maxY) {
-        this.maxY = maxY;
-        return this;
-    }
-
-    public CircleShape setMinX(float minX) {
-        this.minX = (int) minX;
-        return this;
-    }
-
-    public CircleShape setMaxX(float maxX) {
-        this.maxX = (int) maxX;
-        return this;
-    }
-
-    public CircleShape setMinY(float minY) {
-        this.minY = (int) minY;
-        return this;
-    }
-
-    public CircleShape setMaxY(float maxY) {
-        this.maxY = (int) maxY;
-        return this;
-    }
-
     @Override
     protected void draw(final Canvas canvas) {
         if(borderWidth > 0) {
@@ -164,21 +119,6 @@ public class CircleShape extends Shape {
         return centerY;
     }
 
-    public int getMinX() {
-        return minX;
-    }
-
-    public int getMaxX() {
-        return maxX;
-    }
-
-    public int getMinY() {
-        return minY;
-    }
-
-    public int getMaxY() {
-        return maxY;
-    }
 
     @Override
     public boolean containsTouch(float x, float y) {
@@ -196,5 +136,37 @@ public class CircleShape extends Shape {
     @Override
     public CircleShape setColor(int color) {
         return (CircleShape) super.setColor(color);
+    }
+
+    public CircleShape setMinX(int minX) {
+        return (CircleShape) super.setMinX(minX);
+    }
+
+    public CircleShape setMaxX(int maxX) {
+        return (CircleShape) super.setMaxX(maxX);
+    }
+
+    public CircleShape setMinY(int minY) {
+        return (CircleShape) super.setMinY(minY);
+    }
+
+    public CircleShape setMaxY(int maxY) {
+        return (CircleShape) super.setMaxY(maxY);
+    }
+
+    public CircleShape setMinX(float minX) {
+        return (CircleShape) super.setMinX(minX);
+    }
+
+    public CircleShape setMaxX(float maxX) {
+        return (CircleShape) super.setMaxX(maxX);
+    }
+
+    public CircleShape setMinY(float minY) {
+        return (CircleShape) super.setMinY(minY);
+    }
+
+    public CircleShape setMaxY(float maxY) {
+        return (CircleShape) super.setMaxY(maxY);
     }
 }

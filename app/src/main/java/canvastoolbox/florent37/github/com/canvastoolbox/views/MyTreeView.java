@@ -115,7 +115,10 @@ public class MyTreeView extends View {
 
         childLeft.setLeft(40)
                 .setWidth(childWidth)
+                .setMinY(parent.getBottom())
                 .below(parent)
+                .setMinX(0)
+                .setMaxX(getWidth())
                 .marginTop(250)
                 .setHeight(100);
 
@@ -132,6 +135,9 @@ public class MyTreeView extends View {
         childRight
                 .setLeft(getWidth() - childWidth - 40)
                 .setWidth(childWidth)
+                .setMinX(0)
+                .setMaxX(getWidth())
+                .setMinY(parent.getBottom())
                 .alignTop(childLeft)
                 .setHeight(100);
 
