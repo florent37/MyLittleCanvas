@@ -33,27 +33,29 @@ public class ShapeAnimator {
 
     public ShapeAnimator(@NonNull View view, List<ValueAnimator> animators) {
         this(view);
-        playTogether(animators);
+        play(animators);
     }
 
     public ShapeAnimator(@NonNull View view, ValueAnimator... animators) {
         this(view);
-        playTogether(animators);
+        play(animators);
     }
 
-    public void clear() {
+    public ShapeAnimator clear() {
         for (ValueAnimator animator : animators) {
             animator.cancel();
         }
         animators.clear();
+        started = false;
+        return this;
     }
 
-    public ShapeAnimator playTogether(List<ValueAnimator> animators) {
+    public ShapeAnimator play(List<ValueAnimator> animators) {
         this.animators.addAll(animators);
         return this;
     }
 
-    public ShapeAnimator playTogether(ValueAnimator... animators) {
+    public ShapeAnimator play(ValueAnimator... animators) {
         if (animators != null) {
             this.animators.addAll(Arrays.asList(animators));
         }
@@ -70,43 +72,48 @@ public class ShapeAnimator {
         return start();
     }
 
+    private boolean started = false;
+
     public ShapeAnimator start() {
-        endedAnimationsCount.set(0);
+        if (!started) {
+            started = true;
+            endedAnimationsCount.set(0);
 
-        for (OnAnimationStart onAnimationStart : onAnimationStarts) {
-            onAnimationStart.onAnimationStart();
-        }
-        //do not use AnimatorSet because you cannot use setRepeatCount
+            for (OnAnimationStart onAnimationStart : onAnimationStarts) {
+                onAnimationStart.onAnimationStart();
+            }
+            //do not use AnimatorSet because you cannot use setRepeatCount
 
-        final int animationCount = animators.size();
+            final int animationCount = animators.size();
 
-        for (ValueAnimator animator : animators) {
-            animator.setRepeatCount(repeatCount);
-            animator.setDuration(duration);
-            animator.setInterpolator(interpolator);
-            animator.setStartDelay(startDelay);
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    if (view != null) {
-                        view.postInvalidate();
+            for (ValueAnimator animator : animators) {
+                animator.setRepeatCount(repeatCount);
+                animator.setDuration(duration);
+                animator.setInterpolator(interpolator);
+                animator.setStartDelay(startDelay);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        if (view != null) {
+                            view.postInvalidate();
+                        }
                     }
-                }
-            });
-            animator.addListener(
-                    new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            final int finishedAnims = endedAnimationsCount.incrementAndGet();
-                            if(animationCount == finishedAnims) {
-                                for (OnAnimationEnd onAnimationEnd : onAnimationEnds) {
-                                    onAnimationEnd.onAnimationEnd();
+                });
+                animator.addListener(
+                        new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                final int finishedAnims = endedAnimationsCount.incrementAndGet();
+                                if (animationCount == finishedAnims) {
+                                    for (OnAnimationEnd onAnimationEnd : onAnimationEnds) {
+                                        onAnimationEnd.onAnimationEnd();
+                                    }
                                 }
                             }
                         }
-                    }
-            );
-            animator.start();
+                );
+                animator.start();
+            }
         }
         return this;
     }

@@ -47,7 +47,7 @@ public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextV
         shapeAnimator
                 .setRepeatCount(ValueAnimator.INFINITE)
                 .setDuration(1000)
-                .playTogether(
+                .play(
                         roundRectShape.animateLeft(roundRectShape.getLeft(), roundRectShape.getLeft() + 10, roundRectShape.getLeft()),
                         roundRectShape.animateRight(roundRectShape.getRight(), roundRectShape.getRight() - 10, roundRectShape.getRight())
                 )

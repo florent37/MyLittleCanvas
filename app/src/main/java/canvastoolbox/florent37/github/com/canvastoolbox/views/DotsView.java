@@ -111,7 +111,7 @@ public class DotsView extends FrameLayout {
         final CircleShape nextCircle = circles.get(animateCircleIndex + 1);
 
         new ShapeAnimator(this)
-                .playTogether(
+                .play(
                         firstCircle.animateCenterX(firstCircle.getCenterX(), nextCircle.getCenterX()),
                         firstCircle.animateCenterY(firstCircle.getCenterY(), firstCircle.getCenterY() - saut, firstCircle.getCenterY()),
                         nextCircle.animateCenterX(nextCircle.getCenterX(), firstCircle.getCenterX())

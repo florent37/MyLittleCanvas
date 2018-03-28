@@ -101,10 +101,10 @@ public class CircleShape extends Shape {
         if(borderWidth > 0) {
             int color = paint.getColor();
             paint.setColor(borderColor);
-            canvas.drawCircle(centerX, centerY, radius - borderWidth, paint);
+            canvas.drawCircle(centerX, centerY, radius, paint);
             paint.setColor(color);
         }
-        canvas.drawCircle(centerX, centerY, radius, paint);
+        canvas.drawCircle(centerX, centerY, radius - borderWidth, paint);
     }
 
     public int getRadius() {
