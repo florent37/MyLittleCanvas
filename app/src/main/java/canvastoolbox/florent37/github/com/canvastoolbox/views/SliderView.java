@@ -19,14 +19,14 @@ import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;
 
 public class SliderView extends View {
 
-    final RoundRectShape background = new RoundRectShape();
-    final CircleShape indicator = new CircleShape();
-    final TextShape minText = new TextShape();
-    final TextShape maxText = new TextShape();
+    private final RoundRectShape background = new RoundRectShape();
+    private final CircleShape indicator = new CircleShape();
+    private final TextShape minText = new TextShape();
+    private final TextShape maxText = new TextShape();
 
     private int sliderMargin;
 
-    private ShapeAnimator shapeAnimator;
+    private ShapeAnimator shapeAnimator = new ShapeAnimator(this);
 
     public SliderView(Context context) {
         super(context);
@@ -44,9 +44,9 @@ public class SliderView extends View {
     }
 
     private void init() {
-        shapeAnimator = new ShapeAnimator(this);
         sliderMargin = doToPx(getContext(), 20);
 
+        //configurations that does not depends on the view size
         background.setHeight(doToPx(getContext(), 15))
                 .setCorderRadius(background.getHeight() / 2f)
                 .setColor(Color.parseColor("#3F51B5"))
@@ -80,6 +80,8 @@ public class SliderView extends View {
     @Override
     protected void onSizeChanged(int width, int height, int oldw, int oldh) {
         super.onSizeChanged(width, height, oldw, oldh);
+
+        //configurations that depends on the view size
 
         background
                 .setRight(width - sliderMargin)

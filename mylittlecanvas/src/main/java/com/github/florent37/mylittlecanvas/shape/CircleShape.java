@@ -12,7 +12,7 @@ public class CircleShape extends Shape {
     private int centerY;
 
     private int borderColor;
-    private int borderWidth;
+    private float borderWidth;
 
     public CircleShape setRadius(final int radius) {
         this.radius = radius;
@@ -91,7 +91,7 @@ public class CircleShape extends Shape {
         return this;
     }
 
-    public CircleShape setBorderWidth(final int borderWidth) {
+    public CircleShape setBorderWidth(final float borderWidth) {
         this.borderWidth = borderWidth;
         return this;
     }
@@ -129,7 +129,7 @@ public class CircleShape extends Shape {
         return borderColor;
     }
 
-    public int getBorderWidth() {
+    public float getBorderWidth() {
         return borderWidth;
     }
 

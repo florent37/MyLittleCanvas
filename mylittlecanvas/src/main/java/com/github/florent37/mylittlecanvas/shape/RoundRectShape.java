@@ -19,7 +19,7 @@ public class RoundRectShape extends RectShape {
     }
 
     protected void update(){
-        path.set(RoundRect.generatePath(rectF,
+        super.path.set(RoundRect.generatePath(rectF,
                 drawAngleTopLeft ? cornerRadius : 0,
                 drawAngleTopRight ? cornerRadius : 0,
                 drawAngleBottomRight ? cornerRadius : 0,

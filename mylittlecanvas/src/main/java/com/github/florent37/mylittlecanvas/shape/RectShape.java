@@ -35,8 +35,8 @@ public abstract class RectShape extends Shape {
         return new RectF(rectF);
     }
 
-    public RectShape setRectF(RectF rectF) {
-        return this.setRectF(
+    public RectShape setRect(RectF rectF) {
+        return this.setRect(
                 rectF.left,
                 rectF.top,
                 rectF.right,
@@ -45,10 +45,10 @@ public abstract class RectShape extends Shape {
     }
 
     public RectShape copyPosition(RectShape other) {
-        return this.setRectF(other.getRectF());
+        return this.setRect(other.getRectF());
     }
 
-    public RectShape setRectF(float left, float top, float right, float bottom) {
+    public RectShape setRect(float left, float top, float right, float bottom) {
         this.rectF.set(
                 Math.max(left, minX),
                 Math.max(top, minY),
