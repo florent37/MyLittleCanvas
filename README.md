@@ -1,6 +1,6 @@
 # MyLittleCanvas
 
-You find canvas hard to use ? try MyLittleCanvas :)
+🎨You find canvas hard to use ? try MyLittleCanvas :)
 Don't work with canvas methods, use objects instead !
 
 
