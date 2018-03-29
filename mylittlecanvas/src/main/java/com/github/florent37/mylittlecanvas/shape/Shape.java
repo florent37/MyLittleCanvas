@@ -214,6 +214,10 @@ public abstract class Shape {
 
     public abstract boolean containsTouch(float x, float y);
 
+    public float getScale() {
+        return scale;
+    }
+
     public float getAlpha() {
         return paint.getAlpha() / 255f;
     }
@@ -233,6 +237,15 @@ public abstract class Shape {
             }
         });
         return valueAnimator;
+    }
+
+    public ValueAnimator animateAlphaBy(final float... values) {
+        final float[] newValues = new float[values.length];
+        final float alpha = getAlpha();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * alpha;
+        }
+        return animateAlpha(newValues);
     }
 
     public ValueAnimator animateColor(final int... color) {
@@ -269,6 +282,15 @@ public abstract class Shape {
         return valueAnimator;
     }
 
+    public ValueAnimator animateRotationBy(final float... values) {
+        final float[] newValues = new float[values.length];
+        final float rotation = getRotation();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * rotation;
+        }
+        return animateRotation(newValues);
+    }
+
     public ValueAnimator animateScale(final float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -278,6 +300,15 @@ public abstract class Shape {
             }
         });
         return valueAnimator;
+    }
+
+    public ValueAnimator animateScaleBy(final float... values) {
+        final float[] newValues = new float[values.length];
+        final float scale = getScale();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * scale;
+        }
+        return animateAlpha(newValues);
     }
 
     public float getMinX() {

@@ -254,6 +254,15 @@ public class RectShape extends PathShape {
         return valueAnimator;
     }
 
+    public ValueAnimator animateLeftBy(float... values) {
+        final float[] newValues = new float[values.length];
+        final float left = getLeft();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * left;
+        }
+        return animateLeft(newValues);
+    }
+
     public ValueAnimator animateRight(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -263,6 +272,15 @@ public class RectShape extends PathShape {
             }
         });
         return valueAnimator;
+    }
+
+    public ValueAnimator animateRightBy(float... values) {
+        final float[] newValues = new float[values.length];
+        final float right = getRight();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * right;
+        }
+        return animateRight(newValues);
     }
 
     public ValueAnimator animateTop(float... values) {
@@ -276,6 +294,15 @@ public class RectShape extends PathShape {
         return valueAnimator;
     }
 
+    public ValueAnimator animateTopBy(float... values) {
+        final float[] newValues = new float[values.length];
+        final float top = getTop();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * top;
+        }
+        return animateTop(newValues);
+    }
+
     public ValueAnimator animateBottom(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -285,6 +312,15 @@ public class RectShape extends PathShape {
             }
         });
         return valueAnimator;
+    }
+
+    public ValueAnimator animateBottomBy(float... values) {
+        final float[] newValues = new float[values.length];
+        final float bottom = getBorderColor();
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] * bottom;
+        }
+        return animateBottom(newValues);
     }
 
     @Override

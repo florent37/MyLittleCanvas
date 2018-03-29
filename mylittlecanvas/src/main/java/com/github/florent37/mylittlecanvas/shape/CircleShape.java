@@ -1,5 +1,6 @@
 package com.github.florent37.mylittlecanvas.shape;
 
+import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
@@ -81,8 +82,9 @@ public class CircleShape extends Shape {
 
     public ValueAnimator animateCenterXAdded(float...values){
         final float[] newValues = new float[values.length];
+        final float centerX = getCenterX();
         for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + getCenterX();
+            newValues[i] = values[i] + centerX;
         }
         return animateCenterX(newValues);
     }
@@ -100,8 +102,9 @@ public class CircleShape extends Shape {
 
     public ValueAnimator animateCenterYAdded(float...values){
         final float[] newValues = new float[values.length];
+        final float centerY = getCenterY();
         for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + getCenterY();
+            newValues[i] = values[i] + centerY;
         }
         return animateCenterYAdded(newValues);
     }
@@ -125,10 +128,42 @@ public class CircleShape extends Shape {
         return animateRadius(newValues);
     }
 
+    public ValueAnimator animateRadiusAdded(float...values){
+        final float[] newValues = new float[values.length];
+        for (int i = 0; i < values.length; i++) {
+            newValues[i] = values[i] + radius;
+        }
+        return animateRadius(newValues);
+    }
+
     public CircleShape setBorderColor(@ColorInt final int borderColor) {
         this.borderColor = borderColor;
         return this;
     }
+
+    public ValueAnimator animateBorderColor(final int... color) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofInt(color);
+        valueAnimator.setEvaluator(new ArgbEvaluator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setBorderColor((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
+
+    public ValueAnimator animateBorderWidth(final float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setBorderWidth((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
+
 
     public CircleShape setBorderWidth(final float borderWidth) {
         this.borderWidth = borderWidth;
