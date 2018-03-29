@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ShapeAnimator {
-    private View view;
+    private InvalidateListener invalidateListener;
     private List<ValueAnimator> animators = new ArrayList<>();
     private int repeatCount = 0;
     private long duration = 300;
@@ -26,19 +28,32 @@ public class ShapeAnimator {
     private List<OnAnimationStart> onAnimationStarts = new ArrayList<>();
     private List<OnAnimationEnd> onAnimationEnds = new ArrayList<>();
     private AtomicInteger endedAnimationsCount = new AtomicInteger(0);
+    private boolean started = false;
+
+    public ShapeAnimator(@NonNull InvalidateListener invalidateListener) {
+        this.invalidateListener = invalidateListener;
+    }
+
+    public ShapeAnimator(@NonNull InvalidateListener invalidateListener, List<ValueAnimator> animators) {
+        this(invalidateListener);
+        play(animators);
+    }
+
+    public ShapeAnimator(@NonNull InvalidateListener invalidateListener, ValueAnimator... animators) {
+        this(invalidateListener);
+        play(animators);
+    }
 
     public ShapeAnimator(@NonNull View view) {
-        this.view = view;
+        this(new ViewInvalidateListener(view));
     }
 
     public ShapeAnimator(@NonNull View view, List<ValueAnimator> animators) {
-        this(view);
-        play(animators);
+        this(new ViewInvalidateListener(view), animators);
     }
 
     public ShapeAnimator(@NonNull View view, ValueAnimator... animators) {
-        this(view);
-        play(animators);
+        this(new ViewInvalidateListener(view), animators);
     }
 
     public ShapeAnimator clear() {
@@ -72,8 +87,6 @@ public class ShapeAnimator {
         return start();
     }
 
-    private boolean started = false;
-
     public ShapeAnimator start() {
         if (!started) {
             started = true;
@@ -94,8 +107,8 @@ public class ShapeAnimator {
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        if (view != null) {
-                            view.postInvalidate();
+                        if (invalidateListener != null) {
+                            invalidateListener.invalidate();
                         }
                     }
                 });
@@ -153,5 +166,26 @@ public class ShapeAnimator {
 
     public interface OnAnimationEnd {
         void onAnimationEnd();
+    }
+
+    public interface InvalidateListener {
+        void invalidate();
+    }
+
+    public static class ViewInvalidateListener implements InvalidateListener {
+        private Reference<View> viewReference;
+
+        public ViewInvalidateListener(View view) {
+            this.viewReference = new WeakReference<View>(view);
+        }
+
+
+        @Override
+        public void invalidate() {
+            final View view = viewReference.get();
+            if (view != null) {
+                view.postInvalidate();
+            }
+        }
     }
 }

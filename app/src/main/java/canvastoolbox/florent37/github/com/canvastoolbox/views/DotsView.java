@@ -17,6 +17,8 @@ import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;
+
 
 public class DotsView extends FrameLayout {
 
@@ -68,20 +70,16 @@ public class DotsView extends FrameLayout {
         final int h = getHeight();
         final int w = getWidth();
 
-        final int radius = doToPx(6);
-        final int distanceBetweenCircles = doToPx(16);
+        final float radius = dpToPx(this, 6);
+        final float distanceBetweenCircles = dpToPx(this, 16);
 
         for (int i = 0; i < circles.size(); i++) {
-            final CircleShape circle = circles.get(i);
-            circle.setRadius(radius)
+            circles.get(i)
+                    .setRadius(radius)
                     .setColor(colors[i % colors.length])
                     .setCenterY((int) (h / 2f))
                     .setCenterX((w / 2f) + ((radius + distanceBetweenCircles) * (i - circles.size() / 2)));
         }
-
-        //circles[0].setCenterX((int) ((w / 2f) - (radius + distanceBetweenCircles));
-        //circles[1].setCenterX((int) (w / 2f));
-        //circles[2].setCenterX((int) ((w / 2f) + radius) + distanceBetweenCircles);
     }
 
     public void animateView() {
@@ -105,7 +103,7 @@ public class DotsView extends FrameLayout {
     }
 
     private void animationLoop(@NonNull final AnimationHandler handler, int animateCircleIndex) {
-        final int saut = doToPx(15);
+        final float jump = dpToPx(this, 15);
 
         final CircleShape firstCircle = circles.get(animateCircleIndex);
         final CircleShape nextCircle = circles.get(animateCircleIndex + 1);
@@ -113,7 +111,7 @@ public class DotsView extends FrameLayout {
         new ShapeAnimator(this)
                 .play(
                         firstCircle.animateCenterXTo(nextCircle.getCenterX()),
-                        firstCircle.animateCenterYAdded(0, -1 * saut, 0),
+                        firstCircle.animateCenterYAdded(0, -1 * jump, 0),
                         nextCircle.animateCenterXTo(firstCircle.getCenterX())
                 )
                 .onAnimationEnd(() -> {
@@ -133,10 +131,6 @@ public class DotsView extends FrameLayout {
         for (CircleShape circle : circles) {
             circle.onDraw(canvas);
         }
-    }
-
-    private int doToPx(float dp) {
-        return (int) (dp * this.getContext().getResources().getDisplayMetrics().density);
     }
 
     private class AnimationHandler extends Handler {

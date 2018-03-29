@@ -114,7 +114,7 @@ public class SliderView extends View {
             case MotionEvent.ACTION_UP:
                 shapeAnimator
                         .clear()
-                        .play(indicator.animateRadiusTo(indicator.getVariable("original_radius")))
+                        .play(indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")))
                         .start();
                 postInvalidate();
         }
