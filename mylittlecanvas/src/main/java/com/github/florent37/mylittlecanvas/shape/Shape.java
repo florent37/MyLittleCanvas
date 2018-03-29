@@ -249,11 +249,32 @@ public abstract class Shape {
 
     public ValueAnimator animateStrokeWidth(final float... strokeWidth) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(strokeWidth);
-        valueAnimator.setEvaluator(new ArgbEvaluator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 setStrokeWidth((float) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
+
+    public ValueAnimator animateRotation(final float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setRotation((float) valueAnimator.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
+    }
+
+    public ValueAnimator animateScale(final float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setScale((float) valueAnimator.getAnimatedValue());
             }
         });
         return valueAnimator;
