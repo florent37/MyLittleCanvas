@@ -1,4 +1,4 @@
-package canvastoolbox.florent37.github.com.canvastoolbox;
+package canvastoolbox.florent37.github.com.canvastoolbox.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,11 +9,11 @@ import android.view.View;
 
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.LineShape;
-import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
+import com.github.florent37.mylittlecanvas.shape.RectShape;
 
 public class SampleView extends View {
 
-    private final RoundRectShape roundRectShape = new RoundRectShape();
+    private final RectShape roundRectShape = new RectShape();
     private final CircleShape circleShape = new CircleShape();
     private final LineShape lineShape = new LineShape();
 
@@ -33,25 +33,27 @@ public class SampleView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
+        roundRectShape.setColor(Color.BLUE)
 
-        roundRectShape.setColor(Color.BLUE);
+                .setBorderColor(Color.parseColor("#AAAAAA"))
+                .setBorderWidth(15)
 
-        roundRectShape.setCorderRadius(15);
-        roundRectShape.setLeft(50)
+                .setCornerRadius(15)
+                .setLeft(50)
                 .setTop(50)
                 .setWidth(200)
                 .setHeight(200);
 
-        circleShape.setColor(Color.BLUE);
-        circleShape.setRadius(50)
+        circleShape.setColor(Color.BLUE)
+                .setRadius(50)
                 .setCenterX(400)
                 .setCenterY(400);
 
-        lineShape.setColor(Color.BLUE);
-        lineShape.setStrokeWidth(10);
-
-        lineShape.start(100,800)
-                .end(400,800);
+        lineShape
+                .setColor(Color.BLUE)
+                .setStrokeWidth(10)
+                .start(100, 800)
+                .end(400, 800);
     }
 
     @Override

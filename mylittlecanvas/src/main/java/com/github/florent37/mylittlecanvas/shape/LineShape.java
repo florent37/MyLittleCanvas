@@ -41,13 +41,13 @@ public class LineShape extends Shape {
     }
 
     @Override
-    public int getCenterX() {
-        return (int) ((startX + endX) / 2f);
+    public float getCenterX() {
+        return ((startX + endX) / 2f);
     }
 
     @Override
-    public int getCenterY() {
-        return (int) ((endX + endY) / 2f);
+    public float getCenterY() {
+        return ((endX + endY) / 2f);
     }
 
     @Override
@@ -71,6 +71,10 @@ public class LineShape extends Shape {
         return endY;
     }
 
+    public LineShape setVariable(String key, Object value) {
+        return (LineShape) super.setVariable(key, value);
+    }
+
     public LineShape start(float x, float y) {
         setStartX(x);
         setStartY(y);
@@ -85,5 +89,25 @@ public class LineShape extends Shape {
 
     public LineShape setColor(@ColorInt int color) {
         return (LineShape) super.setColor(color);
+    }
+
+    public LineShape shadow(float shadowRadius, float shadowDx, float shadowDy, @ColorInt int shadowColor) {
+        return (LineShape) super.shadow(shadowRadius, shadowDx, shadowDy, shadowColor);
+    }
+
+    public LineShape setShadowRadius(float shadowRadius) {
+        return (LineShape) super.setShadowRadius(shadowRadius);
+    }
+
+    public LineShape setShadowDx(float shadowDx) {
+        return (LineShape) super.setShadowDx(shadowDx);
+    }
+
+    public LineShape setShadowDy(float shadowDy) {
+        return (LineShape) super.setShadowDy(shadowDy);
+    }
+
+    public LineShape setShadowColor(int shadowColor) {
+        return (LineShape) super.setShadowColor(shadowColor);
     }
 }

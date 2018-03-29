@@ -5,17 +5,22 @@ import android.graphics.Path;
 import android.graphics.RectF;
 
 public class PathShape extends Shape {
-    private Path path;
-    private RectF pathBounds;
+    protected Path path = new Path();
+    private RectF pathBounds = new RectF();
 
     public Path getPath() {
         return path;
     }
 
     public PathShape setPath(final Path path) {
-        this.path = path;
-        path.computeBounds(pathBounds, false);
+        this.path.set(path);
         return this;
+    }
+
+    @Override
+    protected void update() {
+        super.update();
+        path.computeBounds(pathBounds, false);
     }
 
     @Override
@@ -24,12 +29,12 @@ public class PathShape extends Shape {
     }
 
     @Override
-    public int getCenterX() {
+    public float getCenterX() {
         return (int) pathBounds.centerX();
     }
 
     @Override
-    public int getCenterY() {
+    public float getCenterY() {
         return (int) pathBounds.centerY();
     }
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <canvastoolbox.florent37.github.com.canvastoolbox.SampleView
+    <canvastoolbox.florent37.github.com.canvastoolbox.views.SampleView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

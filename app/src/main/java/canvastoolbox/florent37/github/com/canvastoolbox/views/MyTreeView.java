@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.github.florent37.mylittlecanvas.TouchEventDetector;
 import com.github.florent37.mylittlecanvas.shape.DrawableShape;
 import com.github.florent37.mylittlecanvas.shape.LineShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
-import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
 import com.github.florent37.mylittlecanvas.shape.TextShape;
 import com.github.florent37.mylittlecanvas.values.Alignment;
 
@@ -21,14 +19,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class MyTreeView extends View {
 
-    final RoundRectShape parent = new RoundRectShape();
+    final RectShape parent = new RectShape();
     final TextShape textParent = new TextShape();
 
-    final RoundRectShape childLeft = new RoundRectShape();
+    final RectShape childLeft = new RectShape();
     final TextShape textChildLeft = new TextShape();
     final LineShape lineParentChildLeft = new LineShape();
 
-    final RoundRectShape childRight = new RoundRectShape();
+    final RectShape childRight = new RectShape();
     final TextShape textChildRight = new TextShape();
     final LineShape lineParentChildRight = new LineShape();
 
@@ -46,19 +44,19 @@ public class MyTreeView extends View {
     public MyTreeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        parent.setCorderRadius(10)
+        parent.setCornerRadius(10)
                 .setColor(Color.parseColor("#3F51B5"));
         textParent.setColor(Color.WHITE)
                 .setTextSizePx(40);
 
-        childLeft.setCorderRadius(10)
+        childLeft.setCornerRadius(10)
                 .setColor(Color.parseColor("#2196F3"));
         textChildLeft.setColor(Color.WHITE)
                 .setTextSizePx(40);
         lineParentChildLeft.setStrokeWidth(3)
                 .setColor(Color.parseColor("#3E3E3E"));
 
-        childRight.setCorderRadius(10)
+        childRight.setCornerRadius(10)
                 .setColor(Color.parseColor("#9575CD"));
         textChildRight.setColor(Color.WHITE)
                 .setTextSizePx(40);

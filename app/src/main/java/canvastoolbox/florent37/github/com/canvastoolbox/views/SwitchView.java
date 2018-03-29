@@ -9,12 +9,12 @@ import android.view.View;
 
 import com.github.florent37.mylittlecanvas.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
-import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
+import com.github.florent37.mylittlecanvas.shape.RectShape;
 
 import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;
 
 public class SwitchView extends View {
-    private final RoundRectShape background = new RoundRectShape();
+    private final RectShape background = new RectShape();
     private final CircleShape indicator = new CircleShape();
 
     private final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
@@ -37,6 +37,7 @@ public class SwitchView extends View {
     }
 
     private void init() {
+
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +51,7 @@ public class SwitchView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         background
-                .setCorderRadius(h / 2f)
+                .setCornerRadius(h / 2f)
                 .setColor(Color.parseColor("#DEDEDE"))
                 .setRect(0, 0, w, h);
 
@@ -71,11 +72,11 @@ public class SwitchView extends View {
         if(checked != this.checked) {
             this.checked = checked;
 
-            final int newCenterX = checked ? getWidth() - indicator.getRadius() : indicator.getRadius();
+            final float newCenterX = checked ? getWidth() - indicator.getRadius() : indicator.getRadius();
             shapeAnimator.clear()
                     .play(
                             indicator.animateCenterX(indicator.getCenterX(), newCenterX),
-                            indicator.animateRadius(indicator.getRadius(), indicator.getRadius() * 0.9f, indicator.getRadius())
+                            indicator.animateRadiusBy(1f, 0.9f, 1f)
                     )
                     .start();
         }

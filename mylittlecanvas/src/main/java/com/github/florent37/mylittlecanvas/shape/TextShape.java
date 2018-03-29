@@ -3,6 +3,7 @@ package com.github.florent37.mylittlecanvas.shape;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -29,6 +30,10 @@ public class TextShape extends RectShape {
         return this;
     }
 
+    public TextShape setVariable(String key, Object value) {
+        return (TextShape) super.setVariable(key, value);
+    }
+
     private Layout.Alignment toAlignment(Alignment.HORIZONTAL align) {
         switch (align) {
             case LEFT:
@@ -53,7 +58,7 @@ public class TextShape extends RectShape {
         return this;
     }
 
-    public TextShape setTypeface(Typeface typeface) {
+    public TextShape setTypeface(@NonNull Typeface typeface) {
         paint.setTypeface(typeface);
         update();
         return this;

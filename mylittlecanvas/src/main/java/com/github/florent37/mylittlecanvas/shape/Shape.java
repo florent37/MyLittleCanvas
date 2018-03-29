@@ -3,14 +3,19 @@ package com.github.florent37.mylittlecanvas.shape;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Typeface;
+import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Shape {
 
@@ -21,10 +26,30 @@ public abstract class Shape {
     private float rotation = 0;
     protected PointF rotationPivot = null;
 
-    protected int minX = Integer.MIN_VALUE;
-    protected int maxX = Integer.MAX_VALUE;
-    protected int minY = Integer.MIN_VALUE;
-    protected int maxY = Integer.MAX_VALUE;
+    private float scale = 1f;
+    protected PointF scalePivot = null;
+
+    private float shadowRadius = 0f;
+    private float shadowDx = 0f;
+    private float shadowDy = 0f;
+    @ColorInt
+    private int shadowColor = Color.BLACK;
+
+    protected float minX = Float.MIN_VALUE;
+    protected float maxX = Float.MAX_VALUE;
+    protected float minY = Float.MIN_VALUE;
+    protected float maxY = Float.MAX_VALUE;
+
+    private Map<String, Object> tags = new HashMap<>();
+
+    public Shape setVariable(String key, Object value){
+        tags.put(key, value);
+        return this;
+    }
+
+    public <T> T getVariable(String key){
+        return (T) tags.get(key);
+    }
 
     public Shape() {
         paint.setAntiAlias(true);
@@ -54,6 +79,12 @@ public abstract class Shape {
         return this;
     }
 
+    public Shape setScale(float scale) {
+        this.scale = scale;
+        update();
+        return this;
+    }
+
     public float getStrokeWidth() {
         return paint.getStrokeWidth();
     }
@@ -70,6 +101,55 @@ public abstract class Shape {
 
     protected abstract void draw(Canvas canvas);
 
+    public float getShadowRadius() {
+        return shadowRadius;
+    }
+
+    public Shape setShadowRadius(float shadowRadius) {
+        this.shadowRadius = shadowRadius;
+        update();
+        return this;
+    }
+
+    public float getShadowDx() {
+        return shadowDx;
+    }
+
+    public Shape setShadowDx(float shadowDx) {
+        this.shadowDx = shadowDx;
+        update();
+        return this;
+    }
+
+    public float getShadowDy() {
+        return shadowDy;
+    }
+
+    public Shape setShadowDy(float shadowDy) {
+        this.shadowDy = shadowDy;
+        update();
+        return this;
+    }
+
+    public int getShadowColor() {
+        return shadowColor;
+    }
+
+    public Shape setShadowColor(int shadowColor) {
+        this.shadowColor = shadowColor;
+        update();
+        return this;
+    }
+
+    public Shape shadow(float shadowRadius, float shadowDx, float shadowDy, @ColorInt int shadowColor){
+        this.shadowRadius = shadowRadius;
+        this.shadowDx = shadowDx;
+        this.shadowDy = shadowDy;
+        this.shadowColor = shadowColor;
+        update();
+        return this;
+    }
+
     public void onDraw(Canvas canvas) {
         if (!willNotDraw) {
             canvas.save();
@@ -78,12 +158,18 @@ public abstract class Shape {
         }
     }
 
+    @CallSuper
     protected void update() {
+        if(shadowRadius != 0) {
+            paint.setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor);
+        } else {
+            paint.clearShadowLayer();
+        }
     }
 
-    public abstract int getCenterX();
+    public abstract float getCenterX();
 
-    public abstract int getCenterY();
+    public abstract float getCenterY();
 
     @NonNull
     public PointF getRotationPivot() {
@@ -91,6 +177,30 @@ public abstract class Shape {
             return new PointF(getCenterX(), getCenterY());
         }
         return rotationPivot;
+    }
+
+    @NonNull
+    public PointF getScalePivot() {
+        if(scalePivot == null){
+            return new PointF(getCenterX(), getCenterY());
+        }
+        return scalePivot;
+    }
+
+    public void setRotationPivot(float x, float y) {
+        if(rotationPivot == null){
+            this.rotationPivot = new PointF(x, y);
+        } else {
+            this.rotationPivot.set(x, y);
+        }
+    }
+
+    public void setScalePivot(float x, float y) {
+        if(scalePivot == null){
+            this.scalePivot = new PointF(x, y);
+        } else {
+            this.scalePivot.set(x, y);
+        }
     }
 
     public boolean isWillNotDraw() {
@@ -149,44 +259,24 @@ public abstract class Shape {
         return valueAnimator;
     }
 
-    public int getMinX() {
+    public float getMinX() {
         return minX;
     }
 
-    public int getMaxX() {
+    public float getMaxX() {
         return maxX;
     }
 
-    public int getMinY() {
+    public float getMinY() {
         return minY;
     }
 
-    public int getMaxY() {
+    public float getMaxY() {
         return maxY;
     }
 
-    public Shape setMinX(int minX) {
-        this.minX = minX;
-        return this;
-    }
-
-    public Shape setMaxX(int maxX) {
-        this.maxX = maxX;
-        return this;
-    }
-
-    public Shape setMinY(int minY) {
-        this.minY = minY;
-        return this;
-    }
-
-    public Shape setMaxY(int maxY) {
-        this.maxY = maxY;
-        return this;
-    }
-
     public Shape setMinX(float minX) {
-        this.minX = (int) minX;
+        this.minX = minX;
         return this;
     }
 

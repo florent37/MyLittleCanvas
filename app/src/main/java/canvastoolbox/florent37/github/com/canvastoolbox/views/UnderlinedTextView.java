@@ -7,12 +7,12 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 
 import com.github.florent37.mylittlecanvas.ShapeAnimator;
-import com.github.florent37.mylittlecanvas.shape.RoundRectShape;
+import com.github.florent37.mylittlecanvas.shape.RectShape;
 
 
 public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextView {
 
-    final RoundRectShape roundRectShape = new RoundRectShape();
+    final RectShape roundRectShape = new RectShape();
     final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
 
     public UnderlinedTextView(Context context) {
@@ -27,7 +27,7 @@ public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextV
         super(context, attrs, defStyleAttr);
 
         roundRectShape
-                .setCorderRadius(10)
+                .setCornerRadius(10)
                 .setColor(Color.parseColor("#3F51B5"));
     }
 

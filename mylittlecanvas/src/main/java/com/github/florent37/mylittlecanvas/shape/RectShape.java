@@ -1,16 +1,27 @@
 package com.github.florent37.mylittlecanvas.shape;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.support.annotation.ColorInt;
 
-public abstract class RectShape extends Shape {
+import com.github.florent37.mylittlecanvas.RoundRect;
+
+public class RectShape extends PathShape {
 
     protected final RectF rectF = new RectF();
-    protected final Path path = new Path();
+    private float cornerRadius = 0;
+    private boolean drawAngleTopLeft = true;
+    private boolean drawAngleTopRight = true;
+    private boolean drawAngleBottomLeft = true;
+    private boolean drawAngleBottomRight = true;
+    private float borderWidth = 0;
+    @ColorInt
+    private int borderColor = Color.BLACK;
 
     @Override
     protected void draw(Canvas canvas) {
@@ -22,13 +33,43 @@ public abstract class RectShape extends Shape {
         }
         canvas.translate(rectF.left, rectF.top);
 
-        canvas.drawRect(0, 0, rectF.right, rectF.bottom, paint);
+        canvas.drawPath(super.path, paint);
+
+        if (borderWidth != 0) {
+            final Paint.Style oldStyle = paint.getStyle();
+            final float strokeWidth = paint.getStrokeWidth();
+            final int paintColor = paint.getColor();
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setColor(borderColor);
+            paint.setStrokeWidth(borderWidth);
+
+            canvas.drawPath(super.path, paint);
+
+            paint.setColor(paintColor);
+            paint.setStrokeWidth(strokeWidth);
+            paint.setStyle(oldStyle);
+        }
 
         canvas.restoreToCount(save);
     }
 
     protected void update() {
-
+        super.update();
+        if (cornerRadius == 0) {
+            path.reset();
+            path.moveTo(0, 0);
+            path.addRect(0, 0, getWidth(), getHeight(), Path.Direction.CW);
+            path.close();
+        } else {
+            path.reset();
+            path.set(RoundRect.generatePath(
+                    getWidth(), getHeight(),
+                    drawAngleTopLeft ? cornerRadius : 0,
+                    drawAngleTopRight ? cornerRadius : 0,
+                    drawAngleBottomRight ? cornerRadius : 0,
+                    drawAngleBottomLeft ? cornerRadius : 0
+            ));
+        }
     }
 
     public RectF getRectF() {
@@ -42,6 +83,60 @@ public abstract class RectShape extends Shape {
                 rectF.right,
                 rectF.bottom
         );
+    }
+
+    public RectShape setColor(@ColorInt int color) {
+        return (RectShape) super.setColor(color);
+    }
+
+    public float getCornerRadius() {
+        return cornerRadius;
+    }
+
+    public RectShape setCornerRadius(float radiusAngle) {
+        this.cornerRadius = radiusAngle;
+        update();
+        return this;
+    }
+
+    public boolean isDrawAngleTopLeft() {
+        return drawAngleTopLeft;
+    }
+
+    public RectShape setDrawAngleTopLeft(boolean drawAngleTopLeft) {
+        this.drawAngleTopLeft = drawAngleTopLeft;
+        update();
+        return this;
+    }
+
+    public boolean isDrawAngleTopRight() {
+        return drawAngleTopRight;
+    }
+
+    public RectShape setDrawAngleTopRight(boolean drawAngleTopRight) {
+        this.drawAngleTopRight = drawAngleTopRight;
+        update();
+        return this;
+    }
+
+    public boolean isDrawAngleBottomLeft() {
+        return drawAngleBottomLeft;
+    }
+
+    public RectShape setDrawAngleBottomLeft(boolean drawAngleBottomLeft) {
+        this.drawAngleBottomLeft = drawAngleBottomLeft;
+        update();
+        return this;
+    }
+
+    public boolean isDrawAngleBottomRight() {
+        return drawAngleBottomRight;
+    }
+
+    public RectShape setDrawAngleBottomRight(boolean drawAngleBottomRight) {
+        this.drawAngleBottomRight = drawAngleBottomRight;
+        update();
+        return this;
     }
 
     public RectShape copyPosition(RectShape other) {
@@ -78,6 +173,26 @@ public abstract class RectShape extends Shape {
         return this;
     }
 
+    public RectShape shadow(float shadowRadius, float shadowDx, float shadowDy, @ColorInt int shadowColor) {
+        return (RectShape) super.shadow(shadowRadius, shadowDx, shadowDy, shadowColor);
+    }
+
+    public RectShape setShadowRadius(float shadowRadius) {
+        return (RectShape) super.setShadowRadius(shadowRadius);
+    }
+
+    public RectShape setShadowDx(float shadowDx) {
+        return (RectShape) super.setShadowDx(shadowDx);
+    }
+
+    public RectShape setShadowDy(float shadowDy) {
+        return (RectShape) super.setShadowDy(shadowDy);
+    }
+
+    public RectShape setShadowColor(int shadowColor) {
+        return (RectShape) super.setShadowColor(shadowColor);
+    }
+
     public float getLeft() {
         return rectF.left;
     }
@@ -86,6 +201,10 @@ public abstract class RectShape extends Shape {
         rectF.left = Math.max(left, minX);
         update();
         return this;
+    }
+
+    public RectShape setVariable(String key, Object value) {
+        return (RectShape) super.setVariable(key, value);
     }
 
     public float getRight() {
@@ -124,30 +243,58 @@ public abstract class RectShape extends Shape {
         return this;
     }
 
-    public ValueAnimator animateLeft(float... newLeft) {
-        return ObjectAnimator.ofFloat(this, "left", newLeft);
+    public ValueAnimator animateLeft(float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setLeft((Float) animation.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
     }
 
-    public ValueAnimator animateRight(float... newRight) {
-        return ObjectAnimator.ofFloat(this, "right", newRight);
+    public ValueAnimator animateRight(float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setRight((Float) animation.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
     }
 
-    public ValueAnimator animateTop(float... newTop) {
-        return ObjectAnimator.ofFloat(this, "top", newTop);
+    public ValueAnimator animateTop(float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setTop((Float) animation.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
     }
 
-    public ValueAnimator animateBottom(float... newBottom) {
-        return ObjectAnimator.ofFloat(this, "bottom", newBottom);
+    public ValueAnimator animateBottom(float... values) {
+        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setBottom((Float) animation.getAnimatedValue());
+            }
+        });
+        return valueAnimator;
     }
 
     @Override
-    public int getCenterX() {
-        return (int) rectF.centerX();
+    public float getCenterX() {
+        return rectF.centerX();
     }
 
     @Override
-    public int getCenterY() {
-        return (int) rectF.centerY();
+    public float getCenterY() {
+        return rectF.centerY();
     }
 
     public float getWidth() {
@@ -168,7 +315,7 @@ public abstract class RectShape extends Shape {
         return this;
     }
 
-    public RectShape centerHorizontal(int parentWidth) {
+    public RectShape centerHorizontal(float parentWidth) {
         final float width = getWidth();
         final float left = parentWidth / 2f - width / 2f;
         setLeft(left);
@@ -176,7 +323,7 @@ public abstract class RectShape extends Shape {
         return this;
     }
 
-    public void centerVertical(int parentHeight) {
+    public void centerVertical(float parentHeight) {
         final float height = getHeight();
         final float top = parentHeight / 2f - height / 2f;
         setTop(top);
@@ -266,22 +413,6 @@ public abstract class RectShape extends Shape {
         return rectF.contains(x, y);
     }
 
-    public RectShape setMinX(int minX) {
-        return (RectShape) super.setMinX(minX);
-    }
-
-    public RectShape setMaxX(int maxX) {
-        return (RectShape) super.setMaxX(maxX);
-    }
-
-    public RectShape setMinY(int minY) {
-        return (RectShape) super.setMinY(minY);
-    }
-
-    public RectShape setMaxY(int maxY) {
-        return (RectShape) super.setMaxY(maxY);
-    }
-
     public RectShape setMinX(float minX) {
         return (RectShape) super.setMinX(minX);
     }
@@ -296,5 +427,25 @@ public abstract class RectShape extends Shape {
 
     public RectShape setMaxY(float maxY) {
         return (RectShape) super.setMaxY(maxY);
+    }
+
+    public float getBorderWidth() {
+        return borderWidth;
+    }
+
+    public RectShape setBorderWidth(float borderWidth) {
+        this.borderWidth = borderWidth;
+        update();
+        return this;
+    }
+
+    public int getBorderColor() {
+        return borderColor;
+    }
+
+    public RectShape setBorderColor(int borderColor) {
+        this.borderColor = borderColor;
+        update();
+        return this;
     }
 }
