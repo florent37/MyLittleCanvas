@@ -75,7 +75,7 @@ public class SwitchView extends View {
             final float newCenterX = checked ? getWidth() - indicator.getRadius() : indicator.getRadius();
             shapeAnimator.clear()
                     .play(
-                            indicator.animateCenterX(indicator.getCenterX(), newCenterX),
+                            indicator.animateCenterXTo(newCenterX),
                             indicator.animateRadiusBy(1f, 0.9f, 1f)
                     )
                     .start();

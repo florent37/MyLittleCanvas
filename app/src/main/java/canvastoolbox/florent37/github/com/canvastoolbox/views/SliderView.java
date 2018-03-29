@@ -104,7 +104,7 @@ public class SliderView extends View {
             case MotionEvent.ACTION_DOWN:
                 shapeAnimator
                         .clear()
-                        .play(indicator.animateRadius(indicator.getRadius(), background.getHeight()))
+                        .play(indicator.animateRadiusTo(background.getHeight()))
                         .start();
             case MotionEvent.ACTION_MOVE:
                 indicator.setCenterX(event.getX());
@@ -114,7 +114,7 @@ public class SliderView extends View {
             case MotionEvent.ACTION_UP:
                 shapeAnimator
                         .clear()
-                        .play(indicator.animateRadius(indicator.getRadius(), indicator.getVariable("original_radius")))
+                        .play(indicator.animateRadiusTo(indicator.getVariable("original_radius")))
                         .start();
                 postInvalidate();
         }

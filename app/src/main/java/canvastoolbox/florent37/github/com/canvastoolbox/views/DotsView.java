@@ -73,10 +73,10 @@ public class DotsView extends FrameLayout {
 
         for (int i = 0; i < circles.size(); i++) {
             final CircleShape circle = circles.get(i);
-            circle.setRadius(radius);
-            circle.setColor(colors[i % colors.length]);
-            circle.setCenterY((int) (h / 2f));
-            circle.setCenterX((w / 2f) + ((radius + distanceBetweenCircles) * (i - circles.size() / 2)));
+            circle.setRadius(radius)
+                    .setColor(colors[i % colors.length])
+                    .setCenterY((int) (h / 2f))
+                    .setCenterX((w / 2f) + ((radius + distanceBetweenCircles) * (i - circles.size() / 2)));
         }
 
         //circles[0].setCenterX((int) ((w / 2f) - (radius + distanceBetweenCircles));
@@ -112,9 +112,9 @@ public class DotsView extends FrameLayout {
 
         new ShapeAnimator(this)
                 .play(
-                        firstCircle.animateCenterX(firstCircle.getCenterX(), nextCircle.getCenterX()),
-                        firstCircle.animateCenterY(firstCircle.getCenterY(), firstCircle.getCenterY() - saut, firstCircle.getCenterY()),
-                        nextCircle.animateCenterX(nextCircle.getCenterX(), firstCircle.getCenterX())
+                        firstCircle.animateCenterXTo(nextCircle.getCenterX()),
+                        firstCircle.animateCenterYAdded(0, -1 * saut, 0),
+                        nextCircle.animateCenterXTo(firstCircle.getCenterX())
                 )
                 .onAnimationEnd(() -> {
                     //intervert circles

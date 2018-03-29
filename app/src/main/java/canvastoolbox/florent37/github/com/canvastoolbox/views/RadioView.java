@@ -84,7 +84,7 @@ public class RadioView extends View {
             //retrieve the "variable" named radius_percent ``into indicator
             final float newRadius = checked ? 0 : background.getRadius() * indicator.<Float>getVariable("radius_percent");
             shapeAnimator.clear()
-                    .play(indicator.animateRadius(indicator.getRadius(), newRadius))
+                    .play(indicator.animateRadiusTo(newRadius))
                     .setDuration(200)
                     .setInterpolator(new AccelerateInterpolator())
                     .start();

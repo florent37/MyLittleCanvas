@@ -80,6 +80,10 @@ public class CircleShape extends Shape {
         return valueAnimator;
     }
 
+    public ValueAnimator animateCenterXTo(float finalValue){
+        return animateCenterX(getCenterX(), finalValue);
+    }
+
     public ValueAnimator animateCenterXAdded(float...values){
         final float[] newValues = new float[values.length];
         final float centerX = getCenterX();
@@ -100,6 +104,10 @@ public class CircleShape extends Shape {
         return valueAnimator;
     }
 
+    public ValueAnimator animateCenterYTo(float finalValue){
+        return animateCenterY(getCenterY(), finalValue);
+    }
+
     public ValueAnimator animateCenterYAdded(float...values){
         final float[] newValues = new float[values.length];
         final float centerY = getCenterY();
@@ -118,6 +126,10 @@ public class CircleShape extends Shape {
             }
         });
         return valueAnimator;
+    }
+
+    public ValueAnimator animateRadiusTo(float finalValue){
+        return animateRadius(getRadius(), finalValue);
     }
 
     public ValueAnimator animateRadiusBy(float...values){
