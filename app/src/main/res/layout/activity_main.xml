@@ -1,36 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <canvastoolbox.florent37.github.com.canvastoolbox.views.RadioView
-        android:layout_width="25dp"
-        android:layout_height="25dp" />
-
-    <canvastoolbox.florent37.github.com.canvastoolbox.views.SwitchView
-        android:layout_width="50dp"
-        android:layout_height="25dp" />
-
-    <canvastoolbox.florent37.github.com.canvastoolbox.views.UnderlinedTextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:text="My Little Canvas"/>
-
-    <canvastoolbox.florent37.github.com.canvastoolbox.views.SliderView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:text="My Little Canvas"/>
-
-    <canvastoolbox.florent37.github.com.canvastoolbox.views.MyTreeView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:text="Custom Views created only using MyLittleCanvas"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Slider" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.views.SliderView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:text="My Little Canvas" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom RadioButton" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.views.RadioView
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Switch" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.views.SwitchView
+            android:layout_width="50dp"
+            android:layout_height="25dp" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Underlined TextView" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.views.UnderlinedTextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:text="My Little Canvas" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Tree" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.views.MyTreeView
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
