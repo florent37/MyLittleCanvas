@@ -15,8 +15,6 @@
         android:layout_width="50dp"
         android:layout_height="25dp" />
 
-    <!--
-
     <canvastoolbox.florent37.github.com.canvastoolbox.views.UnderlinedTextView
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -34,5 +32,5 @@
     <canvastoolbox.florent37.github.com.canvastoolbox.views.MyTreeView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
--->
+
 </LinearLayout>

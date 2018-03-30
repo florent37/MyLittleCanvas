@@ -114,7 +114,7 @@ public class CircleShape extends Shape {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] + centerY;
         }
-        return animateCenterYAdded(newValues);
+        return animateCenterY(newValues);
     }
 
     public ValueAnimator animateRadius(float...values){

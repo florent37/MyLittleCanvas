@@ -5,16 +5,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.florent37.mylittlecanvas.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 import com.github.florent37.mylittlecanvas.shape.TextShape;
+import com.github.florent37.mylittlecanvas.touch.CirclePos;
+import com.github.florent37.mylittlecanvas.touch.EventPos;
 import com.github.florent37.mylittlecanvas.values.Alignment;
 
 import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;
+import static com.github.florent37.mylittlecanvas.TouchHelper.onTouch;
 
 public class SliderView extends View {
 
@@ -73,6 +75,12 @@ public class SliderView extends View {
                 .setVariable("original_radius", indicator.getRadius())
                 .setMinX(background.getLeft())
                 .setCenterX(background.getLeft() + indicator.getRadius());
+
+        onTouch(this)
+                .move(indicator, CirclePos.CENTER_X, EventPos.X)
+                .onDownAnimate(indicator.animateRadiusTo(background.getHeight()))
+                .onUpAnimate(indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")));
+
     }
 
     @Override
@@ -98,6 +106,7 @@ public class SliderView extends View {
                 .centerVertical(height);
     }
 
+    /*
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -120,6 +129,7 @@ public class SliderView extends View {
         }
         return super.onTouchEvent(event);
     }
+    */
 
     @Override
     protected void onDraw(Canvas canvas) {
