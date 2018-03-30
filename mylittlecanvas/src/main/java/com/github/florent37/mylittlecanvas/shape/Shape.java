@@ -35,9 +35,9 @@ public abstract class Shape {
     @ColorInt
     private int shadowColor = Color.BLACK;
 
-    protected float minX = Float.MIN_VALUE;
+    protected float minX = 0;
     protected float maxX = Float.MAX_VALUE;
-    protected float minY = Float.MIN_VALUE;
+    protected float minY = 0;
     protected float maxY = Float.MAX_VALUE;
 
     private Map<String, Object> tags = new HashMap<>();
@@ -346,5 +346,4 @@ public abstract class Shape {
         this.maxY = (int) maxY;
         return this;
     }
-
 }

@@ -37,7 +37,6 @@ public class SwitchView extends View {
     }
 
     private void init() {
-
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,10 +73,8 @@ public class SwitchView extends View {
 
             final float newCenterX = checked ? getWidth() - indicator.getRadius() : indicator.getRadius();
             shapeAnimator.clear()
-                    .play(
-                            indicator.animateCenterXTo(newCenterX),
-                            indicator.animateRadiusBy(1f, 0.9f, 1f)
-                    )
+                    .play(indicator.animateCenterXTo(newCenterX))
+                    .play(indicator.animateRadiusBy(1f, 0.9f, 1f))
                     .start();
         }
     }

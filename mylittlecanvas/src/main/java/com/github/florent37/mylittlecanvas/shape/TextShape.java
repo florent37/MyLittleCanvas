@@ -58,6 +58,10 @@ public class TextShape extends RectShape {
         return this;
     }
 
+    public float getTextSize() {
+        return paint.getTextSize();
+    }
+
     public TextShape setTypeface(@NonNull Typeface typeface) {
         paint.setTypeface(typeface);
         update();

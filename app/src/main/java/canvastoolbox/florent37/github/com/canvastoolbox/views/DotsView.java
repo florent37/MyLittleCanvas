@@ -23,12 +23,12 @@ import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;
 public class DotsView extends FrameLayout {
 
     private int colors[] = new int[]{
-            //Color.parseColor("#ED1B2F"),
-            //Color.parseColor("#006A4F"),
             Color.parseColor("#039BE5"),
             Color.parseColor("#D32F2F"),
             Color.parseColor("#FFB300"),
-            Color.parseColor("#6D4C41")
+            Color.parseColor("#6D4C41"),
+            //Color.parseColor("#ED1B2F"),
+            //Color.parseColor("#006A4F"),
     };
 
     private int numberOfCircles = 3;
