@@ -3,29 +3,29 @@ package canvastoolbox.florent37.github.com.canvastoolbox.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.github.florent37.mylittlecanvas.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 import com.github.florent37.mylittlecanvas.shape.TextShape;
-import com.github.florent37.mylittlecanvas.touch.CirclePos;
 import com.github.florent37.mylittlecanvas.touch.EventPos;
+import com.github.florent37.mylittlecanvas.touch.ShapeEventManager;
 import com.github.florent37.mylittlecanvas.values.Alignment;
 
 import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;
-import static com.github.florent37.mylittlecanvas.TouchHelper.onTouch;
 
 public class SliderView extends View {
 
     private final RectShape background = new RectShape();
     private final CircleShape indicator = new CircleShape();
+    private final TextShape indicatorValue = new TextShape();
     private final TextShape minText = new TextShape();
     private final TextShape maxText = new TextShape();
 
-    private ShapeAnimator shapeAnimator = new ShapeAnimator(this);
+    private ShapeEventManager shapeEventManager = new ShapeEventManager(this);
 
     public SliderView(Context context) {
         super(context);
@@ -65,8 +65,7 @@ public class SliderView extends View {
                 .setVerticalAlignment(Alignment.VERTICAL.BOTTOM)
                 .setHorizontalAlignment(Alignment.HORIZONTAL.RIGHT)
                 .setLeft(background.getLeft())
-                .setTop(0)
-                .setBottom(background.getBottom());
+                .setTop(0);
 
         indicator.setBorderColor(Color.parseColor("#3F51B5"))
                 .setBorderWidth(dpToPx(this, 2))
@@ -76,11 +75,26 @@ public class SliderView extends View {
                 .setMinX(background.getLeft())
                 .setCenterX(background.getLeft() + indicator.getRadius());
 
-        onTouch(this)
-                .move(indicator, CirclePos.CENTER_X, EventPos.X)
-                .onDownAnimate(indicator.animateRadiusTo(background.getHeight()))
-                .onUpAnimate(indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")));
+        indicatorValue.setText("0")
+                .setTypeface(Typeface.DEFAULT_BOLD)
+                .setTextSizePx(dpToPx(this, 11))
+                .setColor(Color.parseColor("#3E3E3E"))
+                .setVerticalAlignment(Alignment.VERTICAL.BOTTOM)
+                .setHorizontalAlignment(Alignment.HORIZONTAL.CENTER)
+                .setVariable("distance_with_bar", dpToPx(this, 8))
+                .setTop(0);
 
+        shapeEventManager.onTouchAywhere((eventHelper) ->
+                eventHelper.move(indicator, CircleShape.Pos.CENTER_X, EventPos.X)
+                        .onDownAnimate(indicator.animateRadiusTo(background.getHeight()))
+                        .onMove(event -> {
+                            final int percent = (int)((indicator.getCenterX() - background.getLeft()) / background.getWidth() * 100f);
+                            indicatorValue.setText(String.valueOf(percent))
+                                    .setLeft(indicator.getCenterX() - 50)
+                                    .setRight(indicator.getCenterX() + 50);
+                        })
+                        .onUpAnimate(indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")).setDuration(500))
+        );
     }
 
     @Override
@@ -104,38 +118,20 @@ public class SliderView extends View {
         indicator
                 .setMaxX(background.getRight())
                 .centerVertical(height);
-    }
 
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                shapeAnimator
-                        .clear()
-                        .play(indicator.animateRadiusTo(background.getHeight()))
-                        .start();
-            case MotionEvent.ACTION_MOVE:
-                indicator.setCenterX(event.getX());
-                postInvalidate();
-                return true;
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                shapeAnimator
-                        .clear()
-                        .play(indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")))
-                        .start();
-                postInvalidate();
-        }
-        return super.onTouchEvent(event);
+        indicatorValue
+                .setLeft(indicator.getCenterX() - 50)
+                .setRight(indicator.getCenterX() + 50)
+                .setBottom(background.getTop() - indicatorValue.<Float>getVariable("distance_with_bar"));
+
     }
-    */
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         background.onDraw(canvas);
         indicator.onDraw(canvas);
+        indicatorValue.onDraw(canvas);
         minText.onDraw(canvas);
         maxText.onDraw(canvas);
     }

@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
-import com.github.florent37.mylittlecanvas.ShapeAnimator;
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 
 import static com.github.florent37.mylittlecanvas.CanvasHelper.dpToPx;

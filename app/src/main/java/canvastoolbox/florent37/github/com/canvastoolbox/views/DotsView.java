@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.github.florent37.mylittlecanvas.ShapeAnimator;
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 
 import java.util.ArrayList;

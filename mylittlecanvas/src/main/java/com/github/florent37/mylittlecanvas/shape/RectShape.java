@@ -466,6 +466,30 @@ public class RectShape extends PathShape {
         return this;
     }
 
+    public RectShape moveCenterXTo(float newCenterX) {
+        return this.moveXBy(newCenterX - getCenterX());
+    }
+
+    public RectShape moveCenterYTo(float newCenterY){
+        return this.moveXBy(newCenterY - getCenterY());
+    }
+
+    public RectShape moveLeftTo(float newLeft){
+        return this.moveXBy(newLeft - getLeft());
+    }
+
+    public RectShape moveRightTo(float newRight){
+        return this.moveXBy(newRight - getRight());
+    }
+
+    public RectShape moveTopTo(float newTop){
+        return this.moveYBy(newTop - getTop());
+    }
+
+    public RectShape moveBottomTo(float newBottom){
+        return this.moveYBy(newBottom - getBottom());
+    }
+
     public RectShape moveYBy(float differenceY) {
         final float height = getHeight();
         float oldTop = getTop();
@@ -535,5 +559,14 @@ public class RectShape extends PathShape {
         this.borderColor = borderColor;
         update();
         return this;
+    }
+
+    public enum Pos {
+        CENTER_X,
+        CENTER_Y,
+        LEFT,
+        TOP,
+        RIGHT,
+        BOTTOM
     }
 }

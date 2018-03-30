@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.github.florent37.mylittlecanvas.ShapeAnimator;
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 

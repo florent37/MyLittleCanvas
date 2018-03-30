@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-import com.github.florent37.mylittlecanvas.ShapeAnimator;
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 
 

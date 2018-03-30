@@ -1,4 +1,4 @@
-package com.github.florent37.mylittlecanvas;
+package com.github.florent37.mylittlecanvas.animation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+
+import com.github.florent37.mylittlecanvas.listeners.InvalidateListener;
+import com.github.florent37.mylittlecanvas.listeners.ViewInvalidateListener;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -166,26 +169,5 @@ public class ShapeAnimator {
 
     public interface OnAnimationEnd {
         void onAnimationEnd();
-    }
-
-    public interface InvalidateListener {
-        void invalidate();
-    }
-
-    public static class ViewInvalidateListener implements InvalidateListener {
-        private Reference<View> viewReference;
-
-        public ViewInvalidateListener(View view) {
-            this.viewReference = new WeakReference<View>(view);
-        }
-
-
-        @Override
-        public void invalidate() {
-            final View view = viewReference.get();
-            if (view != null) {
-                view.postInvalidate();
-            }
-        }
     }
 }

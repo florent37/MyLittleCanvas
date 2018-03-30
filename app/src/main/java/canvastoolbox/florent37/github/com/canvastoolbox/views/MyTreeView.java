@@ -5,17 +5,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
-import com.github.florent37.mylittlecanvas.TouchEventDetector;
-import com.github.florent37.mylittlecanvas.shape.DrawableShape;
+import com.github.florent37.mylittlecanvas.listeners.ClickedListener;
 import com.github.florent37.mylittlecanvas.shape.LineShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 import com.github.florent37.mylittlecanvas.shape.TextShape;
+import com.github.florent37.mylittlecanvas.touch.EventPos;
+import com.github.florent37.mylittlecanvas.touch.ShapeEventManager;
 import com.github.florent37.mylittlecanvas.values.Alignment;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MyTreeView extends View {
 
@@ -30,8 +28,7 @@ public class MyTreeView extends View {
     final TextShape textChildRight = new TextShape();
     final LineShape lineParentChildRight = new LineShape();
 
-    final DrawableShape drawableShape = new DrawableShape();
-    private TouchEventDetector touchEventDetector = new TouchEventDetector();
+    private ShapeEventManager shapeEventManager = new ShapeEventManager(this);
 
     public MyTreeView(Context context) {
         this(context, null);
@@ -63,38 +60,24 @@ public class MyTreeView extends View {
         lineParentChildRight.setStrokeWidth(3)
                 .setColor(Color.parseColor("#3E3E3E"));
 
-        drawableShape.setDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
-
         handleMoving();
     }
 
     private void handleMoving() {
-        final AtomicReference<RectShape> movingShape = new AtomicReference<>();
-        touchEventDetector.setListener(new TouchEventDetector.Listener() {
-            @Override
-            public void onTouched(float x, float y) {
-                if (childLeft.containsTouch(x, y)) {
-                    movingShape.set(childLeft);
-                } else if (childRight.containsTouch(x, y)) {
-                    movingShape.set(childRight);
-                }
-            }
-
-            @Override
-            public void onMoved(float differenceX, float differenceY, float newX, float newY) {
-                final RectShape moving = movingShape.get();
-                if (moving != null) {
-                    moving.moveBy(differenceX, differenceY);
-                    update();
-                    invalidate();
-                }
-            }
-
-            @Override
-            public void onRelease(float x, float y) {
-                movingShape.set(null);
-            }
-        });
+        shapeEventManager
+                .ifTouched(childLeft, (eventHelper) -> eventHelper
+                        .move(childLeft, RectShape.Pos.CENTER_X, EventPos.X)
+                        .move(childLeft, RectShape.Pos.TOP, EventPos.Y)
+                        .onMove((event) -> textChildLeft.copyPosition(childLeft))
+                        .onMove((event) -> lineParentChildLeft.end(childLeft.getCenterX(), childLeft.getTop()))
+                )
+                //.ifClicked(childLeft, shape -> shape.setColor(Color.BLACK))
+                .ifTouched(childRight, (eventHelper) -> eventHelper
+                        .move(childRight, RectShape.Pos.CENTER_X, EventPos.X)
+                        .move(childRight, RectShape.Pos.TOP, EventPos.Y)
+                        .onMove((event) -> textChildRight.copyPosition(childRight))
+                        .onMove((event) -> lineParentChildRight.end(childRight.getCenterX(), childRight.getTop()))
+                );
     }
 
     private void init() {
@@ -148,27 +131,6 @@ public class MyTreeView extends View {
         lineParentChildRight
                 .start(parent.getCenterX(), parent.getBottom())
                 .end(childRight.getCenterX(), childRight.getTop());
-
-        drawableShape.setLeft(0)
-                .setTop(0)
-                .setRight(100)
-                .setBottom(100);
-    }
-
-    private void update() {
-        textChildLeft.copyPosition(childLeft);
-        lineParentChildLeft
-                .end(childLeft.getCenterX(), childLeft.getTop());
-
-        textChildRight.copyPosition(childRight);
-        lineParentChildRight
-                .end(childRight.getCenterX(), childRight.getTop());
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        touchEventDetector.onTouchEvent(event);
-        return true;
     }
 
     @Override
@@ -191,7 +153,5 @@ public class MyTreeView extends View {
         childRight.onDraw(canvas);
         textChildRight.onDraw(canvas);
         lineParentChildRight.onDraw(canvas);
-
-        drawableShape.onDraw(canvas);
     }
 }

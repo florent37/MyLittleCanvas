@@ -241,4 +241,10 @@ public class CircleShape extends Shape {
     public CircleShape setMaxY(float maxY) {
         return (CircleShape) super.setMaxY(maxY);
     }
+
+    public enum Pos {
+        CENTER_X,
+        CENTER_Y
+    }
+
 }
