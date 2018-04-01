@@ -63,6 +63,9 @@ public abstract class Shape {
         return this;
     }
 
+    public abstract float getHeight();
+    public abstract float getWidth();
+
     public TextPaint getPaint() {
         return paint;
     }

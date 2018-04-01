@@ -18,7 +18,6 @@ import com.github.florent37.mylittlecanvas.touch.listeners.MoveListener;
 import com.github.florent37.mylittlecanvas.touch.listeners.UpListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EventHelper {
@@ -26,10 +25,10 @@ public class EventHelper {
     private final InvalidateListener invalidateListener;
     private final List<MoveAction> moveActions = new ArrayList<>();
     private final ShapeAnimator shapeAnimator;
-    private final List<ValueAnimator> downAnimators = new ArrayList<>();
+    private final List<EventAnimator> downAnimators = new ArrayList<>();
     private final List<DownListener> downListeners = new ArrayList<>();
     private final List<MoveListener> moveListeners = new ArrayList<>();
-    private final List<ValueAnimator> upAnimators = new ArrayList<>();
+    private final List<EventAnimator> upAnimators = new ArrayList<>();
     private final List<UpListener> upListeners = new ArrayList<>();
     boolean startedDown = false;
     @Nullable
@@ -52,8 +51,8 @@ public class EventHelper {
         invalidateListener.invalidate();
     }
 
-    public EventHelper onDownAnimate(ValueAnimator... animators) {
-        downAnimators.addAll(Arrays.asList(animators));
+    public EventHelper onDownAnimate(EventAnimator eventAnimator) {
+        downAnimators.add(eventAnimator);
         return this;
     }
 
@@ -67,8 +66,8 @@ public class EventHelper {
         return this;
     }
 
-    public EventHelper onUpAnimate(ValueAnimator... animators) {
-        upAnimators.addAll(Arrays.asList(animators));
+    public EventHelper onUpAnimate(EventAnimator eventAnimator) {
+        upAnimators.add(eventAnimator);
         return this;
     }
 
@@ -96,7 +95,7 @@ public class EventHelper {
             if (!downAnimators.isEmpty()) {
                 shapeAnimator
                         .clear()
-                        .play(downAnimators)
+                        .play(toAnimators(event, downAnimators))
                         .start();
             }
             postInvalidate();
@@ -115,6 +114,14 @@ public class EventHelper {
         }
     }
 
+    private List<ValueAnimator> toAnimators(@NonNull final MotionEvent event, @NonNull final List<EventAnimator> eventAnimators) {
+        final List<ValueAnimator> valueAnimators = new ArrayList<>();
+        for (EventAnimator eventAnimator : eventAnimators) {
+            valueAnimators.add(eventAnimator.animate(event));
+        }
+        return valueAnimators;
+    }
+
     void handleUp(@Nullable final MotionEvent lastEvent, @NonNull final MotionEvent event) {
         if (accept(lastEvent, event)) {
             for (UpListener upListener : upListeners) {
@@ -123,7 +130,7 @@ public class EventHelper {
             if (!upAnimators.isEmpty()) {
                 shapeAnimator
                         .clear()
-                        .play(upAnimators)
+                        .play(toAnimators(event, upAnimators))
                         .start();
             }
             postInvalidate();

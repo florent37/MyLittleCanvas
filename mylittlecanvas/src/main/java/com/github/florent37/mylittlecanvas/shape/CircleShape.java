@@ -15,51 +15,36 @@ public class CircleShape extends Shape {
     private int borderColor;
     private float borderWidth;
 
-    public CircleShape setRadius(final float radius) {
-        this.radius = (int) radius;
-        return this;
-    }
-
-    public CircleShape setCenterX(final float centerX) {
-        this.centerX = limitX(centerX);
-        return this;
-    }
-
-    public CircleShape setCenterY(final float centerY) {
-        this.centerY = limitY(centerY);
-        return this;
-    }
-
-    public CircleShape centerVertical(final float parentHeight){
+    public CircleShape centerVertical(final float parentHeight) {
         this.centerY = (parentHeight / 2f);
         return this;
     }
 
-    public CircleShape centerHorizontal(final float parentWidth){
+    public CircleShape centerHorizontal(final float parentWidth) {
         this.centerX = (parentWidth / 2f);
         return this;
     }
 
-    private float limitX(float value){
+    private float limitX(float value) {
         float left = value - getRadius();
         float right = value + getRadius();
 
-        if(left < minX){
+        if (left < minX) {
             value = minX + getRadius();
         }
-        if(right > maxX){
+        if (right > maxX) {
             value = maxX - getRadius();
         }
         return value;
     }
 
-    private float limitY(float value){
+    private float limitY(float value) {
         float top = value - getRadius();
         float bottom = value + getRadius();
-        if(top < minY){
+        if (top < minY) {
             value = minY + getRadius();
         }
-        if(bottom > maxY){
+        if (bottom > maxY) {
             value = maxY - getRadius();
         }
         return value;
@@ -69,7 +54,17 @@ public class CircleShape extends Shape {
         return (CircleShape) super.setVariable(key, value);
     }
 
-    public ValueAnimator animateCenterX(float...values){
+    @Override
+    public float getHeight() {
+        return radius * 2f;
+    }
+
+    @Override
+    public float getWidth() {
+        return radius * 2f;
+    }
+
+    public ValueAnimator animateCenterX(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -80,11 +75,11 @@ public class CircleShape extends Shape {
         return valueAnimator;
     }
 
-    public ValueAnimator animateCenterXTo(float finalValue){
+    public ValueAnimator animateCenterXTo(float finalValue) {
         return animateCenterX(getCenterX(), finalValue);
     }
 
-    public ValueAnimator animateCenterXAdded(float...values){
+    public ValueAnimator animateCenterXAdded(float... values) {
         final float[] newValues = new float[values.length];
         final float centerX = getCenterX();
         for (int i = 0; i < values.length; i++) {
@@ -93,7 +88,7 @@ public class CircleShape extends Shape {
         return animateCenterX(newValues);
     }
 
-    public ValueAnimator animateCenterY(float...values){
+    public ValueAnimator animateCenterY(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -104,11 +99,11 @@ public class CircleShape extends Shape {
         return valueAnimator;
     }
 
-    public ValueAnimator animateCenterYTo(float finalValue){
+    public ValueAnimator animateCenterYTo(float finalValue) {
         return animateCenterY(getCenterY(), finalValue);
     }
 
-    public ValueAnimator animateCenterYAdded(float...values){
+    public ValueAnimator animateCenterYAdded(float... values) {
         final float[] newValues = new float[values.length];
         final float centerY = getCenterY();
         for (int i = 0; i < values.length; i++) {
@@ -117,7 +112,7 @@ public class CircleShape extends Shape {
         return animateCenterY(newValues);
     }
 
-    public ValueAnimator animateRadius(float...values){
+    public ValueAnimator animateRadius(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -128,11 +123,11 @@ public class CircleShape extends Shape {
         return valueAnimator;
     }
 
-    public ValueAnimator animateRadiusTo(float finalValue){
+    public ValueAnimator animateRadiusTo(float finalValue) {
         return animateRadius(getRadius(), finalValue);
     }
 
-    public ValueAnimator animateRadiusBy(float...values){
+    public ValueAnimator animateRadiusBy(float... values) {
         final float[] newValues = new float[values.length];
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * radius;
@@ -140,17 +135,12 @@ public class CircleShape extends Shape {
         return animateRadius(newValues);
     }
 
-    public ValueAnimator animateRadiusAdded(float...values){
+    public ValueAnimator animateRadiusAdded(float... values) {
         final float[] newValues = new float[values.length];
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] + radius;
         }
         return animateRadius(newValues);
-    }
-
-    public CircleShape setBorderColor(@ColorInt final int borderColor) {
-        this.borderColor = borderColor;
-        return this;
     }
 
     public ValueAnimator animateBorderColor(final int... color) {
@@ -176,15 +166,9 @@ public class CircleShape extends Shape {
         return valueAnimator;
     }
 
-
-    public CircleShape setBorderWidth(final float borderWidth) {
-        this.borderWidth = borderWidth;
-        return this;
-    }
-
     @Override
     protected void draw(final Canvas canvas) {
-        if(borderWidth > 0) {
+        if (borderWidth > 0) {
             int color = paint.getColor();
             paint.setColor(borderColor);
             canvas.drawCircle(centerX, centerY, radius, paint);
@@ -197,9 +181,19 @@ public class CircleShape extends Shape {
         return radius;
     }
 
+    public CircleShape setRadius(final float radius) {
+        this.radius = (int) radius;
+        return this;
+    }
+
     @Override
     public float getCenterX() {
         return centerX;
+    }
+
+    public CircleShape setCenterX(final float centerX) {
+        this.centerX = limitX(centerX);
+        return this;
     }
 
     @Override
@@ -207,9 +201,14 @@ public class CircleShape extends Shape {
         return centerY;
     }
 
+    public CircleShape setCenterY(final float centerY) {
+        this.centerY = limitY(centerY);
+        return this;
+    }
+
     @Override
     public boolean containsTouch(float x, float y) {
-        return Math.pow(x-centerX, 2) + Math.pow(y - centerY, 2) < Math.pow(radius, 2);
+        return Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2) < Math.pow(radius, 2);
     }
 
     @ColorInt
@@ -217,8 +216,18 @@ public class CircleShape extends Shape {
         return borderColor;
     }
 
+    public CircleShape setBorderColor(@ColorInt final int borderColor) {
+        this.borderColor = borderColor;
+        return this;
+    }
+
     public float getBorderWidth() {
         return borderWidth;
+    }
+
+    public CircleShape setBorderWidth(final float borderWidth) {
+        this.borderWidth = borderWidth;
+        return this;
     }
 
     @Override

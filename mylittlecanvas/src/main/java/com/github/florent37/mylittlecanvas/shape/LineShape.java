@@ -75,6 +75,16 @@ public class LineShape extends Shape {
         return (LineShape) super.setVariable(key, value);
     }
 
+    @Override
+    public float getHeight() {
+        return Math.max(startY, endY) - Math.min(startY, endY);
+    }
+
+    @Override
+    public float getWidth() {
+        return Math.max(startX, endX) - Math.min(startX, endX);
+    }
+
     public LineShape start(float x, float y) {
         setStartX(x);
         setStartY(y);

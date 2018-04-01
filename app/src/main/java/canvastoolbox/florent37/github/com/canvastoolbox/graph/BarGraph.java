@@ -100,51 +100,55 @@ public class BarGraph extends View {
         final float numberOfColumns = columns.size();
         if (numberOfColumns > 0) {
             final float distanceBetweenColumns = dpToPx(this, 14);
-            final float availableWidthForDraw = width - (getPaddingLeft() + getPaddingRight());
-            final float widthOfColumn = (availableWidthForDraw - (distanceBetweenColumns * (numberOfColumns + 1))) / numberOfColumns;
+            final float widthOfColumn = (width - (distanceBetweenColumns * (numberOfColumns + 1))) / numberOfColumns;
 
-            final float heightOfLabels = columns.get(0).label.getTextSize();
-
-            final float availableHeightForDraw = height - (getPaddingBottom() + getPaddingTop()) - heightOfLabels;
-
-            float x = getPaddingLeft() + distanceBetweenColumns;
-            float bottomLabel = height - getPaddingBottom();
-            float topLabel = bottomLabel - heightOfLabels;
-
-            float bottomRow = topLabel - dpToPx(this, 4) /* a small margin */;
-
-            axis
-                    .start(dpToPx(this, 4), bottomRow)
-                    .end(width - dpToPx(this, 4), bottomRow);
-
+            final float heightOfLabels = columns.get(0).label.computeTextHeight();
+            final float heightOfBars = height - heightOfLabels;
 
             for (int columnIndex = 0; columnIndex < columns.size(); columnIndex++) {
                 final Column column = columns.get(columnIndex);
 
                 //setup the label
                 column.label
-                        .setBottom(bottomLabel)
-                        .setTop(topLabel)
-                        .setLeft(x)
+                        .setHeight(column.label.computeTextHeight())
+                        .moveBottomTo(height)
                         .setWidth(widthOfColumn);
 
+                final float previousColumnRight;
+                if(columnIndex == 0){
+                    previousColumnRight = 0;
+                } else {
+                    previousColumnRight = columns.get(columnIndex - 1).label.getRight();
+                }
+
+                column.label
+                        .moveLeftTo(previousColumnRight)
+                        .marginLeft(distanceBetweenColumns);
+
                 //setup the rows
-                float y = bottomRow;
                 for (int rowIndex = 0; rowIndex < column.rows.size(); rowIndex++) {
                     final RectShape rectShape = column.rows.get(rowIndex);
 
-                    final float blocTop = y - (availableHeightForDraw * rectShape.<Float>getVariable("value_percent"));
-                    rectShape
-                            .setLeft(x)
-                            .setWidth(widthOfColumn)
-                            .setBottom(y)
-                            .setTop(blocTop);
+                    rectShape.setHeight(heightOfBars * rectShape.<Float>getVariable("value_percent"))
+                            .setLeft(column.label.getLeft())
+                            .setWidth(widthOfColumn);
 
-                    y = blocTop;
+                    if (rowIndex == 0) {
+                        rectShape.above(column.label)
+                                .marginBottom(dpToPx(this, 4));
+                    } else {
+                        rectShape
+                                .above(column.rows.get(rowIndex - 1));
+                    }
                 }
 
-                x += (widthOfColumn + distanceBetweenColumns);
+                final float xAxisY = columns.get(0).label.getTop() - dpToPx(this, 4);
+                axis
+                        .start(dpToPx(this, 4), xAxisY)
+                        .end(width - dpToPx(this, 4), xAxisY);
             }
+
+
             postInvalidate();
         }
     }
@@ -161,7 +165,7 @@ public class BarGraph extends View {
         axis.onDraw(canvas);
     }
 
-    private class Column {
+    private static class Column {
         private final TextShape label = new TextShape();
         private final List<RectShape> rows = new ArrayList<>();
     }

@@ -1,6 +1,7 @@
 package com.github.florent37.mylittlecanvas.shape;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -60,6 +61,12 @@ public class TextShape extends RectShape {
 
     public float getTextSize() {
         return paint.getTextSize();
+    }
+
+    public float computeTextHeight() {
+        Rect rect = new Rect();
+        paint.getTextBounds(text.toString(), 0, text.length(), rect);
+        return rect.height();
     }
 
     public TextShape setTypeface(@NonNull Typeface typeface) {

@@ -86,14 +86,16 @@ public class SliderView extends View {
 
         shapeEventManager.onTouchAywhere((eventHelper) ->
                 eventHelper.move(indicator, CircleShape.Pos.CENTER_X, EventPos.X)
-                        .onDownAnimate(indicator.animateRadiusTo(background.getHeight()))
+                        .onDownAnimate((event) -> indicator.animateRadiusTo(background.getHeight()))
+                        .onDownAnimate((event) -> indicatorValue.animateBottom(indicatorValue.getBottom() - dpToPx(this, 10)))
                         .onMove(event -> {
                             final int percent = (int)((indicator.getCenterX() - background.getLeft()) / background.getWidth() * 100f);
                             indicatorValue.setText(String.valueOf(percent))
                                     .setLeft(indicator.getCenterX() - 50)
                                     .setRight(indicator.getCenterX() + 50);
                         })
-                        .onUpAnimate(indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")).setDuration(500))
+                        .onUpAnimate((event) -> indicatorValue.animateBottom(background.getTop() - indicatorValue.<Float>getVariable("distance_with_bar")))
+                        .onUpAnimate((event) -> indicator.animateRadiusTo(indicator.<Float>getVariable("original_radius")).setDuration(500))
         );
     }
 

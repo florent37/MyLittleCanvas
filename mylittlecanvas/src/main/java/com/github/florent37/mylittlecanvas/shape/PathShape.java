@@ -24,6 +24,16 @@ public class PathShape extends Shape {
     }
 
     @Override
+    public float getHeight() {
+        return pathBounds.height();
+    }
+
+    @Override
+    public float getWidth() {
+        return pathBounds.width();
+    }
+
+    @Override
     protected void draw(final Canvas canvas) {
         canvas.drawPath(path, paint);
     }
