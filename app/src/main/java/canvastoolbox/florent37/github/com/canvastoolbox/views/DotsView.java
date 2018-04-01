@@ -110,9 +110,9 @@ public class DotsView extends FrameLayout {
 
         new ShapeAnimator(this)
                 .play(
-                        firstCircle.animateCenterXTo(nextCircle.getCenterX()),
-                        firstCircle.animateCenterYAdded(0, -1 * jump, 0),
-                        nextCircle.animateCenterXTo(firstCircle.getCenterX())
+                        firstCircle.animate().centerXTo(nextCircle.getCenterX()),
+                        firstCircle.animate().centerYPlus(0, -1 * jump, 0),
+                        nextCircle.animate().centerXTo(firstCircle.getCenterX())
                 )
                 .onAnimationEnd(() -> {
                     //intervert circles

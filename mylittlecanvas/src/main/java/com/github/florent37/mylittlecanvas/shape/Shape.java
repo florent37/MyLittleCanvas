@@ -1,7 +1,5 @@
 package com.github.florent37.mylittlecanvas.shape;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,10 +12,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimation;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Shape {
+
+    @Nullable
+    //initialise when use it first time, then return it
+    protected ShapeAnimation<? extends Shape> shapeShapeAnimation;
 
     protected final TextPaint paint = new TextPaint();
 
@@ -51,7 +55,7 @@ public abstract class Shape {
         return (T) tags.get(key);
     }
 
-    public Shape() {
+    protected Shape() {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(1);
@@ -231,89 +235,6 @@ public abstract class Shape {
         return this;
     }
 
-    public ValueAnimator animateAlpha(@FloatRange(from = 0.0f, to = 1.0f) final float... alpha) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(alpha);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setAlpha((float) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateAlphaBy(final float... values) {
-        final float[] newValues = new float[values.length];
-        final float alpha = getAlpha();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * alpha;
-        }
-        return animateAlpha(newValues);
-    }
-
-    public ValueAnimator animateColor(final int... color) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofInt(color);
-        valueAnimator.setEvaluator(new ArgbEvaluator());
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setColor((int) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateStrokeWidth(final float... strokeWidth) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(strokeWidth);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setStrokeWidth((float) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateRotation(final float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setRotation((float) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateRotationBy(final float... values) {
-        final float[] newValues = new float[values.length];
-        final float rotation = getRotation();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * rotation;
-        }
-        return animateRotation(newValues);
-    }
-
-    public ValueAnimator animateScale(final float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setScale((float) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateScaleBy(final float... values) {
-        final float[] newValues = new float[values.length];
-        final float scale = getScale();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * scale;
-        }
-        return animateAlpha(newValues);
-    }
-
     public float getMinX() {
         return minX;
     }
@@ -348,5 +269,18 @@ public abstract class Shape {
     public Shape setMaxY(float maxY) {
         this.maxY = (int) maxY;
         return this;
+    }
+
+    @NonNull
+    public ShapeAnimation animate(){
+        if (shapeShapeAnimation == null) {
+            shapeShapeAnimation = new ShapeAnimation<>(this);
+        }
+        return shapeShapeAnimation;
+    }
+
+    @ColorInt
+    public int getColor() {
+        return paint.getColor();
     }
 }

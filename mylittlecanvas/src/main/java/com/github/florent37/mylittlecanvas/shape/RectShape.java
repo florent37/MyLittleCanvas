@@ -1,6 +1,5 @@
 package com.github.florent37.mylittlecanvas.shape;
 
-import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,8 +7,11 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 
 import com.github.florent37.mylittlecanvas.RoundRect;
+import com.github.florent37.mylittlecanvas.animation.RectShapeAnimation;
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimation;
 
 public class RectShape extends PathShape {
 
@@ -249,197 +251,6 @@ public class RectShape extends PathShape {
         return this;
     }
 
-    public ValueAnimator animateLeft(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getLeft(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setLeft((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateLeftBy(float... values) {
-        final float[] newValues = new float[values.length];
-        final float left = getLeft();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * left;
-        }
-        return animateLeft(newValues);
-    }
-
-    public ValueAnimator animateLeftAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        final float left = getLeft();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + left;
-        }
-        return animateLeft(newValues);
-    }
-
-    public ValueAnimator animateLeftTo(float finalValue) {
-        return animateLeft(getLeft(), finalValue);
-    }
-
-    public ValueAnimator animateRight(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getRight(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setRight((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateRightAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        final float right = getRight();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + right;
-        }
-        return animateRight(newValues);
-    }
-
-    public ValueAnimator animateRightBy(float... values) {
-        final float[] newValues = new float[values.length];
-        final float right = getRight();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * right;
-        }
-        return animateRight(newValues);
-    }
-
-    public ValueAnimator animateRightTo(float finalValue) {
-        return animateRight(finalValue);
-    }
-
-    public ValueAnimator animateTop(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getTop(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setTop((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateTopBy(float... values) {
-        final float[] newValues = new float[values.length];
-        final float top = getTop();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * top;
-        }
-        return animateTop(newValues);
-    }
-
-    public ValueAnimator animateTopAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        final float top = getTop();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + top;
-        }
-        return animateTop(newValues);
-    }
-
-    public ValueAnimator animateMoveTopTo(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getTop(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                moveTopTo((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateMoveLeftTo(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getLeft(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                moveLeftTo((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateMoveRightTo(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getRight(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                moveRightTo((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateMoveBottomTo(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(getBottom(), values));
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                moveBottomTo((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    private float[] insertAtFirst(float value, float[] values){
-        final float[] newValues = new float[values.length+1];
-        newValues[0] = value;
-        for (int i = 0; i < values.length; i++) {
-            newValues[i+1] = values[i];
-        }
-        return newValues;
-    }
-
-    public ValueAnimator animateTopTo(float finalValue) {
-        return animateTop(finalValue);
-    }
-
-    public ValueAnimator animateBottom(float... values) {
-        final float[] newValues = new float[values.length+1];
-        newValues[0] = getBottom();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i+1] = values[i];
-        }
-
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(newValues);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setBottom((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateBottomTo(float finalValue) {
-        return animateBottom(finalValue);
-    }
-
-    public ValueAnimator animateBottomBy(float... values) {
-        final float[] newValues = new float[values.length];
-        final float bottom = getBottom();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * bottom;
-        }
-        return animateBottom(newValues);
-    }
-
-    public ValueAnimator animateBottomAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        final float bottom = getBottom();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + bottom;
-        }
-        return animateBottom(newValues);
-    }
-
     @Override
     public float getCenterX() {
         return rectF.centerX();
@@ -641,5 +452,13 @@ public class RectShape extends PathShape {
         TOP,
         RIGHT,
         BOTTOM
+    }
+
+    @NonNull
+    public RectShapeAnimation animate(){
+        if (!(shapeShapeAnimation instanceof RectShapeAnimation)) {
+            shapeShapeAnimation = new RectShapeAnimation(this);
+        }
+        return (RectShapeAnimation) shapeShapeAnimation;
     }
 }

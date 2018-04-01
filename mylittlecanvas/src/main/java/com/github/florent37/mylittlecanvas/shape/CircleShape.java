@@ -4,6 +4,10 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+
+import com.github.florent37.mylittlecanvas.animation.CircleShapeAnimation;
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimation;
 
 public class CircleShape extends Shape {
 
@@ -15,6 +19,8 @@ public class CircleShape extends Shape {
     private int borderColor;
     private float borderWidth;
 
+    private CircleShapeAnimation circleShapeAnimation;
+
     public CircleShape centerVertical(final float parentHeight) {
         this.centerY = (parentHeight / 2f);
         return this;
@@ -23,6 +29,14 @@ public class CircleShape extends Shape {
     public CircleShape centerHorizontal(final float parentWidth) {
         this.centerX = (parentWidth / 2f);
         return this;
+    }
+
+    @NonNull
+    public CircleShapeAnimation animate(){
+        if (!(shapeShapeAnimation instanceof CircleShapeAnimation)) {
+            shapeShapeAnimation = new CircleShapeAnimation(this);
+        }
+        return (CircleShapeAnimation) shapeShapeAnimation;
     }
 
     private float limitX(float value) {
@@ -62,108 +76,6 @@ public class CircleShape extends Shape {
     @Override
     public float getWidth() {
         return radius * 2f;
-    }
-
-    public ValueAnimator animateCenterX(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setCenterX((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateCenterXTo(float finalValue) {
-        return animateCenterX(getCenterX(), finalValue);
-    }
-
-    public ValueAnimator animateCenterXAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        final float centerX = getCenterX();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + centerX;
-        }
-        return animateCenterX(newValues);
-    }
-
-    public ValueAnimator animateCenterY(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setCenterY((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateCenterYTo(float finalValue) {
-        return animateCenterY(getCenterY(), finalValue);
-    }
-
-    public ValueAnimator animateCenterYAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        final float centerY = getCenterY();
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + centerY;
-        }
-        return animateCenterY(newValues);
-    }
-
-    public ValueAnimator animateRadius(float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setRadius((Float) animation.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateRadiusTo(float finalValue) {
-        return animateRadius(getRadius(), finalValue);
-    }
-
-    public ValueAnimator animateRadiusBy(float... values) {
-        final float[] newValues = new float[values.length];
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] * radius;
-        }
-        return animateRadius(newValues);
-    }
-
-    public ValueAnimator animateRadiusAdded(float... values) {
-        final float[] newValues = new float[values.length];
-        for (int i = 0; i < values.length; i++) {
-            newValues[i] = values[i] + radius;
-        }
-        return animateRadius(newValues);
-    }
-
-    public ValueAnimator animateBorderColor(final int... color) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofInt(color);
-        valueAnimator.setEvaluator(new ArgbEvaluator());
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setBorderColor((int) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
-    }
-
-    public ValueAnimator animateBorderWidth(final float... values) {
-        final ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setBorderWidth((int) valueAnimator.getAnimatedValue());
-            }
-        });
-        return valueAnimator;
     }
 
     @Override
