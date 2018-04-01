@@ -37,6 +37,18 @@
             style="@style/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Custom Loader" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.views.DotsView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Custom RadioButton" />
 
         <canvastoolbox.florent37.github.com.canvastoolbox.views.RadioView

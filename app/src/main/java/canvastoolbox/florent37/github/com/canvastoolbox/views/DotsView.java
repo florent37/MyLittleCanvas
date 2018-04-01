@@ -56,19 +56,14 @@ public class DotsView extends FrameLayout {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        update();
-    }
+    protected void onSizeChanged(int width, int height, int oldw, int oldh) {
+        super.onSizeChanged(width, height, oldw, oldh);
 
-    private void update() {
         if(circles.isEmpty()){
             for (int i = 0; i < numberOfCircles; i++) {
                 circles.add(new CircleShape());
             }
         }
-        final int h = getHeight();
-        final int w = getWidth();
 
         final float radius = dpToPx(this, 6);
         final float distanceBetweenCircles = dpToPx(this, 16);
@@ -77,8 +72,8 @@ public class DotsView extends FrameLayout {
             circles.get(i)
                     .setRadius(radius)
                     .setColor(colors[i % colors.length])
-                    .setCenterY((int) (h / 2f))
-                    .setCenterX((w / 2f) + ((radius + distanceBetweenCircles) * (i - circles.size() / 2)));
+                    .centerVertical(height)
+                    .setCenterX((height / 2f) + ((radius + distanceBetweenCircles) * (i - circles.size() / 2)));
         }
     }
 
@@ -111,7 +106,7 @@ public class DotsView extends FrameLayout {
         new ShapeAnimator(this)
                 .play(
                         firstCircle.animate().centerXTo(nextCircle.getCenterX()),
-                        firstCircle.animate().centerYPlus(0, -1 * jump, 0),
+                        firstCircle.animate().centerYPlus(-1 * jump, 0),
                         nextCircle.animate().centerXTo(firstCircle.getCenterX())
                 )
                 .onAnimationEnd(() -> {
