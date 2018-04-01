@@ -57,6 +57,17 @@
             style="@style/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Available Memory" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.graph.AvailableMemorySpace
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Custom Underlined TextView" />
 
         <canvastoolbox.florent37.github.com.canvastoolbox.views.UnderlinedTextView
@@ -64,6 +75,18 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:text="My Little Canvas" />
+
+        <TextView
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Graph" />
+
+        <canvastoolbox.florent37.github.com.canvastoolbox.graph.BarGraph
+            android:layout_width="match_parent"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_height="200dp" />
 
         <TextView
             style="@style/label"
