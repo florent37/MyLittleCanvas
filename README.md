@@ -63,13 +63,49 @@ shapeAnimator.play(myCircleShape.animate().centerXTo(15))
 ### Difference between animated methods
 
 #### .top(values)
-//TODO
+
+This method will change the shape `top` value, **ignoring its previous height**
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
+
+if you use `.animate().top(0)`
+
+The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:90]`,
+**it will not change the bottom of the rect**
+
 #### .topBy(values)
-//TODO
+
+This method will change the shape `top` value, **ignoring its previous height**
+
+Multiplying his top by the values
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
+
+if you use `.animate().topBy(0, 0.5, 1f)`
+
+The values of the Rect will be
+
+`[left: 0, top:0, right: 200, bottom:90]` then
+
+`[left: 0, top:5, right: 200, bottom:90]` then
+
+`[left: 0, top:10, right: 200, bottom:90]`
+
+**it will not change the bottom of the rect**
+
 #### .topPlus(values)
 //TODO
+
 #### .moveTop(values)
-//TODO
+
+This method will change the shape `top` value, **keeping the shape height**
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`, the height is **80**
+
+if you use `.animate().moveTop(0)`
+
+The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:80]`,
+**it will also change the bottom of the rect to keep the height of 80**
 
 # Event handling
 
