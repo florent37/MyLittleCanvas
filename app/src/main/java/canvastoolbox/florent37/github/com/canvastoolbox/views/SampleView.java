@@ -64,7 +64,8 @@ public class SampleView extends View {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                shapeAnimator.clear().play(roundRectShape.animate().topPlus(0, 20, 0)).start();
+                circleShape.setColor(Color.BLACK);
+                postInvalidate();
             }
         });
     }
@@ -73,8 +74,8 @@ public class SampleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        roundRectShape.onDraw(canvas);
-        //circleShape.onDraw(canvas);
+        //roundRectShape.onDraw(canvas);
+        circleShape.onDraw(canvas);
         //lineShape.onDraw(canvas);
     }
 }

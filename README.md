@@ -171,9 +171,7 @@ shapeEventManager.ifClicked(myShape, clickedShape -> {
 });
 ```
 
-**ADD A SAMPLE GIF**
-
-**ADD A SAMPLE GIF**
+[![on_click](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/on_click.gif)](https://github.com/florent37/MyLittleCanvas)
 
 ## Listen touch
 
@@ -189,9 +187,9 @@ Use `eventHelper.onMove((event) -> {/* code */})` to execute a custom action to 
 
 Use `eventHelper.onUp((event) -> {/* code */})` to execute a custom action to execute on user finger up
 
-### Bounded Actions
+### Bound Actions
 
-EventHelper can automatically bind a shape action to an user interraction
+EventHelper can automatically bind a shape action to an user interaction
 
 For example, you can move move the *CenterX* of a shape to the event.x using
 
@@ -201,10 +199,7 @@ For example, you can move move the *CenterX* of a shape to the event.x using
 
 Please look at implemented `RectShape.Pos` and `CircleShape.Pos`
 
-**ADD A SAMPLE GIF**
-
-**ADD A SAMPLE GIF**
-
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_tree.gif)](https://github.com/florent37/MyLittleCanvas)
 
 # How to Contribute
 
