@@ -83,11 +83,11 @@ public class ShapeEventManager {
         invalidateListener = new ViewInvalidateListener(view);
     }
 
-    public ShapeEventManager ifTouched(@Nullable final Shape shape, @Nullable final TappedSetup tappedSetup) {
-        if (shape != null && tappedSetup != null) {
+    public ShapeEventManager ifTouched(@Nullable final Shape shape, @Nullable final TouchSetup touchSetup) {
+        if (shape != null && touchSetup != null) {
             final EventHelper touchHelper = new EventHelper(invalidateListener, EventHelper.Event.TOUCH, shape);
             touchHelpers.add(touchHelper);
-            tappedSetup.onTouched(touchHelper);
+            touchSetup.setupTouch(touchHelper);
         }
         return this;
     }
@@ -107,20 +107,20 @@ public class ShapeEventManager {
     }
 
     @Deprecated
-    public ShapeEventManager ifDoubleClicked(@Nullable final Shape shape, @Nullable final TappedSetup tappedSetup) {
-        if (shape != null && tappedSetup != null) {
+    public ShapeEventManager ifDoubleClicked(@Nullable final Shape shape, @Nullable final TouchSetup touchSetup) {
+        if (shape != null && touchSetup != null) {
             final EventHelper touchHelper = new EventHelper(invalidateListener, EventHelper.Event.DOUBLE_CLICK, shape);
             touchHelpers.add(touchHelper);
-            tappedSetup.onTouched(touchHelper);
+            touchSetup.setupTouch(touchHelper);
         }
         return this;
     }
 
-    public ShapeEventManager onTouchAywhere(@Nullable final TappedSetup tappedSetup) {
-        if (tappedSetup != null) {
+    public ShapeEventManager onTouchAywhere(@Nullable final TouchSetup touchSetup) {
+        if (touchSetup != null) {
             final EventHelper touchHelper = new EventHelper(invalidateListener);
             touchHelpers.add(touchHelper);
-            tappedSetup.onTouched(touchHelper);
+            touchSetup.setupTouch(touchHelper);
         }
         return this;
     }
@@ -162,8 +162,8 @@ public class ShapeEventManager {
         }
     }
 
-    public interface TappedSetup {
-        void onTouched(EventHelper eventHelper);
+    public interface TouchSetup {
+        void setupTouch(EventHelper eventHelper);
     }
 
 }
