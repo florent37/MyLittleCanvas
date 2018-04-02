@@ -1,258 +1,223 @@
 # MyLittleCanvas
 
-🎨You find canvas hard to use ? try MyLittleCanvas :)
-Don't work with canvas methods, use objects instead !
+🎨 Need to create a vustom view ?
 
+You don't know how to use Canvas, use MyLittleCanvas instead !
 
-<a href="https://goo.gl/WXW8Dc">
-  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
-</a>
+# Examples
 
+[![arc](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_arc.gif)](https://github.com/florent37/MyLittleCanvas)
+[![dots](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/dots_sample.gif)](https://github.com/florent37/MyLittleCanvas)
+[![slider](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/slider_sample.gif)](https://github.com/florent37/MyLittleCanvas)
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_tree.gif)](https://github.com/florent37/MyLittleCanvas)
 
-For example, to add a custom underline on a textview
-
-[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/text_anim.gif)](https://github.com/florent37/MyLittleCanvas)
-
-```java
-public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextView {
-
-    //define your canvas shapes
-    final RoundRectShape roundRectShape = new RoundRectShape();
-
-    final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
-
-    public UnderlinedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-
-        roundRectShape
-                .setCorderRadius(10)
-                .setColor(Color.parseColor("#3F51B5"));
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        //customize your shapes
-        roundRectShape
-                .setWidth(w)
-                .setHeight(10)
-                .alignBottom(h);
-
-        //for the animation
-
-        //clear & cancel olds anims
-        shapeAnimator.clear();
-
-        //start animation
-        shapeAnimator
-                .setRepeatCount(ValueAnimator.INFINITE)
-                .setDuration(1000)
-                .playTogether(
-                        roundRectShape.animateLeft(roundRectShape.getLeft(), roundRectShape.getLeft() + 10, roundRectShape.getLeft()),
-                        roundRectShape.animateRight(roundRectShape.getRight(), roundRectShape.getRight() - 10, roundRectShape.getRight())
-                )
-                .start();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        //and finally draw
-        roundRectShape.onDraw(canvas);
-    }
-}
-```
-
-[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/textview.png)](https://github.com/florent37/MyLittleCanvas)
-
-<a href='https://ko-fi.com/A160LCC' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+# Download
 
 [ ![Download](https://api.bintray.com/packages/florent37/maven/mylittlecanvas/images/download.svg) ](https://bintray.com/florent37/maven/mylittlecanvas/_latestVersion)
-
 ```java
 dependencies {
-    compile 'com.github.florent37:mylittlecanvas:(lastversion)'
+    compile 'com.github.florent37:mylittlecanvas:2.0.0'
 }
 ```
 
-# Implementation
+# Available shapes
 
-## Shapes
+**TODO : NEED TO FILL THOSE DOCUMENTATIONS**
 
-### Circle
+| Shapes    | link       |
+|-----------|------------|
+| Rect      | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/RectShape.md)  |
+| Circle    | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/CircleShape.md)  |
+| Text      | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/TextShape.md)  |
+| Arc       | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/ArcShape.md)  |
+| Line      | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/LineShape.md)  |
+| Triangle  | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/TriangleShape.md)  |
+| Drawable  | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/DrawableShape.md)  |
+| Path      | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/PathShape.md)  |
 
-[![sample](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/circle.png)](https://github.com/florent37/MyLittleCanvas)
+# Animation
 
-```java
-CircleShape circle = new CircleShape();
-circle.setColor(Color.BLUE);
+Follow the example of [SwitchView](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/SwitchView.java)
 
-circle.setRadius(14)
-      .setCenterX(50)
-      .setCenterY(50);
-```
-
-### RoundRect
-
-[![sample](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/roundrect.png)](https://github.com/florent37/MyLittleCanvas)
-
-```java
-RoundRectShape rect = new RoundRectShape();
-rect.setColor(Color.BLUE);
-rect.setCorderRadius(15);
-
-rect.setLeft(10)
-    .setTop(10)
-    .setWidth(50)
-    .setHeight(50);
-```
-
-### LineShape
-
-[![sample](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/line.png)](https://github.com/florent37/MyLittleCanvas)
+Shape animations are executed by an instance of `ShapeAnimator` attached to your view
 
 ```java
-LineShape rect = new LineShape();
-line.setStrokeWith(10);
-line.setColor(Color.BLUE);
-
-rect.start(10, 5) //startX, startY
-    .end(50, 5); //endX, endY
+private final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
 ```
 
-### DrawableShape
+All animated methods of shapes are wrapped into the method `.animate()`
+
+For example, for a `CircleShape`, you can animate his position (centerX) using
+```java
+myCircleShape.animate().centerXTo(15);
+```
+
+Then use your `ShapeAnimator` to execute this animation
 
 ```java
-RoundRectShape shape = new RoundRectShape();
-shape.setBitmap(...);
-
-rect.setLeft(10)
-    .setTop(10)
-    .setWidth(50)
-    .setHeigh(50);
+shapeAnimator.play(myCircleShape.animate().centerXTo(15))
+    .setDuration(500)
+    .start()
 ```
 
-### TextShape
+[![move_center_x](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/move_center_x.gif)](https://github.com/florent37/MyLittleCanvas)
+
+### Difference between animated methods
+
+-----
+
+#### .top(values)
+
+This method will change the shape `top` values, **ignoring its previous height**
+
+For example, for a Rect `[left: 0, top:50, right: 200, bottom:90]`
+
+if you use `.animate().top(50, 0)`
+
+The final values of the Rect will be `[left: 0, top:50, right: 200, bottom:90]` then `[left: 0, top:0, right: 200, bottom:90]`,
+**it will not change the bottom of the rect**
+
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/top.gif)](https://github.com/florent37/MyLittleCanvas)
+
+-----
+
+#### .topTo(values)
+
+It's the same as `top` except it automatically set the first value as the current value
+
+For example, for a Rect `[left: 0, top:50, right: 200, bottom:90]`
+
+if you use `.animate().topTo(0)`, it will animate the top from `50` to `0`
+
+-----
+
+#### .moveTopTo(values)
+
+This method will change the shape `top` value, **keeping the shape height**
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`, the height is **80**
+
+if you use `.animate().moveTop(0)`
+
+The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:80]`,
+**it will also change the bottom of the rect to keep the height of 80**
+
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/move_top_to.gif)](https://github.com/florent37/MyLittleCanvas)
+
+-----
+
+#### .topBy(values)
+
+This method will change the shape `top` value, **ignoring its previous height**
+
+**Multiplying** his top by the values
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
+
+if you use `.animate().topBy(0, 0.5, 1f)`
+
+The values of the Rect will be
+
+`[left: 0, top:0, right: 200, bottom:90]` then
+
+`[left: 0, top:5, right: 200, bottom:90]` then
+
+`[left: 0, top:10, right: 200, bottom:90]`
+
+**it will not change the bottom of the rect**
+
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/top_by.gif)](https://github.com/florent37/MyLittleCanvas)
+
+-----
+
+#### .topPlus(values)
+
+This method will change the shape `top` value, **ignoring its previous height**
+
+**Adding** his top by the values
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
+
+if you use `.animate().topPlus(0, 10, 0)`
+
+The values of the Rect will be
+
+`[left: 0, top:10, right: 200, bottom:90]` then
+
+`[left: 0, top:20, right: 200, bottom:100]` then
+
+`[left: 0, top:10, right: 200, bottom:90]`
+
+**it will not change the bottom of the rect**
+
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/top_plus.gif)](https://github.com/florent37/MyLittleCanvas)
+
+# Event handling
+
+Follow the example of [Tree View](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/MyTreeView.java)
+
+User events handling like *onClick* or *onTouch* are handled by an instance of `ShapeEventManager` attached to your view
 
 ```java
-TextShape text = new TextShape();
-text.setText(...);
-
-rect.configure(0, /* startX */
-               0, /* startY */
-               50, /* maxX */
-               50, /* maxY */
-               CENTER);
+private final ShapeEventManager shapeAnimator = new ShapeEventManager(this);
 ```
 
-### PathShape
+## Listen click event
+
+You can listen for a shape click using `shapeEventManager.ifClicked(shape, listener)`
 
 ```java
-PathShape shape = new PathShape();
-shape.setPath(...);
+shapeEventManager.ifClicked(myShape, clickedShape -> {
+    //your action
+    myShape.setColor(Color.BLACK);
+});
 ```
 
-# Common methods
+[![on_click](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/on_click.gif)](https://github.com/florent37/MyLittleCanvas)
+
+## Listen touch
+
+To handle easier the onTouchEvent, use `shapeEventManager.ifClicked(shape, touchSetup)`
+
+The touchSetup gives you an item `EventHelper`, which help you bind an action with an user interaction
+
+### Custom Actions
+
+Use `eventHelper.onDown((event) -> {/* code */})` to execute a custom action to execute on user finger down
+
+Use `eventHelper.onMove((event) -> {/* code */})` to execute a custom action to execute on user finger move
+
+Use `eventHelper.onUp((event) -> {/* code */})` to execute a custom action to execute on user finger up
+
+### Bound Actions
+
+EventHelper can automatically bind a shape action to an user interaction
+
+For example, you can move move the *CenterX* of a shape to the event.x using
 
 ```java
-.setColor(int)
-.setWillNotDraw(boolean)
-.getCenterX() / .getCenterY()
-.getHeight() / .getWidth()
-
-//rect / roundRect
-.setRect(left, top, left, bottom)
-.setLeft/Right/Top/Bottom(value)
-.alignLeft/Right/Top/Bottom(value / shape)
-.below(shape)
-.above(shape)
-.setCorderRadius(corner)
-.marginLeft/Right/Top/Bottom(value / shape)
-
-//text
-.setText(text)
-.setTextSizePx(size)
-.setTypeface(typeface)
-.centerIn(rectShape)
-.configureH(minX, maxX)
-.centerVertical(minY, maxY)
+.move(myRectShape, RectShape.Pos.CENTER_X, EventPos.X)
 ```
 
-# Graph Sample
+Please look at implemented `RectShape.Pos` and `CircleShape.Pos`
 
-[![gif](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/graph.gif)](https://github.com/florent37/MyLittleCanvas)
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_tree.gif)](https://github.com/florent37/MyLittleCanvas)
 
-Complete file, with all shaped and motion event manager
+# How to Contribute
 
-https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/MyTreeView.java
+We welcome your contributions to this project.
 
-```java
-public class MyTreeView extends View {
+You can submit any idea or improvement for this project.
 
-    //define your canvas shapes
-    ...
-    RoundRectShape childLeft;
-    TextShape textChildLeft;
-    LineShape lineParentChildLeft;
-    ...
+The best way to submit a patch is to send us a [pull request](https://help.github.com/articles/about-pull-requests/).
 
-    public MyTreeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-
-            //customize your shapes
-
-            ...
-            childLeft.setCorderRadius(10)
-                    .setColor(Color.parseColor("#2196F3"));
-            textChildLeft.setColor(Color.WHITE)
-                    .setTextSizePx(40);
-            lineParentChildLeft.setStrokeWith(3)
-                    .setColor(Color.parseColor("#3E3E3E"));
-            ...
-    }
-
-    @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
-
-            //setup your shapes
-            childLeft.setLeft(40)
-                            .setWidth(200)
-                            .below(parent) //another shape
-                            .marginTop(250)
-                            .setHeight(100);
-
-            textChildLeft.setText("childLeft");
-            textChildLeft
-                    .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                    .centerIn(childLeft);
-
-            lineParentChildLeft
-                    .start(parent.getCenterX(), parent.getBottom())
-                    .end(childLeft.getCenterX(), childLeft.getTop());
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-
-            ...
-            //draw your shapes
-            childLeft.onDraw(canvas);
-            textChildLeft.onDraw(canvas);
-            lineParentChildLeft.onDraw(canvas);
-            ...
-        }
-}
-```
+To report a specific problem or feature request, open a new issue on Github.
 
 # Credits
 
 Author: Florent Champigny [http://www.florentchampigny.com/](http://www.florentchampigny.com/)
 
 Blog : [http://www.tutos-android-france.com/](http://www.tutos-android-france.com/)
-
 
 <a href="https://goo.gl/WXW8Dc">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
@@ -271,11 +236,9 @@ Blog : [http://www.tutos-android-france.com/](http://www.tutos-android-france.co
        src="https://raw.githubusercontent.com/florent37/DaVinci/master/mobile/src/main/res/drawable-hdpi/linkedin.png" />
 </a>
 
+# License
 
-License
---------
-
-    Copyright 2017 Florent37, Inc.
+    Copyright 2018 florent37, Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

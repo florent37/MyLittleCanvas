@@ -65,14 +65,14 @@ public class MyTreeView extends View {
 
     private void handleMoving() {
         shapeEventManager
-                .ifTouched(childLeft, (eventHelper) -> eventHelper
+                .ifTouched(childLeft, (touchSetup) -> touchSetup
                         .move(childLeft, RectShape.Pos.CENTER_X, EventPos.X)
                         .move(childLeft, RectShape.Pos.TOP, EventPos.Y)
                         .onMove((event) -> textChildLeft.copyPosition(childLeft))
                         .onMove((event) -> lineParentChildLeft.end(childLeft.getCenterX(), childLeft.getTop()))
                 )
                 //.ifClicked(childLeft, shape -> shape.setColor(Color.BLACK))
-                .ifTouched(childRight, (eventHelper) -> eventHelper
+                .ifTouched(childRight, (touchSetup) -> touchSetup
                         .move(childRight, RectShape.Pos.CENTER_X, EventPos.X)
                         .move(childRight, RectShape.Pos.TOP, EventPos.Y)
                         .onMove((event) -> textChildRight.copyPosition(childRight))

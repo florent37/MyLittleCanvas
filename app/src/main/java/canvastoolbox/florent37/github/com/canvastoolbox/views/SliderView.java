@@ -84,8 +84,8 @@ public class SliderView extends View {
                 .setVariable("distance_with_bar", dpToPx(this, 8))
                 .setTop(0);
 
-        shapeEventManager.onTouchAywhere((eventHelper) ->
-                eventHelper.move(indicator, CircleShape.Pos.CENTER_X, EventPos.X)
+        shapeEventManager.onTouchAywhere((touchSetup) ->
+                touchSetup.move(indicator, CircleShape.Pos.CENTER_X, EventPos.X)
                         .onDownAnimate((event) -> indicator.animate().radiusTo(background.getHeight()))
                         .onDownAnimate((event) -> indicatorValue.animate().bottomPlus(-1 * dpToPx(this, 10)))
                         .onMove(event -> {

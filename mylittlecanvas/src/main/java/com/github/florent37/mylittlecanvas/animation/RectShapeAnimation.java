@@ -53,7 +53,7 @@ public class RectShapeAnimation<S extends RectShape> extends ShapeAnimation<S> {
     /**
      * Move the rect to the left, keeping his width
      */
-    public ValueAnimator moveLeft(float... values) {
+    public ValueAnimator moveLeftTo(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(shape.getLeft(), values));
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -108,7 +108,7 @@ public class RectShapeAnimation<S extends RectShape> extends ShapeAnimation<S> {
     /**
      * Move the rect to the right, keeping his height
      */
-    public ValueAnimator moveRight(float... values) {
+    public ValueAnimator moveRightTo(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(shape.getRight(), values));
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -164,7 +164,7 @@ public class RectShapeAnimation<S extends RectShape> extends ShapeAnimation<S> {
     /**
      * Move the rect to the top, keeping his height
      */
-    public ValueAnimator moveTop(float... values) {
+    public ValueAnimator moveTopTo(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(shape.getTop(), values));
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -226,7 +226,7 @@ public class RectShapeAnimation<S extends RectShape> extends ShapeAnimation<S> {
     /**
      * Move the rect to the bottom, keeping his height
      */
-    public ValueAnimator moveBottom(float... values) {
+    public ValueAnimator moveBottomTo(float... values) {
         final ValueAnimator valueAnimator = ValueAnimator.ofFloat(insertAtFirst(shape.getBottom(), values));
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
