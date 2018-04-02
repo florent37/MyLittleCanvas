@@ -62,6 +62,8 @@ shapeAnimator.play(myCircleShape.animate().centerXTo(15))
 
 ### Difference between animated methods
 
+-----
+
 #### .top(values)
 
 This method will change the shape `top` value, **ignoring its previous height**
@@ -73,11 +75,26 @@ if you use `.animate().top(0)`
 The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:90]`,
 **it will not change the bottom of the rect**
 
+-----
+
+#### .moveTop(values)
+
+This method will change the shape `top` value, **keeping the shape height**
+
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`, the height is **80**
+
+if you use `.animate().moveTop(0)`
+
+The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:80]`,
+**it will also change the bottom of the rect to keep the height of 80**
+
+-----
+
 #### .topBy(values)
 
 This method will change the shape `top` value, **ignoring its previous height**
 
-Multiplying his top by the values
+**Multiplying** his top by the values
 
 For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
 
@@ -93,19 +110,27 @@ The values of the Rect will be
 
 **it will not change the bottom of the rect**
 
-#### .topPlus(values)
-//TODO
+-----
 
-#### .moveTop(values)
+#### .topPlus(values)
 
 This method will change the shape `top` value, **keeping the shape height**
 
-For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`, the height is **80**
+**Adding** his top by the values
 
-if you use `.animate().moveTop(0)`
+For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
 
-The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:80]`,
-**it will also change the bottom of the rect to keep the height of 80**
+if you use `.animate().topPlus(0, 10, 0)`
+
+The values of the Rect will be
+
+`[left: 0, top:10, right: 200, bottom:90]` then
+
+`[left: 0, top:20, right: 200, bottom:100]` then
+
+`[left: 0, top:10, right: 200, bottom:90]`
+
+**it will also change the bottom of the rect during the animation**
 
 # Event handling
 
