@@ -5,7 +5,10 @@ You don't know how to use Canvas, use MyLittleCanvas instead !
 
 # Examples
 
-**ADD A SAMPLE GIF**
+[![arc](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_arc.gif)](https://github.com/florent37/MyLittleCanvas)
+[![dots](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/dots_sample.gif)](https://github.com/florent37/MyLittleCanvas)
+[![slider](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/slider_sample.gif)](https://github.com/florent37/MyLittleCanvas)
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_tree.gif)](https://github.com/florent37/MyLittleCanvas)
 
 # Download
 
