@@ -22,6 +22,8 @@ dependencies {
 
 # Available shapes
 
+**TODO : NEED TO FILL THOSE DOCUMENTATIONS**
+
 | Shapes    | link       |
 |-----------|------------|
 | Rect      | [documentation](https://github.com/florent37/MyLittleCanvas/blob/dev/documentation/RectShape.md)  |
