@@ -7,8 +7,6 @@ You don't know how to use Canvas, use MyLittleCanvas instead !
 
 **ADD A SAMPLE GIF**
 
-**ADD A SAMPLE GIF**
-
 # Download
 
 [ ![Download](https://api.bintray.com/packages/florent37/maven/mylittlecanvas/images/download.svg) ](https://bintray.com/florent37/maven/mylittlecanvas/_latestVersion)
@@ -58,8 +56,6 @@ shapeAnimator.play(myCircleShape.animate().centerXTo(15))
 
 **ADD A SAMPLE GIF**
 
-**ADD A SAMPLE GIF**
-
 ### Difference between animated methods
 
 -----
@@ -75,6 +71,8 @@ if you use `.animate().top(0)`
 The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:90]`,
 **it will not change the bottom of the rect**
 
+**ADD A SAMPLE GIF**
+
 -----
 
 #### .moveTop(values)
@@ -87,6 +85,8 @@ if you use `.animate().moveTop(0)`
 
 The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:80]`,
 **it will also change the bottom of the rect to keep the height of 80**
+
+**ADD A SAMPLE GIF**
 
 -----
 
@@ -110,6 +110,8 @@ The values of the Rect will be
 
 **it will not change the bottom of the rect**
 
+**ADD A SAMPLE GIF**
+
 -----
 
 #### .topPlus(values)
@@ -131,6 +133,8 @@ The values of the Rect will be
 `[left: 0, top:10, right: 200, bottom:90]`
 
 **it will also change the bottom of the rect during the animation**
+
+**ADD A SAMPLE GIF**
 
 # Event handling
 
