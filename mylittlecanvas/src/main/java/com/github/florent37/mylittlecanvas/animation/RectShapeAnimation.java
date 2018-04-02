@@ -4,9 +4,9 @@ import android.animation.ValueAnimator;
 
 import com.github.florent37.mylittlecanvas.shape.RectShape;
 
-public class RectShapeAnimation extends ShapeAnimation<RectShape> {
+public class RectShapeAnimation<S extends RectShape> extends ShapeAnimation<S> {
 
-    public RectShapeAnimation(RectShape shape) {
+    public RectShapeAnimation(S shape) {
         super(shape);
     }
 
@@ -38,7 +38,7 @@ public class RectShapeAnimation extends ShapeAnimation<RectShape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * left;
         }
-        return leftTo(newValues);
+        return left(newValues);
     }
 
     public ValueAnimator leftPlus(float... values) {
@@ -102,7 +102,7 @@ public class RectShapeAnimation extends ShapeAnimation<RectShape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * right;
         }
-        return rightTo(newValues);
+        return right(newValues);
     }
 
     /**
@@ -149,7 +149,7 @@ public class RectShapeAnimation extends ShapeAnimation<RectShape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * top;
         }
-        return topTo(newValues);
+        return top(newValues);
     }
 
     public ValueAnimator topPlus(float... values) {
@@ -211,7 +211,7 @@ public class RectShapeAnimation extends ShapeAnimation<RectShape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * bottom;
         }
-        return bottomTo(newValues);
+        return bottom(newValues);
     }
 
     public ValueAnimator bottomPlus(float... values) {

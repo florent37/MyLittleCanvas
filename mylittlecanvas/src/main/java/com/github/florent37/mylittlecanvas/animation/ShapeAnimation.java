@@ -52,7 +52,7 @@ public class ShapeAnimation<S extends Shape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * alpha;
         }
-        return alphaTo(newValues);
+        return alpha(newValues);
     }
 
     public ValueAnimator color(final int... color) {
@@ -103,7 +103,7 @@ public class ShapeAnimation<S extends Shape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * rotation;
         }
-        return rotationTo(newValues);
+        return rotation(newValues);
     }
 
     @Deprecated
@@ -130,6 +130,6 @@ public class ShapeAnimation<S extends Shape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * scale;
         }
-        return scaleTo(newValues);
+        return scale(newValues);
     }
 }

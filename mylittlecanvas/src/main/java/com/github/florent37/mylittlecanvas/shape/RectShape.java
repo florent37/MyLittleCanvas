@@ -347,7 +347,7 @@ public class RectShape extends PathShape {
     }
 
     public RectShape moveCenterYTo(float newCenterY){
-        return this.moveXBy(newCenterY - getCenterY());
+        return this.moveYBy(newCenterY - getCenterY());
     }
 
     public RectShape moveLeftTo(float newLeft){

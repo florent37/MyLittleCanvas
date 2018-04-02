@@ -59,6 +59,7 @@ public abstract class Shape {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(1);
+        paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setTypeface(Typeface.DEFAULT);
     }
 

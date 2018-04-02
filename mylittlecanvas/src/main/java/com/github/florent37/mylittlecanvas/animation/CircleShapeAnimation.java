@@ -79,7 +79,7 @@ public class CircleShapeAnimation extends ShapeAnimation<CircleShape> {
         for (int i = 0; i < values.length; i++) {
             newValues[i] = values[i] * shape.getRadius();
         }
-        return radiusTo(newValues);
+        return radius(newValues);
     }
 
     public ValueAnimator radiusPlus(float... values) {

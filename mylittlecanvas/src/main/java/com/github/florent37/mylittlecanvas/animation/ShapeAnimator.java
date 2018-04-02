@@ -28,6 +28,7 @@ public class ShapeAnimator {
 
     private Interpolator interpolator = new LinearInterpolator();
 
+    private List<InitAction> initActions = new ArrayList<>();
     private List<OnAnimationStart> onAnimationStarts = new ArrayList<>();
     private List<OnAnimationEnd> onAnimationEnds = new ArrayList<>();
     private AtomicInteger endedAnimationsCount = new AtomicInteger(0);
@@ -63,6 +64,9 @@ public class ShapeAnimator {
         for (ValueAnimator animator : animators) {
             animator.cancel();
         }
+        initActions.clear();
+        onAnimationStarts.clear();
+        onAnimationEnds.clear();
         animators.clear();
         started = false;
         return this;
@@ -128,6 +132,11 @@ public class ShapeAnimator {
                             }
                         }
                 );
+
+                for (InitAction initAction : initActions) {
+                    initAction.initAction();
+                }
+
                 animator.start();
             }
         }
@@ -163,8 +172,19 @@ public class ShapeAnimator {
         return this;
     }
 
+    public ShapeAnimator withInitAction(@Nullable InitAction initAction) {
+        if (initAction != null) {
+            this.initActions.add(initAction);
+        }
+        return this;
+    }
+
     public interface OnAnimationStart {
         void onAnimationStart();
+    }
+
+    public interface InitAction {
+        void initAction();
     }
 
     public interface OnAnimationEnd {
