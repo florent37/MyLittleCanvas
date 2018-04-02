@@ -1,6 +1,7 @@
 # MyLittleCanvas
 
 🎨 Need to create a vustom view ?
+
 You don't know how to use Canvas, use MyLittleCanvas instead !
 
 # Examples
@@ -57,7 +58,7 @@ shapeAnimator.play(myCircleShape.animate().centerXTo(15))
     .start()
 ```
 
-**ADD A SAMPLE GIF**
+[![move_center_x](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/move_center_x.gif)](https://github.com/florent37/MyLittleCanvas)
 
 ### Difference between animated methods
 
@@ -65,20 +66,30 @@ shapeAnimator.play(myCircleShape.animate().centerXTo(15))
 
 #### .top(values)
 
-This method will change the shape `top` value, **ignoring its previous height**
+This method will change the shape `top` values, **ignoring its previous height**
 
-For example, for a Rect `[left: 0, top:10, right: 200, bottom:90]`
+For example, for a Rect `[left: 0, top:50, right: 200, bottom:90]`
 
-if you use `.animate().top(0)`
+if you use `.animate().top(50, 0)`
 
-The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:90]`,
+The final values of the Rect will be `[left: 0, top:50, right: 200, bottom:90]` then `[left: 0, top:0, right: 200, bottom:90]`,
 **it will not change the bottom of the rect**
 
-**ADD A SAMPLE GIF**
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/top.gif)](https://github.com/florent37/MyLittleCanvas)
 
 -----
 
-#### .moveTop(values)
+#### .topTo(values)
+
+It's the same as `top` except it automatically set the first value as the current value
+
+For example, for a Rect `[left: 0, top:50, right: 200, bottom:90]`
+
+if you use `.animate().topTo(0)`, it will animate the top from `50` to `0`
+
+-----
+
+#### .moveTopTo(values)
 
 This method will change the shape `top` value, **keeping the shape height**
 
@@ -89,7 +100,7 @@ if you use `.animate().moveTop(0)`
 The final values of the Rect will be `[left: 0, top:0, right: 200, bottom:80]`,
 **it will also change the bottom of the rect to keep the height of 80**
 
-**ADD A SAMPLE GIF**
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/move_top_to.gif)](https://github.com/florent37/MyLittleCanvas)
 
 -----
 
@@ -113,13 +124,13 @@ The values of the Rect will be
 
 **it will not change the bottom of the rect**
 
-**ADD A SAMPLE GIF**
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/top_by.gif)](https://github.com/florent37/MyLittleCanvas)
 
 -----
 
 #### .topPlus(values)
 
-This method will change the shape `top` value, **keeping the shape height**
+This method will change the shape `top` value, **ignoring its previous height**
 
 **Adding** his top by the values
 
@@ -135,9 +146,9 @@ The values of the Rect will be
 
 `[left: 0, top:10, right: 200, bottom:90]`
 
-**it will also change the bottom of the rect during the animation**
+**it will not change the bottom of the rect**
 
-**ADD A SAMPLE GIF**
+[![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/top_plus.gif)](https://github.com/florent37/MyLittleCanvas)
 
 # Event handling
 

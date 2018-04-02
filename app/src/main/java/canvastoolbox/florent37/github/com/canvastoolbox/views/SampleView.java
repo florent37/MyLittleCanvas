@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.github.florent37.mylittlecanvas.animation.ShapeAnimator;
 import com.github.florent37.mylittlecanvas.shape.CircleShape;
 import com.github.florent37.mylittlecanvas.shape.LineShape;
 import com.github.florent37.mylittlecanvas.shape.RectShape;
@@ -16,6 +17,8 @@ public class SampleView extends View {
     private final RectShape roundRectShape = new RectShape();
     private final CircleShape circleShape = new CircleShape();
     private final LineShape lineShape = new LineShape();
+
+    private final ShapeAnimator shapeAnimator = new ShapeAnimator(this);
 
     public SampleView(Context context) {
         super(context);
@@ -33,19 +36,22 @@ public class SampleView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        roundRectShape.setColor(Color.BLUE)
+        roundRectShape.setColor(Color.WHITE)
 
-                .setBorderColor(Color.parseColor("#AAAAAA"))
+                .setBorderColor(Color.BLUE)
                 .setBorderWidth(15)
 
                 .setCornerRadius(15)
                 .setLeft(50)
-                .setTop(50)
+                .setTop(150)
                 .setWidth(200)
                 .setHeight(200);
 
-        circleShape.setColor(Color.BLUE)
-                .setRadius(50)
+        circleShape
+                .setBorderWidth(15)
+                .setColor(Color.WHITE)
+                .setBorderColor(Color.BLUE)
+                .setRadius(100)
                 .setCenterX(400)
                 .setCenterY(400);
 
@@ -54,6 +60,13 @@ public class SampleView extends View {
                 .setStrokeWidth(10)
                 .start(100, 800)
                 .end(400, 800);
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shapeAnimator.clear().play(roundRectShape.animate().topPlus(0, 20, 0)).start();
+            }
+        });
     }
 
     @Override
@@ -61,7 +74,7 @@ public class SampleView extends View {
         super.onDraw(canvas);
 
         roundRectShape.onDraw(canvas);
-        circleShape.onDraw(canvas);
-        lineShape.onDraw(canvas);
+        //circleShape.onDraw(canvas);
+        //lineShape.onDraw(canvas);
     }
 }
