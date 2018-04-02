@@ -1,6 +1,6 @@
 # MyLittleCanvas
 
-🎨 Need to create a vustom view ?
+🎨 Need to create a custom view ?
 
 You don't know how to use Canvas, use MyLittleCanvas instead !
 
