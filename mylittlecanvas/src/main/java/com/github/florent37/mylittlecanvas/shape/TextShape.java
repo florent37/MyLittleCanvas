@@ -110,7 +110,7 @@ public class TextShape extends RectShape {
         return text;
     }
 
-    public TextShape setText(` text) {
+    public TextShape setText(CharSequence text) {
         this.text = text;
         update();
         return this;
