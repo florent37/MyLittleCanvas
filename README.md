@@ -11,6 +11,14 @@ You don't know how to use Canvas, use MyLittleCanvas instead !
 [![slider](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/slider_sample.gif)](https://github.com/florent37/MyLittleCanvas)
 [![tree](https://raw.githubusercontent.com/florent37/MyLittleCanvas/master/medias/example/sample_tree.gif)](https://github.com/florent37/MyLittleCanvas)
 
+Codes :
+- [Animated arcs](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/ArcView.java)
+- [Animated dots](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/DotsView.java)
+- [Custom Slider](https://github.com/florent37/MyLittleCanvas/tree/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views)
+- [Tree](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/MyTreeView.java)
+- [Custom Switch](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/SwitchView.java)
+- [Custom RadioButton](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/RadioView.java)
+
 # Download
 
 [ ![Download](https://api.bintray.com/packages/florent37/maven/mylittlecanvas/images/download.svg) ](https://bintray.com/florent37/maven/mylittlecanvas/_latestVersion)
