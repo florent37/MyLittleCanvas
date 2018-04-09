@@ -14,7 +14,7 @@ You don't know how to use Canvas, use MyLittleCanvas instead !
 Codes :
 - [Animated arcs](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/ArcView.java)
 - [Animated dots](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/DotsView.java)
-- [Custom Slider](https://github.com/florent37/MyLittleCanvas/tree/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views)
+- [Custom Slider](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/SliderView.java)
 - [Tree](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/MyTreeView.java)
 - [Custom Switch](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/SwitchView.java)
 - [Custom RadioButton](https://github.com/florent37/MyLittleCanvas/blob/master/app/src/main/java/canvastoolbox/florent37/github/com/canvastoolbox/views/RadioView.java)
