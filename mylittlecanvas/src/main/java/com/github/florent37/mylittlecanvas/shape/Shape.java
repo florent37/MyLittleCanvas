@@ -3,6 +3,7 @@ package com.github.florent37.mylittlecanvas.shape;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PathEffect;
 import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.support.annotation.CallSuper;
@@ -65,6 +66,11 @@ public abstract class Shape {
 
     public Shape setStyle(Paint.Style style) {
         paint.setStyle(style);
+        return this;
+    }
+
+    public Shape setPathEffect(final PathEffect pathEffect){
+        paint.setPathEffect(pathEffect);
         return this;
     }
 

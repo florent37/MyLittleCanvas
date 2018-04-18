@@ -1,6 +1,7 @@
 package com.github.florent37.mylittlecanvas.shape;
 
 import android.graphics.Canvas;
+import android.graphics.PathEffect;
 import android.support.annotation.ColorInt;
 
 public class LineShape extends Shape {
@@ -120,4 +121,9 @@ public class LineShape extends Shape {
     public LineShape setShadowColor(int shadowColor) {
         return (LineShape) super.setShadowColor(shadowColor);
     }
+
+    public LineShape setPathEffect(final PathEffect pathEffect){
+        return (LineShape) super.setPathEffect(pathEffect);
+    }
+
 }

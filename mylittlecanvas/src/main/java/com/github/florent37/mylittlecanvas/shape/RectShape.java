@@ -219,6 +219,22 @@ public class RectShape extends PathShape {
         return this;
     }
 
+    public RectShape addLeft(float add) {
+        return setLeft(getLeft() + add);
+    }
+
+    public RectShape addRight(float add) {
+        return setRight(getRight() + add);
+    }
+
+    public RectShape addTop(float add) {
+        return setTop(getTop() + add);
+    }
+
+    public RectShape addBottom(float add) {
+        return setBottom(getBottom() + add);
+    }
+
     public RectShape marginTop(float margin) {
         return this.moveTopTo(getTop() + margin);
     }
