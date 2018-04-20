@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="label">
+    <style name="my_little_canvas_label">
         <item name="android:textColor">#3E3E3E</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:layout_marginBottom">8dp</item>

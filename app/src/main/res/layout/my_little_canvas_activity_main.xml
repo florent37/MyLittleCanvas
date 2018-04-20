@@ -22,7 +22,7 @@
             android:textSize="24sp" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Slider" />
@@ -34,7 +34,7 @@
             android:text="My Little Canvas" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Loader" />
@@ -46,7 +46,7 @@
             android:layout_centerInParent="true" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Arc Indicator" />
@@ -58,7 +58,7 @@
             android:layout_centerInParent="true" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom RadioButton" />
@@ -68,7 +68,7 @@
             android:layout_height="25dp" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Switch" />
@@ -78,7 +78,7 @@
             android:layout_height="25dp" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Available Memory" />
@@ -89,7 +89,7 @@
             android:layout_marginTop="10dp"/>
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Underlined TextView" />
@@ -101,7 +101,7 @@
             android:text="My Little Canvas" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Graph" />
@@ -113,7 +113,7 @@
             android:layout_height="200dp" />
 
         <TextView
-            style="@style/label"
+            style="@style/my_little_canvas_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Custom Tree" />
