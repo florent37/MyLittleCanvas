@@ -5,7 +5,11 @@ import android.graphics.RectF;
 
 public class RoundRect {
 
-    public static Path generatePath(float width, float height, float topLeftRadius, float topRightRadius, float bottomRightRadius, float bottomLeftRadius){
+    public static Path generatePath(float width, float height, float topLeftRadius, float topRightRadius, float bottomRightRadius, float bottomLeftRadius) {
+        return generatePath(false, width, height, topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius);
+    }
+
+    public static Path generatePath(boolean useBezier, float width, float height, float topLeftRadius, float topRightRadius, float bottomRightRadius, float bottomLeftRadius) {
         final Path path = new Path();
 
         final float left = 0f;
@@ -20,34 +24,52 @@ public class RoundRect {
         bottomLeftRadius = bottomLeftRadius < 0 ? 0 : bottomLeftRadius;
         bottomRightRadius = bottomRightRadius < 0 ? 0 : bottomRightRadius;
 
-        if(topLeftRadius > minSize){
+        if (topLeftRadius > minSize) {
             topLeftRadius = minSize;
         }
-        if(topRightRadius > minSize){
+        if (topRightRadius > minSize) {
             topRightRadius = minSize;
         }
-        if(bottomLeftRadius > minSize){
+        if (bottomLeftRadius > minSize) {
             bottomLeftRadius = minSize;
         }
-        if(bottomRightRadius > minSize){
+        if (bottomRightRadius > minSize) {
             bottomRightRadius = minSize;
         }
 
         path.moveTo(left + topLeftRadius, top);
         path.lineTo(right - topRightRadius, top);
-        path.quadTo(right, top, right, top + topRightRadius);
+
+        //float left, float top, float right, float bottom, float startAngle, float sweepAngle, boolean forceMoveTo
+        if (useBezier) {
+            path.quadTo(right, top, right, top + topRightRadius);
+        } else {
+            path.arcTo(new RectF(right - topRightRadius * 2f, top, right, top + topRightRadius * 2f), -90, 90);
+        }
         path.lineTo(right, bottom - bottomRightRadius);
-        path.quadTo(right, bottom, right - bottomRightRadius, bottom);
+        if (useBezier) {
+            path.quadTo(right, bottom, right - bottomRightRadius, bottom);
+        } else {
+            path.arcTo(new RectF(right - bottomRightRadius * 2f, bottom - bottomRightRadius * 2f, right, bottom), 0, 90);
+        }
         path.lineTo(left + bottomLeftRadius, bottom);
-        path.quadTo(left, bottom, left, bottom - bottomLeftRadius);
+        if (useBezier) {
+            path.quadTo(left, bottom, left, bottom - bottomLeftRadius);
+        } else {
+            path.arcTo(new RectF(left, bottom - bottomLeftRadius * 2f, left + bottomLeftRadius * 2f, bottom), 90, 90);
+        }
         path.lineTo(left, top + topLeftRadius);
-        path.quadTo(left, top, left + topLeftRadius, top);
+        if (useBezier) {
+            path.quadTo(left, top, left + topLeftRadius, top);
+        } else {
+            path.arcTo(new RectF(left, top, left + topLeftRadius * 2f, top + topLeftRadius * 2f), 180, 90);
+        }
         path.close();
 
         return path;
     }
 
-    public static Path generatePath(RectF rect, float topLeftRadius, float topRightRadius, float bottomRightRadius, float bottomLeftRadius){
+    public static Path generatePath(RectF rect, float topLeftRadius, float topRightRadius, float bottomRightRadius, float bottomLeftRadius) {
         final Path path = new Path();
 
         final float minSize = Math.min(rect.width() / 2f, rect.height() / 2f);
@@ -57,16 +79,16 @@ public class RoundRect {
         bottomLeftRadius = bottomLeftRadius < 0 ? 0 : bottomLeftRadius;
         bottomRightRadius = bottomRightRadius < 0 ? 0 : bottomRightRadius;
 
-        if(topLeftRadius > minSize){
+        if (topLeftRadius > minSize) {
             topLeftRadius = minSize;
         }
-        if(topRightRadius > minSize){
+        if (topRightRadius > minSize) {
             topRightRadius = minSize;
         }
-        if(bottomLeftRadius > minSize){
+        if (bottomLeftRadius > minSize) {
             bottomLeftRadius = minSize;
         }
-        if(bottomRightRadius > minSize){
+        if (bottomRightRadius > minSize) {
             bottomRightRadius = minSize;
         }
 
