@@ -94,6 +94,7 @@ public class TriangleShape extends PathShape {
         for (PointF point : points) {
             point.x += differenceX;
         }
+        update();
         return this;
     }
 
@@ -109,6 +110,7 @@ public class TriangleShape extends PathShape {
         for (PointF point : points) {
             point.y += differenceY;
         }
+        update();
         return this;
     }
 
