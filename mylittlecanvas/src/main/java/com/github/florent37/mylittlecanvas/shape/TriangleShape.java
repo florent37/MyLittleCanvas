@@ -3,7 +3,7 @@ package com.github.florent37.mylittlecanvas.shape;
 import android.graphics.PointF;
 import android.support.annotation.ColorInt;
 
-public abstract class TriangleShape extends PathShape {
+public class TriangleShape extends PathShape {
 
     private final PointF point0 = new PointF(0f, 0f);
     private final PointF point1 = new PointF(0f, 0f);

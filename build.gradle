@@ -27,6 +27,6 @@ allprojects {
 ext {
     sdk = 27
     minSdk = 14
-    libraryVersion = "2.0.2"
+    libraryVersion = "2.0.3"
     supportVersion = "27.1.0"
 }
