@@ -290,4 +290,9 @@ public abstract class Shape {
     public int getColor() {
         return paint.getColor();
     }
+
+    public abstract float getLeft();
+    public abstract float getTop();
+    public abstract float getBottom();
+    public abstract float getRight();
 }

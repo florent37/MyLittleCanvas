@@ -24,6 +24,26 @@ public class PathShape extends Shape {
     }
 
     @Override
+    public float getLeft() {
+        return pathBounds.left;
+    }
+
+    @Override
+    public float getTop() {
+        return pathBounds.top;
+    }
+
+    @Override
+    public float getBottom() {
+        return pathBounds.bottom;
+    }
+
+    @Override
+    public float getRight() {
+        return pathBounds.right;
+    }
+
+    @Override
     public float getHeight() {
         return pathBounds.height();
     }
