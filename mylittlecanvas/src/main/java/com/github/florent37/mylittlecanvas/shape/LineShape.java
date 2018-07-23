@@ -56,6 +56,26 @@ public class LineShape extends Shape {
         return false;
     }
 
+    @Override
+    public float getLeft() {
+        return Math.min(startX, endX);
+    }
+
+    @Override
+    public float getTop() {
+        return Math.min(startY, endY);
+    }
+
+    @Override
+    public float getBottom() {
+        return Math.max(startY, endY);
+    }
+
+    @Override
+    public float getRight() {
+        return Math.max(startX, endX);
+    }
+
     public float getStartX() {
         return startX;
     }
