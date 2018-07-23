@@ -39,6 +39,26 @@ public class CircleShape extends Shape {
         return (CircleShapeAnimation) shapeShapeAnimation;
     }
 
+    @Override
+    public float getLeft() {
+        return centerX - radius;
+    }
+
+    @Override
+    public float getTop() {
+        return centerY - radius;
+    }
+
+    @Override
+    public float getBottom() {
+        return centerY + radius;
+    }
+
+    @Override
+    public float getRight() {
+        return centerX + radius;
+    }
+
     private float limitX(float value) {
         float left = value - getRadius();
         float right = value + getRadius();
