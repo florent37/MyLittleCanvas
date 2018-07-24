@@ -69,6 +69,11 @@ public abstract class Shape {
         return this;
     }
 
+    public Shape setStrokeCap(Paint.Cap cap) {
+        paint.setStrokeCap(cap);
+        return this;
+    }
+
     public Shape setPathEffect(final PathEffect pathEffect){
         paint.setPathEffect(pathEffect);
         return this;
