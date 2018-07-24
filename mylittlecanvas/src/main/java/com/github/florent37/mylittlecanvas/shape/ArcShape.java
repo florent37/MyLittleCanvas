@@ -14,6 +14,8 @@ public class ArcShape extends RectShape {
     private float startAngle;
     private float endAngle;
 
+    private float addedAngle = 0;
+
     public ArcShape setRadius(float radius) {
         final float centerX = getCenterX();
         final float centerY = getCenterY();
@@ -22,6 +24,15 @@ public class ArcShape extends RectShape {
         setTop(centerY - radius);
         setBottom(centerY + radius);
         return this;
+    }
+
+    public ArcShape setAddedAngle(float addedAngle) {
+        this.addedAngle = addedAngle;
+        return this;
+    }
+
+    public float getAddedAngle() {
+        return addedAngle;
     }
 
     public ArcShape setCenterX(float centerX) {
@@ -57,7 +68,7 @@ public class ArcShape extends RectShape {
         super.update();
 
         path.reset();
-        path.addArc(new RectF(0, 0, getWidth(), getHeight()), startAngle, endAngle);
+        path.addArc(new RectF(0, 0, getWidth(), getHeight()), startAngle + addedAngle, endAngle + addedAngle);
     }
 
     @NonNull
